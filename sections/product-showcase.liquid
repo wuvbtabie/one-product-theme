@@ -84,9 +84,20 @@
       {% if showcase_product and display_variant %}
         {% form 'product', showcase_product, id: 'product-showcase-form' %}
           <input type="hidden" name="id" value="{{ display_variant.id }}">
-          <button type="submit" name="add" class="product-showcase__btn">
-            {{ section.settings.button_text | default: "Add to Cart" }}
-          </button>
+          <div class="product-showcase__actions">
+            <button type="submit" name="add" class="product-showcase__btn">
+              {{ section.settings.button_text | default: "Add to Cart" }}
+            </button>
+            {% render 'wishlist-button',
+              class: 'product-favorite-button',
+              title: showcase_product.title,
+              url: showcase_product.url,
+              image: showcase_product.featured_image,
+              price: display_variant.price,
+              handle: showcase_product.handle,
+              product_id: showcase_product.id
+            %}
+          </div>
         {% endform %}
       {% else %}
         <a href="{{ section.settings.button_link | default: '/collections/all' }}" class="product-showcase__btn">
