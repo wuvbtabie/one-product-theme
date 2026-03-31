@@ -72,9 +72,9 @@
       {% if display_variant %}
         <div class="product-showcase__cta-meta">
           <div class="product-showcase__price-row">
-            <span class="product-showcase__price">{{ display_variant.price | money }}</span>
+            <span class="product-showcase__price">${{ display_variant.price | money_without_currency }}</span>
             {% if display_variant.compare_at_price > display_variant.price %}
-              <s class="product-showcase__compare-price">{{ display_variant.compare_at_price | money }}</s>
+              <s class="product-showcase__compare-price">${{ display_variant.compare_at_price | money_without_currency }}</s>
             {% endif %}
           </div>
         </div>
