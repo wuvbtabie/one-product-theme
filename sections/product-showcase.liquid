@@ -84,6 +84,20 @@
       {% if showcase_product and display_variant %}
         {% form 'product', showcase_product, id: 'product-showcase-form' %}
           <input type="hidden" name="id" value="{{ display_variant.id }}">
+          {% if showcase_product.variants.size > 1 %}
+            <div class="product-showcase__variants">
+              {% for variant in showcase_product.variants %}
+                <button
+                  type="button"
+                  class="product-showcase__variant-btn{% if variant.id == display_variant.id %} is-selected{% endif %}"
+                  data-variant-id="{{ variant.id }}"
+                  data-variant-price="{{ variant.price }}"
+                  data-variant-compare="{{ variant.compare_at_price }}"
+                  {% unless variant.available %}aria-disabled="true"{% endunless %}
+                >{{ variant.title }}</button>
+              {% endfor %}
+            </div>
+          {% endif %}
           <div class="product-showcase__actions">
             <button type="submit" name="add" class="product-showcase__btn">
               {{ section.settings.button_text | default: "Add to Cart" }}
@@ -275,6 +289,36 @@
     }
   }
 </style>
+
+<script>
+(function () {
+  var form = document.getElementById('product-showcase-form');
+  if (!form) return;
+  form.addEventListener('click', function (e) {
+    var btn = e.target.closest('.product-showcase__variant-btn');
+    if (!btn || btn.getAttribute('aria-disabled') === 'true') return;
+    form.querySelector('[name="id"]').value = btn.dataset.variantId;
+    form.querySelectorAll('.product-showcase__variant-btn').forEach(function (b) {
+      b.classList.toggle('is-selected', b === btn);
+    });
+    var section = form.closest('.product-showcase__inner');
+    if (!section) return;
+    var priceEl = section.querySelector('.product-showcase__price');
+    var compareEl = section.querySelector('.product-showcase__compare-price');
+    var rawPrice = parseInt(btn.dataset.variantPrice || '0', 10);
+    var rawCompare = parseInt(btn.dataset.variantCompare || '0', 10);
+    if (priceEl) priceEl.textContent = '$' + (rawPrice / 100).toFixed(2);
+    if (compareEl) {
+      if (rawCompare > rawPrice) {
+        compareEl.textContent = '$' + (rawCompare / 100).toFixed(2);
+        compareEl.style.display = '';
+      } else {
+        compareEl.style.display = 'none';
+      }
+    }
+  });
+})();
+</script>
 
 {% schema %}
 {

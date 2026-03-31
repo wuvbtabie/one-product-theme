@@ -80,11 +80,14 @@
               {% for item in cart.items %}
                 <li class="header__cart-item">
                   <div class="header__cart-item-image">
-                    <img src="{{ item.image | image_url: width: 80 }}" alt="{{ item.product.title }}" />
+                    <img src="{{ item.image | image_url: width: 100 }}" alt="{{ item.product.title }}" />
                   </div>
                   <div class="header__cart-item-details">
-                    <span>{{ item.product.title }}</span>
-                    <span>{{ item.quantity }} × {{ item.price | money }}</span>
+                    <span class="header__cart-item-name">{{ item.product.title }}</span>
+                    {% if item.variant.title != 'Default Title' %}
+                      <span class="header__cart-item-variant">{{ item.variant.title }}</span>
+                    {% endif %}
+                    <span class="header__cart-item-price">{{ item.quantity }} × ${{ item.price | money_without_currency }}</span>
                   </div>
                 </li>
               {% endfor %}
@@ -92,8 +95,11 @@
           {% endif %}
         </div>
         <div class="header__cart-drawer-footer">
-          <p class="header__cart-total">Total: {{ cart.total_price | money }}</p>
-          <a href="{{ routes.cart_url }}" class="header__cart-go-to-cart">View cart</a>
+          <p class="header__cart-total">Subtotal: <strong>${{ cart.total_price | money_without_currency }}</strong></p>
+          <div class="header__cart-drawer-actions">
+            <a href="{{ routes.cart_url }}" class="header__cart-view-cart">View Cart</a>
+            <a href="/checkout" class="header__cart-checkout">Checkout</a>
+          </div>
         </div>
       </aside>
     </div>
@@ -203,36 +209,88 @@
   }
 
   .header__cart-item-image img {
-    width: 60px;
-    height: 60px;
+    width: 72px;
+    height: 72px;
     object-fit: cover;
     border-radius: 8px;
+    display: block;
   }
 
   .header__cart-item-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .header__cart-item-name {
     font-size: 0.92rem;
-    line-height: 1.3;
+    font-weight: 700;
     color: #111;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .header__cart-item-variant {
+    font-size: 0.8rem;
+    color: #666;
+  }
+
+  .header__cart-item-price {
+    font-size: 0.88rem;
+    color: #333;
+    margin-top: 4px;
   }
 
   .header__cart-total {
-    font-weight: 700;
+    font-weight: 600;
     margin: 16px 0 10px;
+    font-size: 0.95rem;
   }
 
-  .header__cart-go-to-cart {
-    display: block;
-    text-align: center;
-    background: #000;
-    color: #fff;
-    padding: 12px 16px;
+  .header__cart-drawer-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .header__cart-view-cart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 8px;
     border-radius: 8px;
     text-decoration: none;
     font-weight: 700;
+    font-size: 0.88rem;
+    border: 1.5px solid #111;
+    color: #111;
+    background: #fff;
+    transition: background 0.2s ease;
   }
 
-  .header__cart-go-to-cart:hover {
-    background: #222;
+  .header__cart-view-cart:hover {
+    background: #f4f4f4;
+  }
+
+  .header__cart-checkout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 8px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.88rem;
+    background: #111;
+    color: #fff;
+    transition: background 0.2s ease;
+  }
+
+  .header__cart-checkout:hover {
+    background: #333;
   }
 
   .header--sticky {

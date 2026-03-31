@@ -1,17 +1,31 @@
 {% if section.settings.show_announcement and section.settings.text != blank %}
   <div class="announcement-bar" role="region" aria-label="Announcement">
-    {% if section.settings.link != blank %}
-      <a
-        href="{{ section.settings.link }}"
-        class="announcement-bar__inner"
-        style="background-color: {{ section.settings.background_color }}; color: {{ section.settings.text_color }};"
-      >{{ section.settings.text }}</a>
-    {% else %}
-      <div
-        class="announcement-bar__inner"
-        style="background-color: {{ section.settings.background_color }}; color: {{ section.settings.text_color }};"
-      >{{ section.settings.text }}</div>
-    {% endif %}
+    <div
+      class="announcement-bar__inner"
+      style="background-color: {{ section.settings.background_color }}; color: {{ section.settings.text_color }};"
+    >
+      <div class="announcement-bar__marquee" aria-live="off">
+        <div class="announcement-bar__track">
+          <span class="announcement-bar__segment">{{ section.settings.text }}</span>
+          <span class="announcement-bar__sep" aria-hidden="true">&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+          <span class="announcement-bar__segment" aria-hidden="true">Secure Checkout</span>
+          <span class="announcement-bar__sep" aria-hidden="true">&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+          <span class="announcement-bar__segment" aria-hidden="true">30-Day Money-Back Guarantee</span>
+          <span class="announcement-bar__sep" aria-hidden="true">&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+          <span class="announcement-bar__segment" aria-hidden="true">1-Year Warranty</span>
+          <span class="announcement-bar__sep" aria-hidden="true">&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+          <!-- duplicate for seamless loop -->
+          <span class="announcement-bar__segment" aria-hidden="true">{{ section.settings.text }}</span>
+          <span class="announcement-bar__sep" aria-hidden="true">&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+          <span class="announcement-bar__segment" aria-hidden="true">Secure Checkout</span>
+          <span class="announcement-bar__sep" aria-hidden="true">&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+          <span class="announcement-bar__segment" aria-hidden="true">30-Day Money-Back Guarantee</span>
+          <span class="announcement-bar__sep" aria-hidden="true">&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+          <span class="announcement-bar__segment" aria-hidden="true">1-Year Warranty</span>
+          <span class="announcement-bar__sep" aria-hidden="true">&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+        </div>
+      </div>
+    </div>
   </div>
 {% endif %}
 
@@ -21,28 +35,50 @@
   }
 
   .announcement-bar__inner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
     min-height: 32px;
-    padding: 6px 24px;
+    padding: 6px 0;
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 0.4px;
     line-height: 1.4;
-    text-align: center;
+    overflow: hidden;
     text-decoration: none;
   }
 
-  a.announcement-bar__inner:hover {
-    opacity: 0.88;
-    transition: opacity 0.2s ease;
+  .announcement-bar__marquee {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .announcement-bar__track {
+    display: inline-flex;
+    white-space: nowrap;
+    animation: announcement-scroll 28s linear infinite;
+  }
+
+  .announcement-bar__segment,
+  .announcement-bar__sep {
+    flex-shrink: 0;
+  }
+
+  @keyframes announcement-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .announcement-bar__track {
+      animation: none;
+      justify-content: center;
+      width: 100%;
+    }
   }
 
   @media (max-width: 640px) {
     .announcement-bar__inner {
       min-height: 28px;
-      padding: 5px 14px;
+      padding: 5px 0;
       font-size: 11px;
     }
   }
