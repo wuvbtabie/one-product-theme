@@ -1,0 +1,551 @@
+<footer class="footer" style="background-color: {{ section.settings.background_color }}; color: {{ section.settings.text_color }};">
+  <div class="footer__content">
+    <div class="footer__column footer__column--about">
+      <h3 class="footer__title">{{ section.settings.store_name }}</h3>
+      <p class="footer__description">{{ section.settings.store_description }}</p>
+
+      {% if section.blocks.size > 0 %}
+        <div class="footer__social-links" aria-label="Social media links">
+          {% for block in section.blocks %}
+            {% if block.settings.url != blank %}
+              <a href="{{ block.settings.url }}" class="footer__social-link" target="_blank" rel="noopener" aria-label="{{ block.settings.platform }}">
+                <span aria-hidden="true">{{ block.settings.icon }}</span>
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="footer__column">
+      <h4 class="footer__heading">{{ section.settings.col2_heading }}</h4>
+      <ul class="footer__list">
+        {% if section.settings.link1_text != blank and section.settings.link1_url != blank %}
+          <li><a href="{{ section.settings.link1_url }}">{{ section.settings.link1_text }}</a></li>
+        {% endif %}
+        {% if section.settings.link2_text != blank and section.settings.link2_url != blank %}
+          <li><a href="{{ section.settings.link2_url }}">{{ section.settings.link2_text }}</a></li>
+        {% endif %}
+        {% if section.settings.link3_text != blank and section.settings.link3_url != blank %}
+          <li><a href="{{ section.settings.link3_url }}">{{ section.settings.link3_text }}</a></li>
+        {% endif %}
+      </ul>
+    </div>
+
+    <div class="footer__column">
+      <h4 class="footer__heading">{{ section.settings.col3_heading }}</h4>
+      <ul class="footer__list">
+        {% if section.settings.link4_text != blank and section.settings.link4_url != blank %}
+          <li><a href="{{ section.settings.link4_url }}">{{ section.settings.link4_text }}</a></li>
+        {% endif %}
+        {% if section.settings.link5_text != blank and section.settings.link5_url != blank %}
+          <li><a href="{{ section.settings.link5_url }}">{{ section.settings.link5_text }}</a></li>
+        {% endif %}
+        {% if section.settings.link6_text != blank and section.settings.link6_url != blank %}
+          <li><a href="{{ section.settings.link6_url }}">{{ section.settings.link6_text }}</a></li>
+        {% endif %}
+      </ul>
+    </div>
+
+    <div class="footer__column footer__column--newsletter">
+      <h4 class="footer__heading">{{ section.settings.newsletter_heading }}</h4>
+      <p class="footer__newsletter-text">{{ section.settings.newsletter_text }}</p>
+
+      {% form 'customer', class: 'footer__newsletter-form' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <label for="FooterNewsletterEmail-{{ section.id }}" class="sr-only">Email</label>
+        <div class="footer__newsletter-row">
+          <input
+            id="FooterNewsletterEmail-{{ section.id }}"
+            type="email"
+            name="contact[email]"
+            class="footer__newsletter-input"
+            placeholder="{{ section.settings.newsletter_placeholder }}"
+            autocomplete="email"
+            required
+          >
+          <button type="submit" class="footer__newsletter-button">{{ section.settings.newsletter_button_text }}</button>
+        </div>
+
+        {% if form.posted_successfully? %}
+          <p class="footer__newsletter-message footer__newsletter-message--success">Thanks for subscribing.</p>
+        {% endif %}
+
+        {% if form.errors %}
+          <p class="footer__newsletter-message footer__newsletter-message--error">Please enter a valid email address.</p>
+        {% endif %}
+      {% endform %}
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="footer__policy-links">
+      {% if section.settings.policy_privacy_url != blank %}
+        <a href="{{ section.settings.policy_privacy_url }}">{{ section.settings.policy_privacy_text }}</a>
+      {% endif %}
+      {% if section.settings.policy_shipping_url != blank %}
+        <a href="{{ section.settings.policy_shipping_url }}">{{ section.settings.policy_shipping_text }}</a>
+      {% endif %}
+      {% if section.settings.policy_returns_url != blank %}
+        <a href="{{ section.settings.policy_returns_url }}">{{ section.settings.policy_returns_text }}</a>
+      {% endif %}
+    </div>
+
+    <p class="footer__copyright">{{ section.settings.copyright_text }}</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid {{ section.settings.divider_color }};
+    padding: 72px 16px 28px;
+  }
+
+  .footer__content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 34px;
+    padding-bottom: 40px;
+  }
+
+  .footer__title {
+    margin: 0 0 14px;
+    font-size: 1.1rem;
+    line-height: 1.2;
+    letter-spacing: -0.2px;
+    color: {{ section.settings.text_color }};
+  }
+
+  .footer__heading {
+    margin: 0 0 14px;
+    font-size: 0.95rem;
+    line-height: 1.3;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    color: {{ section.settings.text_color }};
+  }
+
+  .footer__description,
+  .footer__newsletter-text {
+    margin: 0;
+    opacity: 0.82;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .footer__social-links {
+    margin-top: 18px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .footer__social-link {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    border: 1px solid #d8d8d8;
+    background: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 15px;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .footer__social-link:hover {
+    background: #f4f4f4;
+    transform: translateY(-1px);
+  }
+
+  .footer__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer__list a,
+  .footer__policy-links a {
+    color: {{ section.settings.text_color }};
+    opacity: 0.84;
+    text-decoration: none;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    transition: opacity 0.2s ease;
+  }
+
+  .footer__list a:hover,
+  .footer__policy-links a:hover {
+    opacity: 1;
+  }
+
+  .footer__newsletter-form {
+    margin-top: 14px;
+  }
+
+  .footer__newsletter-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+  }
+
+  .footer__newsletter-input {
+    height: 40px;
+    border: 1px solid #d9d9d9;
+    border-radius: 9px;
+    padding: 0 12px;
+    font-size: 14px;
+    background: #fff;
+    color: #111;
+  }
+
+  .footer__newsletter-input:focus {
+    outline: none;
+    border-color: #111;
+  }
+
+  .footer__newsletter-button {
+    height: 40px;
+    border: 1px solid #111;
+    background: #111;
+    color: #fff;
+    border-radius: 9px;
+    padding: 0 14px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .footer__newsletter-message {
+    margin: 10px 0 0;
+    font-size: 0.82rem;
+  }
+
+  .footer__newsletter-message--success {
+    color: #0d6d2f;
+  }
+
+  .footer__newsletter-message--error {
+    color: #9f1a1a;
+  }
+
+  .footer__bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    border-top: 1px solid {{ section.settings.divider_color }};
+    padding-top: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer__policy-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .footer__copyright {
+    margin: 0;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    opacity: 0.72;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (min-width: 900px) {
+    .footer {
+      padding: 84px 24px 30px;
+    }
+
+    .footer__content {
+      grid-template-columns: 1.2fr 1fr 1fr 1.2fr;
+      gap: 36px;
+      padding-bottom: 48px;
+    }
+
+    .footer__title {
+      font-size: 1.2rem;
+    }
+
+    .footer__heading {
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+    }
+
+    .footer__bottom {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .footer {
+      padding: 56px 16px 24px;
+    }
+
+    .footer__content {
+      gap: 24px;
+      padding-bottom: 30px;
+    }
+
+    .footer__newsletter-row {
+      grid-template-columns: 1fr;
+    }
+
+    .footer__newsletter-button {
+      width: 100%;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Store"
+    },
+    {
+      "type": "text",
+      "id": "store_name",
+      "label": "Store name",
+      "default": "Premium Brand"
+    },
+    {
+      "type": "textarea",
+      "id": "store_description",
+      "label": "Store description",
+      "default": "Built for quality-first shoppers who value performance, simplicity, and dependable support."
+    },
+    {
+      "type": "header",
+      "content": "Quick links"
+    },
+    {
+      "type": "text",
+      "id": "col2_heading",
+      "label": "Column heading",
+      "default": "Quick links"
+    },
+    {
+      "type": "text",
+      "id": "link1_text",
+      "label": "Link 1 text",
+      "default": "Home"
+    },
+    {
+      "type": "url",
+      "id": "link1_url",
+      "label": "Link 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "link2_text",
+      "label": "Link 2 text",
+      "default": "Benefits"
+    },
+    {
+      "type": "url",
+      "id": "link2_url",
+      "label": "Link 2 URL"
+    },
+    {
+      "type": "text",
+      "id": "link3_text",
+      "label": "Link 3 text",
+      "default": "FAQ"
+    },
+    {
+      "type": "url",
+      "id": "link3_url",
+      "label": "Link 3 URL"
+    },
+    {
+      "type": "header",
+      "content": "Support"
+    },
+    {
+      "type": "text",
+      "id": "col3_heading",
+      "label": "Column heading",
+      "default": "Support"
+    },
+    {
+      "type": "text",
+      "id": "link4_text",
+      "label": "Link 4 text",
+      "default": "Contact"
+    },
+    {
+      "type": "url",
+      "id": "link4_url",
+      "label": "Link 4 URL"
+    },
+    {
+      "type": "text",
+      "id": "link5_text",
+      "label": "Link 5 text",
+      "default": "Shipping"
+    },
+    {
+      "type": "url",
+      "id": "link5_url",
+      "label": "Link 5 URL"
+    },
+    {
+      "type": "text",
+      "id": "link6_text",
+      "label": "Link 6 text",
+      "default": "Returns"
+    },
+    {
+      "type": "url",
+      "id": "link6_url",
+      "label": "Link 6 URL"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Newsletter heading",
+      "default": "Newsletter"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_text",
+      "label": "Newsletter text",
+      "default": "Get product drops, offers, and practical tips delivered to your inbox."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Newsletter placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_button_text",
+      "label": "Newsletter button text",
+      "default": "Subscribe"
+    },
+    {
+      "type": "header",
+      "content": "Policy links"
+    },
+    {
+      "type": "text",
+      "id": "policy_privacy_text",
+      "label": "Privacy link text",
+      "default": "Privacy"
+    },
+    {
+      "type": "url",
+      "id": "policy_privacy_url",
+      "label": "Privacy link URL"
+    },
+    {
+      "type": "text",
+      "id": "policy_shipping_text",
+      "label": "Shipping link text",
+      "default": "Shipping"
+    },
+    {
+      "type": "url",
+      "id": "policy_shipping_url",
+      "label": "Shipping link URL"
+    },
+    {
+      "type": "text",
+      "id": "policy_returns_text",
+      "label": "Returns link text",
+      "default": "Returns"
+    },
+    {
+      "type": "url",
+      "id": "policy_returns_url",
+      "label": "Returns link URL"
+    },
+    {
+      "type": "header",
+      "content": "Footer bottom"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright text",
+      "default": "© 2026 Premium Brand. All rights reserved."
+    },
+    {
+      "type": "header",
+      "content": "Design"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider color",
+      "default": "#e6e6e6"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "social_link",
+      "name": "Social link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "platform",
+          "label": "Platform",
+          "default": "Instagram"
+        },
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon",
+          "default": "◎"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

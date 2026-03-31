@@ -1,0 +1,543 @@
+<!-- Image Text Section -->
+<section class="image-text-section image-text-section--{{ section.settings.image_height }}" data-layout="{{ section.settings.layout }}">
+  {% if section.settings.enable_overlay %}
+    <div class="image-text-section__overlay-container">
+      {% if section.settings.image != blank %}
+        <img
+          src="{{ section.settings.image | image_url: width: 1920 }}"
+          alt="{{ section.settings.overlay_heading | escape }}"
+          class="background-image"
+        >
+      {% endif %}
+      <div class="overlay {{ section.settings.text_position }}" style="background: rgba(0,0,0,{{ section.settings.overlay_opacity }});">
+        <div class="overlay-wrapper">
+          <div class="overlay-content">
+            <h2>{{ section.settings.overlay_heading }}</h2>
+            <p>{{ section.settings.overlay_subheading }}</p>
+            {% if section.settings.overlay_button_text != blank %}
+              <a href="{{ section.settings.overlay_button_link }}" class="overlay-btn">{{ section.settings.overlay_button_text }}</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="image-text-section__container">
+      <div class="image-text-section__image">
+        {% if section.settings.image != blank %}
+          <img
+            src="{{ section.settings.image | image_url: width: 600 }}"
+            alt="{{ section.settings.heading | escape }}"
+            width="600"
+            height="600"
+          >
+        {% endif %}
+      </div>
+
+      <div class="image-text-section__content">
+        {% if section.settings.heading %}
+          <h2 class="image-text-section__heading">{{ section.settings.heading }}</h2>
+        {% endif %}
+
+        {% if section.settings.description %}
+          <p class="image-text-section__description">{{ section.settings.description }}</p>
+        {% endif %}
+
+        {% if section.settings.button_text and section.settings.button_link %}
+          <a href="{{ section.settings.button_link }}" class="image-text-section__button">
+            {{ section.settings.button_text }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+</section>
+
+<style>
+  .image-text-section {
+    background-color: #fff;
+    padding: 0;
+  }
+
+  /* Overlay Mode */
+  .image-text-section__overlay-container {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    height: 420px;
+    overflow: hidden;
+  }
+
+  /* Height Variants for Overlay */
+  .image-text-section--small .image-text-section__overlay-container {
+    height: 320px;
+  }
+
+  .image-text-section--medium .image-text-section__overlay-container {
+    height: 420px;
+  }
+
+  .image-text-section--large .image-text-section__overlay-container {
+    height: 520px;
+  }
+
+  .image-text-section--full .image-text-section__overlay-container {
+    height: 100vh;
+  }
+
+  .background-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .image-text-section .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    color: #fff;
+  }
+
+  .overlay-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .image-text-section .overlay.top-left .overlay-wrapper {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .image-text-section .overlay.center .overlay-wrapper {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .image-text-section .overlay.bottom-left .overlay-wrapper {
+    align-items: flex-end;
+    justify-content: flex-start;
+  }
+
+  .overlay-content {
+    text-align: center;
+    max-width: 600px;
+  }
+
+  .image-text-section .overlay.top-left .overlay-content {
+    text-align: left;
+  }
+
+  .image-text-section .overlay.bottom-left .overlay-content {
+    text-align: left;
+  }
+
+  .overlay-content h2 {
+    font-size: 48px;
+    margin: 0 0 20px;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .overlay-content p {
+    font-size: 24px;
+    margin: 0 0 30px;
+    line-height: 1.4;
+  }
+
+  .overlay-btn {
+    display: inline-block;
+    background: #fff;
+    color: #000;
+    padding: 15px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 18px;
+    transition: background 0.2s ease;
+  }
+
+  .overlay-btn:hover {
+    background: #f0f0f0;
+  }
+
+  /* Side-by-Side Mode */
+  .image-text-section__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    padding: 60px 40px;
+  }
+
+  .image-text-section__image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .image-text-section__image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .image-text-section__content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .image-text-section__heading {
+    font-size: 36px;
+    font-weight: 700;
+    margin: 0;
+    color: #000;
+    letter-spacing: -0.6px;
+    line-height: 1.2;
+  }
+
+  .image-text-section__description {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+  }
+
+  .image-text-section__button {
+    display: inline-block;
+    background: #000;
+    color: #fff;
+    padding: 13px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    width: fit-content;
+  }
+
+  .image-text-section__button:hover {
+    opacity: 0.92;
+    transform: translateY(-1px);
+  }
+
+  /* Alternate layout (image on right) */
+  .image-text-section[data-layout="right"] .image-text-section__container {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .image-text-section[data-layout="right"] .image-text-section__image {
+    order: 2;
+  }
+
+  .image-text-section[data-layout="right"] .image-text-section__content {
+    order: 1;
+  }
+
+  @media (min-width: 769px) {
+    .image-text-section__container {
+      padding: 60px 40px;
+    }
+
+    .image-text-section--small .image-text-section__overlay-container {
+      height: 320px;
+    }
+
+    .image-text-section--medium .image-text-section__overlay-container {
+      height: 420px;
+    }
+
+    .image-text-section--large .image-text-section__overlay-container {
+      height: 520px;
+    }
+
+    .image-text-section--full .image-text-section__overlay-container {
+      height: 100vh;
+    }
+
+    .overlay-content h2 {
+      font-size: 56px;
+    }
+
+    .overlay-content p {
+      font-size: 28px;
+    }
+
+    .overlay-btn {
+      padding: 18px 36px;
+      font-size: 20px;
+    }
+
+    .image-text-section__container {
+      gap: 60px;
+    }
+
+    .image-text-section__heading {
+      font-size: 42px;
+      letter-spacing: -0.8px;
+    }
+
+    .image-text-section__description {
+      font-size: 16px;
+    }
+
+    .image-text-section__button {
+      padding: 15px 32px;
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .image-text-section__container {
+      grid-template-columns: 1fr;
+      gap: 30px;
+      padding: 40px 20px;
+    }
+
+    .image-text-section--small .image-text-section__overlay-container {
+      height: 280px;
+    }
+
+    .image-text-section--medium .image-text-section__overlay-container {
+      height: 360px;
+    }
+
+    .image-text-section--large .image-text-section__overlay-container {
+      height: 440px;
+    }
+
+    .image-text-section--full .image-text-section__overlay-container {
+      height: 80vh;
+    }
+
+    .overlay-wrapper {
+      padding: 30px 16px;
+    }
+
+    .overlay-content h2 {
+      font-size: 32px;
+    }
+
+    .overlay-content p {
+      font-size: 18px;
+    }
+
+    .overlay-btn {
+      padding: 12px 24px;
+      font-size: 16px;
+    }
+
+    .image-text-section__heading {
+      font-size: 28px;
+      letter-spacing: -0.4px;
+      margin-bottom: 10px;
+    }
+
+    .image-text-section__description {
+      font-size: 14px;
+    }
+
+    .image-text-section__button {
+      padding: 12px 24px;
+      font-size: 14px;
+    }
+
+    .image-text-section[data-layout="right"] .image-text-section__container {
+      grid-template-columns: 1fr;
+    }
+
+    .image-text-section[data-layout="right"] .image-text-section__image {
+      order: 1;
+    }
+
+    .image-text-section[data-layout="right"] .image-text-section__content {
+      order: 2;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .image-text-section__container {
+      gap: 20px;
+      padding: 30px 16px;
+    }
+
+    .image-text-section--small .image-text-section__overlay-container {
+      height: 240px;
+    }
+
+    .image-text-section--medium .image-text-section__overlay-container {
+      height: 300px;
+    }
+
+    .image-text-section--large .image-text-section__overlay-container {
+      height: 360px;
+    }
+
+    .image-text-section--full .image-text-section__overlay-container {
+      height: 70vh;
+    }
+
+    .overlay-wrapper {
+      padding: 20px 12px;
+    }
+
+    .overlay-content h2 {
+      font-size: 24px;
+    }
+
+    .overlay-content p {
+      font-size: 16px;
+    }
+
+    .overlay-btn {
+      padding: 10px 20px;
+      font-size: 14px;
+    }
+
+    .image-text-section__image img {
+      max-width: 100%;
+    }
+
+    .image-text-section__heading {
+      font-size: 22px;
+    }
+
+    .image-text-section__description {
+      font-size: 13px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Image Text Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Bring Your Brand Story to Life"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Use this section to highlight product benefits, features, and customer impact in one polished block."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Image Position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Image on Left"
+        },
+        {
+          "value": "right",
+          "label": "Image on Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_overlay",
+      "label": "Enable text overlay on image",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "overlay_heading",
+      "label": "Overlay heading",
+      "default": "Your Heading"
+    },
+    {
+      "type": "text",
+      "id": "overlay_subheading",
+      "label": "Overlay subheading",
+      "default": "Your subheading"
+    },
+    {
+      "type": "text",
+      "id": "overlay_button_text",
+      "label": "Overlay button text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "overlay_button_link",
+      "label": "Overlay button link"
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "Text position",
+      "options": [
+        {"value": "top-left", "label": "Top Left"},
+        {"value": "center", "label": "Center"},
+        {"value": "bottom-left", "label": "Bottom Left"}
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "default": 0.4
+    },
+    {
+      "type": "select",
+      "id": "image_height",
+      "label": "Image height (overlay mode)",
+      "options": [
+        {"value": "small", "label": "Small (320px)"},
+        {"value": "medium", "label": "Medium (420px)"},
+        {"value": "large", "label": "Large (520px)"},
+        {"value": "full", "label": "Full Screen (100vh)"}
+      ],
+      "default": "medium"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image Text Section"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,295 @@
+<!-- FAQ Section -->
+<section id="faq" class="faq-section">
+  <div class="faq-section__container">
+    {% if section.settings.heading %}
+      <h2 class="faq-section__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="faq-section__accordion">
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+          <div class="faq-section__item">
+            <button class="faq-section__question" aria-expanded="false">
+              <span>{{ block.settings.question }}</span>
+              <svg class="faq-section__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="faq-section__answer">
+              <p>{{ block.settings.answer }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="faq-section__item">
+          <button class="faq-section__question" aria-expanded="false">
+            <span>How long does shipping take?</span>
+            <svg class="faq-section__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-section__answer"><p>Standard shipping takes 5–7 business days. Express options deliver in 2–3 days.</p></div>
+        </div>
+        <div class="faq-section__item">
+          <button class="faq-section__question" aria-expanded="false">
+            <span>What is your return policy?</span>
+            <svg class="faq-section__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-section__answer"><p>We offer a 30-day money-back guarantee with hassle-free returns and full refunds.</p></div>
+        </div>
+        <div class="faq-section__item">
+          <button class="faq-section__question" aria-expanded="false">
+            <span>Is payment secure?</span>
+            <svg class="faq-section__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-section__answer"><p>Yes, all payments are processed through encrypted, PCI-compliant channels. Your data is always safe.</p></div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-section {
+    background-color: #f8f8f8;
+    padding: 60px 16px;
+  }
+
+  .faq-section__container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq-section__heading {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0 0 30px 0;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+
+  .faq-section__accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .faq-section__item {
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    overflow: hidden;
+    background: white;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .faq-section__item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .faq-section__question {
+    width: 100%;
+    padding: 16px 18px;
+    background: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    text-align: left;
+    transition: background 0.2s ease;
+  }
+
+  .faq-section__question:hover {
+    background: #fafafa;
+  }
+
+  .faq-section__question[aria-expanded="true"] {
+    background: #fafafa;
+  }
+
+  .faq-section__icon {
+    width: 18px;
+    height: 18px;
+    color: #666;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .faq-section__question[aria-expanded="true"] .faq-section__icon {
+    transform: rotate(180deg);
+  }
+
+  .faq-section__answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .faq-section__question[aria-expanded="true"] ~ .faq-section__answer {
+    max-height: 500px;
+  }
+
+  .faq-section__answer p {
+    padding: 0 18px 16px 18px;
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #666;
+  }
+
+  @media (min-width: 769px) {
+    .faq-section {
+      padding: 70px 20px;
+    }
+
+    .faq-section__heading {
+      font-size: 42px;
+      margin: 0 0 45px 0;
+      letter-spacing: -0.8px;
+    }
+
+    .faq-section__accordion {
+      gap: 16px;
+    }
+
+    .faq-section__question {
+      padding: 20px 24px;
+      font-size: 16px;
+      gap: 16px;
+    }
+
+    .faq-section__icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .faq-section__answer p {
+      padding: 0 24px 20px 24px;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .faq-section {
+      padding: 50px 16px;
+    }
+
+    .faq-section__heading {
+      font-size: 1.3rem;
+      margin: 0 0 24px 0;
+    }
+
+    .faq-section__question {
+      padding: 14px 16px;
+      font-size: 13px;
+      gap: 12px;
+    }
+
+    .faq-section__answer p {
+      padding: 0 16px 14px 16px;
+      font-size: 12px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const faqQuestions = document.querySelectorAll('.faq-section__question');
+    
+    faqQuestions.forEach(button => {
+      button.addEventListener('click', function() {
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        
+        // Close all other items
+        faqQuestions.forEach(otherButton => {
+          if (otherButton !== button) {
+            otherButton.setAttribute('aria-expanded', 'false');
+          }
+        });
+        
+        // Toggle current item
+        this.setAttribute('aria-expanded', !isExpanded);
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How long does shipping take?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "We offer free shipping on all orders. Standard shipping takes 5-7 business days. Express shipping is available for 2-3 business days delivery."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Section",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does shipping take?",
+            "answer": "We offer free shipping on all orders. Standard shipping takes 5-7 business days. Express shipping is available for 2-3 business days delivery."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "We offer a 30-day money-back guarantee. If you're not satisfied with your purchase, simply contact us for a full refund. No questions asked!"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is payment secure?",
+            "answer": "Yes, all payments are processed securely using industry-standard encryption. We never store your credit card information on our servers."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you offer a warranty?",
+            "answer": "All our products come with a 1-year warranty covering manufacturing defects. Extended warranty options are also available at checkout."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

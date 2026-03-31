@@ -1,0 +1,54 @@
+<section id="FinalCTA-{{ section.id }}" class="final-cta" style="background-color: {{ section.settings.background_color }}; text-align: {{ section.settings.text_alignment }};">
+  <div class="final-cta__inner">
+    {% if section.settings.show_summary_tags %}
+      <div class="final-cta__summary" role="list" aria-label="Key benefits">
+        {% if section.settings.summary_tag_1 != blank %}
+          <span class="final-cta__summary-tag" role="listitem">{{ section.settings.summary_tag_1 }}</span>
+        {% endif %}
+        {% if section.settings.summary_tag_2 != blank %}
+          <span class="final-cta__summary-tag" role="listitem">{{ section.settings.summary_tag_2 }}</span>
+        {% endif %}
+        {% if section.settings.summary_tag_3 != blank %}
+          <span class="final-cta__summary-tag" role="listitem">{{ section.settings.summary_tag_3 }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <h2 class="final-cta__heading">{{ section.settings.heading }}</h2>
+    <p class="final-cta__subheading">{{ section.settings.subheading }}</p>
+    <a href="{{ section.settings.button_link }}" class="final-cta__button">{{ section.settings.button_text }}</a>
+  </div>
+
+  <style>
+    .final-cta { padding: 84px 16px; background-color: #ffffff; text-align: center; border-top: 1px solid #efefef; }
+    .final-cta__inner { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+    .final-cta__summary { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 22px; }
+    .final-cta__summary-tag { display: inline-flex; align-items: center; border: 1px solid #dcdcdc; border-radius: 999px; padding: 7px 12px; font-size: 12px; font-weight: 600; color: #111; letter-spacing: 0.15px; background: #fff; }
+    .final-cta__heading { margin: 0 0 12px; font-size: 1.85rem; line-height: 1.18; letter-spacing: -0.3px; color: #000; }
+    .final-cta__subheading { margin: 0 0 26px; color: #333; font-size: 1rem; line-height: 1.55; }
+    .final-cta__button { display: inline-block; background-color: #000; color: #fff; text-decoration: none; padding: 13px 30px; border-radius: 10px; font-weight: 700; font-size: 14px; transition: opacity 0.2s ease, transform 0.2s ease; }
+    .final-cta__button:hover { opacity: 0.92; }
+    .final-cta__button:hover { transform: translateY(-1px); }
+    @media (min-width: 769px) { .final-cta { padding: 98px 20px; } .final-cta__inner { padding: 0; } .final-cta__heading { font-size: 2.45rem; margin-bottom: 14px; } .final-cta__subheading { font-size: 1.08rem; } .final-cta__button { padding: 14px 32px; font-size: 15px; } }
+    @media (max-width: 640px) { .final-cta { padding: 62px 16px; } .final-cta__summary { gap: 8px; margin-bottom: 16px; } .final-cta__summary-tag { font-size: 11px; padding: 6px 10px; } .final-cta__heading { font-size: 1.42rem; margin-bottom: 8px; } .final-cta__subheading { font-size: 0.9rem; margin-bottom: 20px; } .final-cta__button { padding: 11px 22px; font-size: 13px; } }
+  </style>
+
+  {% schema %}
+  {
+    "name": "Final Call to Action",
+    "settings": [
+      {"type":"checkbox","id":"show_summary_tags","label":"Show summary tags","default":true},
+      {"type":"text","id":"summary_tag_1","label":"Summary tag 1","default":"Free shipping"},
+      {"type":"text","id":"summary_tag_2","label":"Summary tag 2","default":"30-day returns"},
+      {"type":"text","id":"summary_tag_3","label":"Summary tag 3","default":"Secure checkout"},
+      {"type":"text","id":"heading","label":"Heading","default":"Ready to transform your routine?"},
+      {"type":"text","id":"subheading","label":"Subheading","default":"Experience premium quality with one click."},
+      {"type":"text","id":"button_text","label":"Button text","default":"Buy Now"},
+      {"type":"url","id":"button_link","label":"Button link","default":"/"},
+      {"type":"color","id":"background_color","label":"Background color","default":"#ffffff"},
+      {"type":"select","id":"text_alignment","label":"Text alignment","default":"center","options":[{"value":"center","label":"Center"},{"value":"left","label":"Left"},{"value":"right","label":"Right"}]}
+    ],
+    "presets": [{"name":"Final CTA"}]
+  }
+  {% endschema %}
+</section>

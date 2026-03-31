@@ -1,0 +1,79 @@
+<section id="TrustBadges-{{ section.id }}" class="trust-badges" style="background-color: {{ section.settings.background_color }};">
+  <div class="trust-badges__inner">
+    <h2 class="trust-badges__heading">{{ section.settings.heading }}</h2>
+    <div class="trust-badges__list">
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          <article class="trust-badge" style="background-color: {{ block.settings.badge_background_color }};">
+            <div class="trust-badge__icon">{{ block.settings.icon }}</div>
+            <div class="trust-badge__text">
+              <h3>{{ block.settings.title }}</h3>
+              <p>{{ block.settings.text }}</p>
+            </div>
+          </article>
+        {%- endfor -%}
+      {%- else -%}
+        <article class="trust-badge" style="background-color:#f0f0f0;">
+          <div class="trust-badge__icon">🚚</div>
+          <div class="trust-badge__text"><h3>Free Shipping</h3><p>On all orders over $50</p></div>
+        </article>
+        <article class="trust-badge" style="background-color:#e0e0e0;">
+          <div class="trust-badge__icon">🔒</div>
+          <div class="trust-badge__text"><h3>Secure Checkout</h3><p>256-bit SSL encryption</p></div>
+        </article>
+        <article class="trust-badge" style="background-color:#f0f0f0;">
+          <div class="trust-badge__icon">💯</div>
+          <div class="trust-badge__text"><h3>30-Day Guarantee</h3><p>Money-back warranty</p></div>
+        </article>
+        <article class="trust-badge" style="background-color:#e0e0e0;">
+          <div class="trust-badge__icon">⭐</div>
+          <div class="trust-badge__text"><h3>Premium Quality</h3><p>Top-rated materials</p></div>
+        </article>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <style>
+    .trust-badges { padding: 60px 16px; background-color: #f8f8f8; }
+    .trust-badges__inner { max-width: 1200px; margin: 0 auto; }
+    .trust-badges__heading { text-align: center; margin-bottom: 26px; font-size: 1.9rem; color: #000; }
+    .trust-badges__list { display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: 14px; }
+    .trust-badge { border-radius: 12px; padding: 16px; display: flex; align-items: flex-start; gap: 10px; min-height: auto; background-color: #f0f0f0; }
+    .trust-badge__icon { font-size: 1.6rem; line-height: 1; flex-shrink: 0; color: #000; }
+    .trust-badge__text h3 { margin: 0 0 4px; font-size: 0.95rem; color: #000; }
+    .trust-badge__text p { margin: 0; color: #333; font-size: 0.85rem; }
+    @media (min-width: 769px) { .trust-badges { padding: 70px 20px; } .trust-badges__heading { font-size: 1.9rem; } .trust-badges__list { grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); } .trust-badge__icon { font-size: 1.8rem; } .trust-badge__text h3 { font-size: 1rem; } .trust-badge__text p { font-size: 0.93rem; } }
+    @media (max-width: 768px) { .trust-badges { padding: 50px 14px; } .trust-badges__heading { font-size: 1.6rem; margin-bottom: 16px; } .trust-badges__list { grid-template-columns: 1fr; gap: 12px; } .trust-badge { padding: 12px; min-height: auto; } .trust-badge__text h3 { font-size: 0.95rem; } .trust-badge__text p { font-size: 0.82rem; } }
+    @media (max-width: 480px) { .trust-badges { padding: 28px 12px; } .trust-badges__heading { font-size: 1.4rem; margin-bottom: 14px; } .trust-badge { padding: 10px; } .trust-badge__text h3 { font-size: 0.85rem; } .trust-badge__text p { font-size: 0.78rem; } .trust-badge__icon { font-size: 1.4rem; } }
+  </style>
+
+  {% schema %}
+  {
+    "name": "Trust Badges",
+    "settings": [
+      {"type":"text","id":"heading","label":"Heading","default":"Trusted by customers worldwide"},
+      {"type":"color","id":"background_color","label":"Section background","default":"#ffffff"}
+    ],
+    "blocks": [
+      {"type":"badge","name":"Badge", "settings":[
+        {"type":"text","id":"icon","label":"Icon (emoji or text)","default":"✅"},
+        {"type":"text","id":"title","label":"Title","default":"Free Shipping"},
+        {"type":"text","id":"text","label":"Description","default":"On all orders"},
+        {"type":"color","id":"badge_background_color","label":"Badge background","default":"#f0f0f0"}
+      ]}
+    ],
+    "max_blocks": 8,
+    "presets": [
+      {
+        "name":"Trust Badges",
+        "blocks": [
+          {"type":"badge","settings":{"icon":"🚚","title":"Free Shipping","text":"On all orders","badge_background_color":"#f0f0f0"}},
+          {"type":"badge","settings":{"icon":"🔒","title":"Secure Checkout","text":"256-bit SSL encryption","badge_background_color":"#e0e0e0"}},
+          {"type":"badge","settings":{"icon":"💯","title":"30-Day Guarantee","text":"Money-back warranty","badge_background_color":"#f0f0f0"}},
+          {"type":"badge","settings":{"icon":"⭐","title":"Premium Quality","text":"Top-rated materials","badge_background_color":"#e0e0e0"}}
+        ]
+      }
+    ]
+  }
+  {% endschema %}
+</section>

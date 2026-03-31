@@ -1,0 +1,38 @@
+document.addEventListener('DOMContentLoaded', function () {
+  var targets = document.querySelectorAll(
+    '.shopify-section .product-media, .shopify-section .product-showcase, .shopify-section .trust-strip, .shopify-section .trust-badges, .shopify-section .product-benefits, .shopify-section .why-choose, .shopify-section .reviews-section, .shopify-section .faq-section, .shopify-section .final-cta'
+  );
+
+  if (!targets.length) return;
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    targets.forEach(function (el) {
+      el.classList.add('is-visible');
+    });
+    return;
+  }
+
+  targets.forEach(function (el) {
+    el.classList.add('reveal-on-scroll');
+  });
+
+  var observer = new IntersectionObserver(
+    function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        obs.unobserve(entry.target);
+      });
+    },
+    {
+      rootMargin: '0px 0px -10% 0px',
+      threshold: 0.12,
+    }
+  );
+
+  targets.forEach(function (el) {
+    observer.observe(el);
+  });
+});

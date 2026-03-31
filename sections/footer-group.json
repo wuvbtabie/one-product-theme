@@ -1,0 +1,84 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "t:general.footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "store_name": "Premium Brand",
+        "store_description": "Built for quality-first shoppers who value performance, simplicity, and dependable support.",
+        "col2_heading": "Quick links",
+        "link1_text": "Home",
+        "link1_url": "/",
+        "link2_text": "Benefits",
+        "link2_url": "#benefits",
+        "link3_text": "FAQ",
+        "link3_url": "#faq",
+        "col3_heading": "Support",
+        "link4_text": "Contact",
+        "link4_url": "/pages/contact",
+        "link5_text": "Shipping",
+        "link5_url": "/pages/shipping-policy",
+        "link6_text": "Returns",
+        "link6_url": "/pages/returns",
+        "newsletter_heading": "Newsletter",
+        "newsletter_text": "Get product drops, offers, and practical tips delivered to your inbox.",
+        "newsletter_placeholder": "Enter your email",
+        "newsletter_button_text": "Subscribe",
+        "policy_privacy_text": "Privacy",
+        "policy_privacy_url": "/policies/privacy-policy",
+        "policy_shipping_text": "Shipping",
+        "policy_shipping_url": "/policies/shipping-policy",
+        "policy_returns_text": "Returns",
+        "policy_returns_url": "/policies/refund-policy",
+        "copyright_text": "© 2026 Premium Brand. All rights reserved.",
+        "background_color": "#ffffff",
+        "text_color": "#111111",
+        "divider_color": "#e6e6e6"
+      },
+      "blocks": {
+        "social_instagram": {
+          "type": "social_link",
+          "settings": {
+            "platform": "Instagram",
+            "icon": "◎",
+            "url": "https://instagram.com"
+          }
+        },
+        "social_tiktok": {
+          "type": "social_link",
+          "settings": {
+            "platform": "TikTok",
+            "icon": "◉",
+            "url": "https://tiktok.com"
+          }
+        },
+        "social_facebook": {
+          "type": "social_link",
+          "settings": {
+            "platform": "Facebook",
+            "icon": "◌",
+            "url": "https://facebook.com"
+          }
+        }
+      },
+      "block_order": [
+        "social_instagram",
+        "social_tiktok",
+        "social_facebook"
+      ]
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

@@ -1,0 +1,330 @@
+<!-- Reviews Section -->
+<section id="reviews" class="reviews-section">
+  <div class="reviews-section__container">
+    <div class="reviews-section__header">
+      {% if section.settings.proof_label != blank %}
+        <p class="reviews-section__proof-label">{{ section.settings.proof_label }}</p>
+      {% endif %}
+
+      {% if section.settings.heading %}
+        <h2 class="reviews-section__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.subtext %}
+        <p class="reviews-section__subtext">{{ section.settings.subtext }}</p>
+      {% endif %}
+    </div>
+
+    <div class="reviews-section__grid">
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+          <div class="reviews-section__card">
+            <div class="reviews-section__stars">
+              {% for i in (1..block.settings.rating) %}
+                <span class="reviews-section__star">★</span>
+              {% endfor %}
+            </div>
+            {% if block.settings.customer_image != blank %}
+              <div class="reviews-section__customer-image">
+                <img src="{{ block.settings.customer_image | image_url: width: 60 }}" alt="{{ block.settings.review_author }}" />
+              </div>
+            {% endif %}
+            <p class="reviews-section__review-text">{{ block.settings.review_text }}</p>
+            <p class="reviews-section__customer-name">{{ block.settings.review_author }}</p>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="reviews-section__card">
+          <div class="reviews-section__stars"><span class="reviews-section__star">★</span><span class="reviews-section__star">★</span><span class="reviews-section__star">★</span><span class="reviews-section__star">★</span><span class="reviews-section__star">★</span></div>
+          <p class="reviews-section__review-text">Outstanding quality and exceptional customer service. This product exceeded all my expectations!</p>
+          <p class="reviews-section__customer-name">Sarah Johnson</p>
+        </div>
+        <div class="reviews-section__card">
+          <div class="reviews-section__stars"><span class="reviews-section__star">★</span><span class="reviews-section__star">★</span><span class="reviews-section__star">★</span><span class="reviews-section__star">★</span><span class="reviews-section__star">★</span></div>
+          <p class="reviews-section__review-text">Best purchase I've made this year. The quality is unmatched and delivery was super fast!</p>
+          <p class="reviews-section__customer-name">Michael Chen</p>
+        </div>
+        <div class="reviews-section__card">
+          <div class="reviews-section__stars"><span class="reviews-section__star">★</span><span class="reviews-section__star">★</span><span class="reviews-section__star">★</span><span class="reviews-section__star">★</span></div>
+          <p class="reviews-section__review-text">Great product with amazing quality. Would definitely recommend to anyone looking for reliability.</p>
+          <p class="reviews-section__customer-name">Emma Williams</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .reviews-section {
+    background-color: #ffffff;
+    padding: 70px 16px;
+  }
+
+  .reviews-section__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .reviews-section__header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .reviews-section__proof-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 12px;
+    padding: 7px 12px;
+    border: 1px solid #dfdfdf;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    color: #111;
+    background: #fff;
+  }
+
+  .reviews-section__heading {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0 0 14px 0;
+    color: #000;
+    letter-spacing: -0.6px;
+    line-height: 1.2;
+  }
+
+  .reviews-section__subtext {
+    font-size: 14px;
+    color: #333;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .reviews-section__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  @media (min-width: 769px) {
+    .reviews-section {
+      padding: 80px 20px;
+    }
+
+    .reviews-section__heading {
+      font-size: 42px;
+      margin: 0 0 16px 0;
+      letter-spacing: -0.8px;
+    }
+
+    .reviews-section__subtext {
+      font-size: 16px;
+    }
+
+    .reviews-section__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+  }
+
+  .reviews-section__card {
+    background: #fff;
+    padding: 40px 24px;
+    border-radius: 20px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .reviews-section__card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .reviews-section__stars {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 20px;
+    justify-content: center;
+  }
+
+  .reviews-section__customer-image {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 16px auto;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #e0e0e0;
+  }
+
+  .reviews-section__customer-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .reviews-section__star {
+    font-size: 18px;
+    color: #ffc107;
+    line-height: 1;
+  }
+
+  .reviews-section__review-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #333;
+    margin: 0 0 24px 0;
+    flex-grow: 1;
+  }
+
+  .reviews-section__customer-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+    margin: 0;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .reviews-section {
+      padding: 50px 16px;
+    }
+
+    .reviews-section__heading {
+      font-size: 32px;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .reviews-section__subtext {
+      font-size: 15px;
+    }
+
+    .reviews-section__header {
+      margin-bottom: 40px;
+    }
+
+    .reviews-section__grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .reviews-section__card {
+      padding: 32px 20px;
+    }
+
+    .reviews-section__review-text {
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .reviews-section__customer-name {
+      font-size: 13px;
+      padding-top: 16px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Reviews Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Customer Reviews"
+    },
+    {
+      "type": "text",
+      "id": "proof_label",
+      "label": "Proof label",
+      "default": "Verified buyer reviews"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Trusted feedback from satisfied customers"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review Text",
+          "default": "Outstanding quality and exceptional customer service. This product exceeded all my expectations!"
+        },
+        {
+          "type": "text",
+          "id": "review_author",
+          "label": "Customer Name",
+          "default": "Sarah Johnson"
+        },
+        {
+          "type": "image_picker",
+          "id": "customer_image",
+          "label": "Customer Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews Section",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "review_text": "Outstanding quality and exceptional customer service. This product exceeded all my expectations!",
+            "review_author": "Sarah Johnson"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "review_text": "Best purchase I've made. Excellent customer service!",
+            "review_author": "Michael Chen"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 4,
+            "review_text": "Great product with amazing quality.",
+            "review_author": "Emma Williams"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

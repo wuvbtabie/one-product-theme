@@ -1,0 +1,640 @@
+{%- liquid
+  assign hero_product = nil
+  assign hero_variant = nil
+  if section.settings.button_link contains '/products/'
+    assign hero_product_handle = section.settings.button_link | split: '/products/' | last | split: '?' | first | split: '#' | first
+    assign hero_product = all_products[hero_product_handle]
+    if hero_product != blank
+      assign hero_variant = hero_product.selected_or_first_available_variant
+    endif
+  endif
+-%}
+
+<section id="hero" class="hero-product hero-product--{{ section.settings.image_height }}">
+  <div class="hero-image">
+    {% if section.settings.enable_video and section.settings.video_url != blank %}
+      <video class="hero-video" autoplay muted="{{ section.settings.mute_video }}" loop="{{ section.settings.loop_video }}" playsinline>
+        <source src="{{ section.settings.video_url }}" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    {% elsif section.settings.image != blank %}
+      <img
+        src="{{ section.settings.image | image_url: width: 1800 }}"
+        alt="{{ section.settings.heading | escape }}"
+        width="1800"
+        height="920"
+      >
+    {% endif %}
+
+    <div class="overlay {{ section.settings.text_position }}" style="background: rgba(0,0,0,{{ section.settings.overlay_opacity }});">
+      <div class="overlay-wrapper">
+        <div class="overlay-content">
+          {% if section.settings.show_badge %}
+            <div class="hero-badge">{{ section.settings.badge_text }}</div>
+          {% endif %}
+
+          <h1 class="overlay-heading">{{ section.settings.heading }}</h1>
+          <p class="overlay-subheading">{{ section.settings.subtext }}</p>
+
+          {% if hero_variant %}
+            <p class="hero-price">
+              <span class="hero-price__current">{{ hero_variant.price | money }}</span>
+              {% if hero_variant.compare_at_price > hero_variant.price %}
+                <span class="hero-price__compare">{{ hero_variant.compare_at_price | money }}</span>
+              {% endif %}
+            </p>
+          {% endif %}
+
+          {% if section.settings.show_rating %}
+            <div class="hero-rating">
+              <span>{% for i in (1..section.settings.rating_value) %}★{% endfor %}</span>
+              <span>{{ section.settings.rating_text }}</span>
+            </div>
+          {% endif %}
+
+          <a href="{{ section.settings.button_link }}" class="hero-btn">
+            {{ section.settings.button_text }}
+          </a>
+
+          {% if section.settings.show_hero_trust_badges and section.blocks.size > 0 %}
+            <div class="hero-trust-badges">
+              {% for block in section.blocks %}
+                <div class="hero-trust-badge">
+                  <span class="hero-trust-badge-icon" aria-hidden="true">✓</span>
+                  <span class="hero-trust-badge-text">{{ block.settings.benefit_text }}</span>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-product {
+    padding: 0;
+    background: #ffffff;
+    margin: 0 0 64px 0;
+  }
+
+  .hero-image {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    position: relative;
+    min-height: 380px;
+  }
+
+  .hero-video,
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Height Variants */
+  .hero-product--small .hero-image {
+    min-height: 280px;
+  }
+
+  .hero-product--medium .hero-image {
+    min-height: 380px;
+  }
+
+  .hero-product--large .hero-image {
+    min-height: 520px;
+  }
+
+  .hero-product--full .hero-image {
+    min-height: 100vh;
+  }
+
+  .hero-product--small .hero-video,
+  .hero-product--small .hero-image img {
+    min-height: 280px;
+  }
+
+  .hero-product--medium .hero-video,
+  .hero-product--medium .hero-image img {
+    min-height: 380px;
+  }
+
+  .hero-product--large .hero-video,
+  .hero-product--large .hero-image img {
+    min-height: 520px;
+  }
+
+  .hero-product--full .hero-video,
+  .hero-product--full .hero-image img {
+    min-height: 100vh;
+  }
+
+  /* Text Overlay */
+  .overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    color: #fff;
+  }
+
+  .overlay-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 64px 20px 56px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+  }
+
+  .overlay.left .overlay-wrapper {
+    justify-content: flex-start;
+  }
+
+  .overlay.center .overlay-wrapper {
+    justify-content: center;
+  }
+
+  .overlay.right .overlay-wrapper {
+    justify-content: flex-end;
+  }
+
+  .overlay-content {
+    max-width: 680px;
+  }
+
+  .overlay.left .overlay-content {
+    text-align: left;
+  }
+
+  .overlay.center .overlay-content {
+    text-align: center;
+  }
+
+  .overlay.right .overlay-content {
+    text-align: right;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    margin-bottom: 22px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #000;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .overlay-heading {
+    margin: 0 0 18px;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.06;
+    letter-spacing: -0.8px;
+    color: #fff;
+    text-wrap: balance;
+  }
+
+  .overlay-subheading {
+    margin: 0 0 22px;
+    font-size: clamp(1rem, 2.2vw, 1.35rem);
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  .hero-price {
+    margin: 0 0 16px;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    font-weight: 700;
+  }
+
+  .hero-price__current {
+    font-size: clamp(1.3rem, 2.1vw, 1.8rem);
+    color: #fff;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-price__compare {
+    font-size: 0.98rem;
+    color: rgba(255, 255, 255, 0.72);
+    text-decoration: line-through;
+    font-weight: 500;
+  }
+
+  .hero-rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.9);
+    justify-content: flex-start;
+  }
+
+  .overlay.center .hero-rating {
+    justify-content: center;
+  }
+
+  .overlay.right .hero-rating {
+    justify-content: flex-end;
+  }
+
+  .hero-rating span:first-child {
+    color: #ffd700;
+    letter-spacing: 2px;
+    font-size: 16px;
+  }
+
+  .hero-btn {
+    display: inline-block;
+    background: #fff;
+    color: #000;
+    padding: 15px 32px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .hero-btn:hover {
+    opacity: 0.92;
+    transform: translateY(-1px);
+  }
+
+  .hero-trust-badges {
+    margin-top: 26px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .overlay.center .hero-trust-badges {
+    justify-content: center;
+  }
+
+  .overlay.right .hero-trust-badges {
+    justify-content: flex-end;
+  }
+
+  .hero-trust-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 12px;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    backdrop-filter: blur(2px);
+    border-radius: 999px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.86rem;
+  }
+
+  .hero-trust-badge-icon {
+    font-size: 0.95rem;
+  }
+
+  @media screen and (max-width: 990px) {
+    .hero-product--small .hero-image {
+      min-height: 240px;
+    }
+
+    .hero-product--medium .hero-image {
+      min-height: 320px;
+    }
+
+    .hero-product--large .hero-image {
+      min-height: 420px;
+    }
+
+    .hero-product--full .hero-image {
+      min-height: 80vh;
+    }
+
+    .hero-product--small .hero-video,
+    .hero-product--small .hero-image img {
+      min-height: 240px;
+    }
+
+    .hero-product--medium .hero-video,
+    .hero-product--medium .hero-image img {
+      min-height: 320px;
+    }
+
+    .hero-product--large .hero-video,
+    .hero-product--large .hero-image img {
+      min-height: 420px;
+    }
+
+    .hero-product--full .hero-video,
+    .hero-product--full .hero-image img {
+      min-height: 80vh;
+    }
+
+    .overlay-wrapper {
+      padding: 44px 20px 40px 20px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .hero-product--small .hero-image {
+      min-height: 200px;
+    }
+
+    .hero-product--medium .hero-image {
+      min-height: 280px;
+    }
+
+    .hero-product--large .hero-image {
+      min-height: 360px;
+    }
+
+    .hero-product--full .hero-image {
+      min-height: 70vh;
+    }
+
+    .hero-product--small .hero-video,
+    .hero-product--small .hero-image img {
+      min-height: 200px;
+    }
+
+    .hero-product--medium .hero-video,
+    .hero-product--medium .hero-image img {
+      min-height: 280px;
+    }
+
+    .hero-product--large .hero-video,
+    .hero-product--large .hero-image img {
+      min-height: 360px;
+    }
+
+    .hero-product--full .hero-video,
+    .hero-product--full .hero-image img {
+      min-height: 70vh;
+    }
+
+    .overlay-wrapper {
+      padding: 38px 16px 30px 16px;
+    }
+
+    .hero-rating {
+      gap: 6px;
+      margin-bottom: 14px;
+      font-size: 14px;
+    }
+
+    .hero-rating span:first-child {
+      font-size: 15px;
+    }
+
+    .hero-btn {
+      width: 100%;
+      text-align: center;
+      padding: 12px 18px;
+      font-size: 15px;
+    }
+
+    .hero-trust-badges {
+      margin-top: 16px;
+      gap: 8px;
+    }
+
+    .hero-trust-badge {
+      font-size: 0.78rem;
+      padding: 6px 10px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .hero-product--small .hero-image {
+      min-height: 180px;
+    }
+
+    .hero-product--medium .hero-image {
+      min-height: 240px;
+    }
+
+    .hero-product--large .hero-image {
+      min-height: 300px;
+    }
+
+    .hero-product--full .hero-image {
+      min-height: 60vh;
+    }
+
+    .hero-product--small .hero-video,
+    .hero-product--small .hero-image img {
+      min-height: 180px;
+    }
+
+    .hero-product--medium .hero-video,
+    .hero-product--medium .hero-image img {
+      min-height: 240px;
+    }
+
+    .hero-product--large .hero-video,
+    .hero-product--large .hero-image img {
+      min-height: 300px;
+    }
+
+    .hero-product--full .hero-video,
+    .hero-product--full .hero-image img {
+      min-height: 60vh;
+    }
+
+    .overlay-wrapper {
+      padding: 24px 12px 18px 12px;
+    }
+
+    .hero-badge {
+      margin-bottom: 10px;
+      font-size: 12px;
+      padding: 6px 10px;
+    }
+
+    .hero-btn {
+      font-size: 14px;
+      padding: 10px 16px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Hero Product",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Premium One-Product Experience"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Launch your best solution with a sleek, conversion-focused hero banner."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Show status badge",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Status badge text",
+      "default": "🔥 Best Seller"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show rating block",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "rating_value",
+      "label": "Rating (stars)",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Rating text",
+      "default": "Trusted by 1,000+ customers"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Banner image"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_video",
+      "label": "Enable background video",
+      "default": false
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Background video URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "mute_video",
+      "label": "Mute video",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "loop_video",
+      "label": "Loop video",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_hero_trust_badges",
+      "label": "Show hero trust badges",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "Text position",
+      "options": [
+        {"value": "left", "label": "Left"},
+        {"value": "center", "label": "Center"},
+        {"value": "right", "label": "Right"}
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "default": 0.5
+    },
+    {
+      "type": "select",
+      "id": "image_height",
+      "label": "Image height",
+      "options": [
+        {"value": "small", "label": "Small (280px)"},
+        {"value": "medium", "label": "Medium (380px)"},
+        {"value": "large", "label": "Large (520px)"},
+        {"value": "full", "label": "Full Screen (100vh)"}
+      ],
+      "default": "large"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "benefit_text",
+          "label": "Benefit text",
+          "default": "🚚 Free Shipping"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Product",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "benefit_text": "🚚 Free Shipping"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "benefit_text": "🔒 Secure Checkout"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "benefit_text": "⭐ 30-Day Guarantee"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

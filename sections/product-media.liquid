@@ -1,0 +1,298 @@
+{% assign pm_count = section.blocks.size %}
+{% if pm_count == 1 %}
+  {% assign pm_cols = "one" %}
+{% elsif pm_count == 2 %}
+  {% assign pm_cols = "two" %}
+{% else %}
+  {% assign pm_cols = "three" %}
+{% endif %}
+
+<section class="product-media" id="product-media">
+  {% if section.settings.heading != blank %}
+    <div class="product-media__header">
+      <h2 class="product-media__heading">{{ section.settings.heading }}</h2>
+    </div>
+  {% endif %}
+
+  <div class="product-media__grid product-media__grid--{{ pm_cols }}">
+    {% if section.blocks.size > 0 %}
+      {% for block in section.blocks %}
+        {% if block.settings.type == 'image' and block.settings.image != blank %}
+          <div class="product-media__item">
+            <img src="{{ block.settings.image | image_url: width: 1400 }}"
+                 alt="{{ block.settings.alt_text | escape }}"
+                 loading="lazy">
+          </div>
+        {% elsif block.settings.type == 'video' and block.settings.video != blank %}
+          <div class="product-media__item product-media__item--video">
+            {{ block.settings.video | video_tag: controls: true, autoplay: block.settings.video_autoplay, muted: block.settings.video_muted, loop: block.settings.video_loop, playsinline: true, image_size: '1400x' }}
+          </div>
+        {% elsif block.settings.type == 'video' and block.settings.video_url != blank %}
+          <div class="product-media__item product-media__item--video">
+            {% assign pm_ext_video = block.settings.video_url | external_video_url: autoplay: block.settings.video_autoplay, loop: block.settings.video_loop %}
+            {{ pm_ext_video | external_video_tag }}
+          </div>
+        {% else %}
+          <div class="product-media__item product-media__item--placeholder">
+            <div class="product-media__placeholder-inner">
+              {% if block.settings.type == 'video' %}
+                <span class="product-media__placeholder-icon">🎥</span>
+                <p>Add a video URL in the theme editor</p>
+              {% else %}
+                <span class="product-media__placeholder-icon">🖼️</span>
+                <p>Upload an image in the theme editor</p>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      <div class="product-media__item product-media__item--placeholder">
+        <div class="product-media__placeholder-inner">
+          <span class="product-media__placeholder-icon">🖼️</span>
+          <p>Upload your first product image</p>
+        </div>
+      </div>
+      <div class="product-media__item product-media__item--placeholder">
+        <div class="product-media__placeholder-inner">
+          <span class="product-media__placeholder-icon">🖼️</span>
+          <p>Add another product image</p>
+        </div>
+      </div>
+      <div class="product-media__item product-media__item--placeholder">
+        <div class="product-media__placeholder-inner">
+          <span class="product-media__placeholder-icon">🎥</span>
+          <p>Add a product video URL</p>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .product-media {
+    background: #ffffff;
+    padding: 40px 0 48px;
+  }
+
+  .product-media__header {
+    max-width: 1200px;
+    margin: 0 auto 28px;
+    padding: 0 20px;
+    text-align: center;
+  }
+
+  .product-media__heading {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #000;
+    margin: 0;
+  }
+
+  /* Grid: flush to viewport edges for single-item, padded for multi */
+  .product-media__grid {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    gap: 8px;
+  }
+
+  .product-media__grid--one {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    padding: 0;       /* no side padding — image runs edge-to-edge */
+  }
+
+  .product-media__grid--two {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .product-media__grid--three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* Items: fixed aspect ratio so images are never awkwardly cropped */
+  .product-media__item {
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    position: relative;
+    background: #f0f0f0;  /* neutral — matches white bg instead of black box */
+  }
+
+  .product-media__grid--one .product-media__item {
+    aspect-ratio: 21 / 9;   /* cinematic crop for a single hero-style image */
+  }
+
+  .product-media__item img,
+  .product-media__item video,
+  .product-media__item iframe {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Placeholder state */
+  .product-media__item--placeholder,
+  .product-media__item.product-media__placeholder {
+    background: #f5f5f5;
+    border: 2px dashed #d0d0d0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .product-media__placeholder-inner {
+    text-align: center;
+    color: #999;
+    padding: 20px;
+  }
+
+  .product-media__placeholder-icon {
+    display: block;
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+  }
+
+  .product-media__placeholder-inner p {
+    font-size: 0.85rem;
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .product-media__grid--three {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .product-media {
+      padding: 36px 0 40px;
+    }
+
+    .product-media__heading {
+      font-size: 1.6rem;
+    }
+
+    .product-media__grid--two,
+    .product-media__grid--three {
+      grid-template-columns: 1fr;
+    }
+
+    .product-media__grid--one .product-media__item {
+      aspect-ratio: 16 / 9;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Product Media",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Media"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay_video",
+      "label": "Autoplay videos",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "muted_video",
+      "label": "Mute videos",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "loop_video",
+      "label": "Loop videos",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "media_item",
+      "name": "Media item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "type",
+          "label": "Media type",
+          "options": [
+            {"value": "image", "label": "Image"},
+            {"value": "video", "label": "Video"}
+          ],
+          "default": "image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Gallery image",
+          "info": "Upload or select an image for this slide"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Shopify hosted video"
+        },
+        {
+          "type": "video_url",
+          "id": "video_url",
+          "label": "External video URL",
+          "accept": ["youtube", "vimeo"],
+          "info": "Paste a YouTube or Vimeo URL"
+        },
+        {
+          "type": "text",
+          "id": "alt_text",
+          "label": "Image alt text",
+          "default": "Product image"
+        },
+        {
+          "type": "checkbox",
+          "id": "video_autoplay",
+          "label": "Autoplay video",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "video_muted",
+          "label": "Mute video",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "video_loop",
+          "label": "Loop video",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Media",
+      "blocks": [
+        {
+          "type": "media_item",
+          "settings": {
+            "type": "image"
+          }
+        },
+        {
+          "type": "media_item",
+          "settings": {
+            "type": "video"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

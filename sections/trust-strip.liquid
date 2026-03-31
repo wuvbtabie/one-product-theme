@@ -1,0 +1,95 @@
+<section id="TrustStrip-{{ section.id }}" class="trust-strip" style="background-color: {{ section.settings.background_color }};">
+  <div class="trust-strip__inner">
+    <article class="trust-strip__item">
+      <span class="trust-strip__icon">🔒</span>
+      <div>
+        <h3>{{ section.settings.title_1 }}</h3>
+        <p>{{ section.settings.text_1 }}</p>
+      </div>
+    </article>
+    <article class="trust-strip__item">
+      <span class="trust-strip__icon">🚚</span>
+      <div>
+        <h3>{{ section.settings.title_2 }}</h3>
+        <p>{{ section.settings.text_2 }}</p>
+      </div>
+    </article>
+    <article class="trust-strip__item">
+      <span class="trust-strip__icon">💯</span>
+      <div>
+        <h3>{{ section.settings.title_3 }}</h3>
+        <p>{{ section.settings.text_3 }}</p>
+      </div>
+    </article>
+  </div>
+
+  <style>
+    .trust-strip {
+      padding: 34px 16px;
+      border-top: 1px solid #ececec;
+      border-bottom: 1px solid #ececec;
+    }
+
+    .trust-strip__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .trust-strip__item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      padding: 12px 14px;
+    }
+
+    .trust-strip__icon {
+      font-size: 1.2rem;
+      line-height: 1;
+      margin-top: 2px;
+      color: #000;
+    }
+
+    .trust-strip__item h3 {
+      margin: 0 0 2px;
+      font-size: 0.95rem;
+      line-height: 1.3;
+      color: #000;
+    }
+
+    .trust-strip__item p {
+      margin: 0;
+      font-size: 0.84rem;
+      line-height: 1.45;
+      color: #444;
+    }
+
+    @media (max-width: 900px) {
+      .trust-strip__inner {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  {% schema %}
+  {
+    "name": "Trust Strip",
+    "settings": [
+      { "type": "color", "id": "background_color", "label": "Background", "default": "#ffffff" },
+      { "type": "text", "id": "title_1", "label": "Item 1 title", "default": "Secure Checkout" },
+      { "type": "text", "id": "text_1", "label": "Item 1 text", "default": "Encrypted payment and protected checkout." },
+      { "type": "text", "id": "title_2", "label": "Item 2 title", "default": "Fast Shipping" },
+      { "type": "text", "id": "text_2", "label": "Item 2 text", "default": "Quick dispatch with tracking included." },
+      { "type": "text", "id": "title_3", "label": "Item 3 title", "default": "Money-Back Guarantee" },
+      { "type": "text", "id": "text_3", "label": "Item 3 text", "default": "30-day easy returns on all orders." }
+    ],
+    "presets": [
+      { "name": "Trust Strip" }
+    ]
+  }
+  {% endschema %}
+</section>

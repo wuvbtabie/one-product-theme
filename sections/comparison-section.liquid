@@ -1,0 +1,188 @@
+<section id="comparison" class="comparison-section">
+  <div class="comparison-section__inner">
+    <h2 class="comparison-section__heading">{{ section.settings.heading }}</h2>
+
+    <div class="comparison-wrapper">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>{{ section.settings.first_column_label }}</th>
+            <th>{{ section.settings.second_column_label }}</th>
+            <th>{{ section.settings.third_column_label }}</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for block in section.blocks %}
+            <tr>
+              <td>{{ block.settings.feature }}</td>
+              <td>{{ block.settings.our_product }}</td>
+              <td>{{ block.settings.other_products }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<style>
+  .comparison-section {
+    background: #f8f8f8;
+    padding: 70px 16px;
+  }
+
+  .comparison-section__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .comparison-section__heading {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #000;
+    text-align: center;
+    margin-bottom: 22px;
+  }
+
+  .comparison-wrapper {
+    overflow-x: auto;
+    border: 1px solid #e8e8e8;
+    border-radius: 16px;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.05);
+    background: #fff;
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 720px;
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+    text-align: left;
+    padding: 16px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .comparison-table th {
+    font-weight: 700;
+    color: #111;
+    background: #fafafa;
+  }
+
+  .comparison-table tr:nth-child(even) {
+    background: #f9f9f9;
+  }
+
+  @media (max-width: 768px) {
+    .comparison-section {
+      padding: 38px 12px;
+    }
+
+    .comparison-section__heading {
+      font-size: 1.5rem;
+      margin-bottom: 18px;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: 12px;
+      font-size: 0.95rem;
+    }
+
+    .comparison-table {
+      min-width: 100%;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Comparison Table",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Product vs Others"
+    },
+    {
+      "type": "text",
+      "id": "first_column_label",
+      "label": "First column label",
+      "default": "Feature"
+    },
+    {
+      "type": "text",
+      "id": "second_column_label",
+      "label": "Second column label",
+      "default": "Our Product"
+    },
+    {
+      "type": "text",
+      "id": "third_column_label",
+      "label": "Third column label",
+      "default": "Other Products"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "feature",
+          "label": "Feature",
+          "default": "Benefit"
+        },
+        {
+          "type": "text",
+          "id": "our_product",
+          "label": "Our Product",
+          "default": "Yes"
+        },
+        {
+          "type": "text",
+          "id": "other_products",
+          "label": "Other Products",
+          "default": "No"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comparison Table",
+      "blocks": [
+        {
+          "type": "row",
+          "settings": {
+            "feature": "Quality",
+            "our_product": "Premium materials",
+            "other_products": "Standard"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "feature": "Warranty",
+            "our_product": "30-Day Guarantee",
+            "other_products": "Limited"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "feature": "Support",
+            "our_product": "24/7 support",
+            "other_products": "Business hours"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

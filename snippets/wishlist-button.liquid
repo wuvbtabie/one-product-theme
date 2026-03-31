@@ -1,0 +1,33 @@
+{% assign wishlist_title = title | default: product.title %}
+{% assign wishlist_url = url | default: product.url %}
+{% assign wishlist_image_obj = image | default: product.featured_image %}
+{% assign wishlist_price_value = price | default: product.price %}
+{% assign wishlist_handle = handle | default: product.handle %}
+{% assign wishlist_id = product_id | default: product.id %}
+
+{% if wishlist_image_obj != blank %}
+  {% assign wishlist_image = wishlist_image_obj | image_url: width: 480 %}
+{% else %}
+  {% assign wishlist_image = '' %}
+{% endif %}
+
+<button
+  type="button"
+  class="wishlist-toggle{% if class != blank %} {{ class }}{% endif %}"
+  aria-label="Save {{ wishlist_title | escape }} for later"
+  aria-pressed="false"
+  data-wishlist-toggle
+  data-product-id="{{ wishlist_id }}"
+  data-product-handle="{{ wishlist_handle | escape }}"
+  data-product-title="{{ wishlist_title | escape }}"
+  data-product-url="{{ wishlist_url | escape }}"
+  data-product-image="{{ wishlist_image | escape }}"
+  data-product-price="{{ wishlist_price_value | default: 0 }}"
+>
+  <span class="wishlist-toggle__icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12.001 21.348l-1.45-1.32C5.4 15.36 2 12.28 2 8.5A4.5 4.5 0 016.5 4c1.74 0 3.41.81 4.5 2.09A6.02 6.02 0 0115.5 4 4.5 4.5 0 0120 8.5c0 3.78-3.4 6.86-8.55 11.54l-1.449 1.308z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+  <span class="wishlist-toggle__label">Save</span>
+</button>
