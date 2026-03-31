@@ -78,7 +78,7 @@
           {% else %}
             <ul>
               {% for item in cart.items %}
-                <li class="header__cart-item">
+                <li class="header__cart-item" data-line="{{ forloop.index }}" data-unit-price="{{ item.price }}">
                   <div class="header__cart-item-image">
                     <img src="{{ item.image | image_url: width: 100 }}" alt="{{ item.product.title }}" />
                   </div>
@@ -87,7 +87,12 @@
                     {% if item.variant.title != 'Default Title' %}
                       <span class="header__cart-item-variant">{{ item.variant.title }}</span>
                     {% endif %}
-                    <span class="header__cart-item-price">{{ item.quantity }} × ${{ item.price | money_without_currency }}</span>
+                    <span class="header__cart-item-price">$<span class="header__cart-item-line-price">{{ item.line_price | money_without_currency }}</span></span>
+                    <div class="header__cart-item-qty">
+                      <button type="button" class="header__cart-qty-btn header__cart-qty-minus" aria-label="Decrease quantity">−</button>
+                      <span class="header__cart-qty-display">{{ item.quantity }}</span>
+                      <button type="button" class="header__cart-qty-btn header__cart-qty-plus" aria-label="Increase quantity">+</button>
+                    </div>
                   </div>
                 </li>
               {% endfor %}
@@ -95,7 +100,7 @@
           {% endif %}
         </div>
         <div class="header__cart-drawer-footer">
-          <p class="header__cart-total">Subtotal: <strong>${{ cart.total_price | money_without_currency }}</strong></p>
+          <p class="header__cart-total">Subtotal: <strong class="header__cart-total-amount">${{ cart.total_price | money_without_currency }}</strong></p>
           <div class="header__cart-drawer-actions">
             <a href="{{ routes.cart_url }}" class="header__cart-view-cart">View Cart</a>
             <a href="/checkout" class="header__cart-checkout">Checkout</a>
@@ -241,6 +246,48 @@
     font-size: 0.88rem;
     color: #333;
     margin-top: 4px;
+  }
+
+  .header__cart-item-qty {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .header__cart-qty-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: 1.5px solid #ccc;
+    background: #fff;
+    color: #111;
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .header__cart-qty-btn:hover {
+    border-color: #111;
+    background: #f4f4f4;
+  }
+
+  .header__cart-qty-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .header__cart-qty-display {
+    min-width: 24px;
+    text-align: center;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #111;
   }
 
   .header__cart-total {
@@ -665,6 +712,56 @@
         cartDrawer.classList.remove('open');
         cartDrawer.setAttribute('aria-hidden', 'true');
         if (cartToggle) cartToggle.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    // Cart quantity controls
+    var cartDrawerPanel = document.querySelector('.header__cart-drawer-panel');
+    if (cartDrawerPanel) {
+      cartDrawerPanel.addEventListener('click', function (event) {
+        var btn = event.target.closest('.header__cart-qty-btn');
+        if (!btn) return;
+        var itemEl = btn.closest('[data-line]');
+        if (!itemEl) return;
+        var line = parseInt(itemEl.getAttribute('data-line'), 10);
+        var qtyDisplay = itemEl.querySelector('.header__cart-qty-display');
+        var currentQty = parseInt(qtyDisplay.textContent, 10);
+        var delta = btn.classList.contains('header__cart-qty-plus') ? 1 : -1;
+        var newQty = Math.max(0, currentQty + delta);
+        btn.disabled = true;
+        fetch('/cart/change.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ line: line, quantity: newQty })
+        })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          btn.disabled = false;
+          var totalEl = document.querySelector('.header__cart-total-amount');
+          if (totalEl) totalEl.textContent = '$' + (data.total_price / 100).toFixed(2);
+          var countEl = document.querySelector('.header__cart-count');
+          if (countEl) countEl.textContent = data.item_count;
+          if (newQty === 0) {
+            itemEl.remove();
+            document.querySelectorAll('.header__cart-drawer-items [data-line]').forEach(function (el, idx) {
+              el.setAttribute('data-line', idx + 1);
+            });
+            if (data.item_count === 0) {
+              var container = document.querySelector('.header__cart-drawer-items');
+              if (container) container.innerHTML = '<p class="header__cart-empty">Your cart is empty.</p>';
+            }
+          } else {
+            qtyDisplay.textContent = newQty;
+            var linePriceEl = itemEl.querySelector('.header__cart-item-line-price');
+            if (linePriceEl && data.items[line - 1]) {
+              linePriceEl.textContent = (data.items[line - 1].line_price / 100).toFixed(2);
+            }
+          }
+        })
+        .catch(function () {
+          btn.disabled = false;
+          qtyDisplay.textContent = currentQty;
+        });
       });
     }
   });
