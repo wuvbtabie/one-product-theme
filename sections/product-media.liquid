@@ -7,6 +7,12 @@
   {% assign pm_cols = "three" %}
 {% endif %}
 
+{% capture watch_360_frames %}
+  {% for i in (1..24) %}
+    {{ 'watch' | append: i | append: '.jpg' | asset_url }}{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+{% endcapture %}
+
 <section class="product-media" id="product-media">
   {% if section.settings.heading != blank %}
     <div class="product-media__header">
@@ -67,7 +73,14 @@
       </div>
     {% endif %}
   </div>
+
+  <div class="watch-360" data-watch-frames="{{ watch_360_frames | strip | escape }}">
+    <img id="watch360" src="{{ 'watch1.jpg' | asset_url }}" alt="360 view of the watch" loading="lazy" draggable="false">
+    <p class="watch-360__hint">Drag to rotate</p>
+  </div>
 </section>
+
+<script src="{{ 'watch-360-viewer.js' | asset_url }}" defer></script>
 
 <style>
   .product-media {
@@ -183,6 +196,34 @@
     .product-media__grid--one .product-media__item {
       aspect-ratio: 16 / 9;
     }
+  }
+
+  .watch-360 {
+    max-width: 980px;
+    margin: 22px auto 0;
+    padding: 0 20px;
+    user-select: none;
+    touch-action: pan-y;
+  }
+
+  .watch-360 img {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #f6f6f6;
+    border: 1px solid #ececec;
+    cursor: grab;
+  }
+
+  .watch-360.is-dragging img {
+    cursor: grabbing;
+  }
+
+  .watch-360__hint {
+    margin: 10px 0 0;
+    font-size: 0.85rem;
+    text-align: center;
+    color: #666;
   }
 </style>
 
