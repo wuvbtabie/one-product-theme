@@ -46,11 +46,72 @@
         "rating_text": "Rated 4.9/5 by verified buyers",
         "button_text": "Get Yours Today",
         "button_link": "/products/t-shirt",
-        "image": "",
+        "image": "shopify://shop_images/stacked-bracelets.jpg",
+        "enable_video": false,
+        "video_url": "",
+        "mute_video": true,
+        "loop_video": true,
         "show_hero_trust_badges": true,
         "text_position": "center",
         "overlay_opacity": 0.5,
         "image_height": "large"
+      }
+    },
+    "product_showcase": {
+      "type": "product-showcase",
+      "settings": {
+        "product": "",
+        "custom_image": "shopify://shop_images/modern-jewelry-and-accessories-on-display.jpg",
+        "heading": "Performance Essential Tee",
+        "badge_text": "Limited Offer",
+        "custom_description": "",
+        "button_text": "Add To Cart",
+        "button_link": "/products/t-shirt",
+        "image_position": "left",
+        "background_color": "#f8f8f8"
+      }
+    },
+    "product_benefits": {
+      "type": "product-benefits",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "title": "Premium Build",
+            "description": "Designed with durable materials for daily performance."
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "title": "Comfort Fit",
+            "description": "Lightweight feel with a clean silhouette that moves with you."
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "title": "Fast Fulfillment",
+            "description": "Orders are processed quickly with real-time tracking."
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "title": "Risk-Free Trial",
+            "description": "Backed by a 30-day satisfaction guarantee."
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4"
+      ],
+      "settings": {
+        "heading": "Why This Product Works",
+        "background_color": "#ffffff"
       }
     },
     "product_media": {
@@ -60,21 +121,9 @@
           "type": "media_item",
           "settings": {
             "type": "image",
-            "image": "",
+            "image": "shopify://shop_images/classic-quartz-wrist-watch.jpg",
             "video_url": "",
             "alt_text": "Product image",
-            "video_autoplay": true,
-            "video_muted": true,
-            "video_loop": true
-          }
-        },
-        "media_item_2": {
-          "type": "media_item",
-          "settings": {
-            "type": "video",
-            "image": "",
-            "video_url": "https://www.youtube.com/watch?v=jNQXAC9IVRw",
-            "alt_text": "Product demo video",
             "video_autoplay": true,
             "video_muted": true,
             "video_loop": true
@@ -82,25 +131,13 @@
         }
       },
       "block_order": [
-        "media_item_1",
-        "media_item_2"
+        "media_item_1"
       ],
       "settings": {
         "heading": "See The Product In Action",
         "autoplay_video": true,
         "muted_video": true,
         "loop_video": true
-      }
-    },
-    "product_showcase": {
-      "type": "product-showcase",
-      "settings": {
-        "heading": "Performance Essential Tee",
-        "badge_text": "Limited Offer",
-        "button_text": "Add To Cart",
-        "button_link": "/products/t-shirt",
-        "image_position": "left",
-        "background_color": "#f8f8f8"
       }
     },
     "trust_strip": {
@@ -156,49 +193,6 @@
         "background_color": "#f5f6f2"
       }
     },
-    "product_benefits": {
-      "type": "product-benefits",
-      "blocks": {
-        "benefit_1": {
-          "type": "benefit",
-          "settings": {
-            "title": "Premium Build",
-            "description": "Designed with durable materials for daily performance."
-          }
-        },
-        "benefit_2": {
-          "type": "benefit",
-          "settings": {
-            "title": "Comfort Fit",
-            "description": "Lightweight feel with a clean silhouette that moves with you."
-          }
-        },
-        "benefit_3": {
-          "type": "benefit",
-          "settings": {
-            "title": "Fast Fulfillment",
-            "description": "Orders are processed quickly with real-time tracking."
-          }
-        },
-        "benefit_4": {
-          "type": "benefit",
-          "settings": {
-            "title": "Risk-Free Trial",
-            "description": "Backed by a 30-day satisfaction guarantee."
-          }
-        }
-      },
-      "block_order": [
-        "benefit_1",
-        "benefit_2",
-        "benefit_3",
-        "benefit_4"
-      ],
-      "settings": {
-        "heading": "Why This Product Works",
-        "background_color": "#ffffff"
-      }
-    },
     "why_choose": {
       "type": "why-choose",
       "blocks": {
@@ -246,8 +240,7 @@
           "settings": {
             "rating": 5,
             "review_text": "Outstanding quality and exceptional customer service.",
-            "review_author": "Sarah Johnson",
-            "customer_image": ""
+            "review_author": "Sarah Johnson"
           }
         },
         "review_2": {
@@ -255,8 +248,7 @@
           "settings": {
             "rating": 5,
             "review_text": "Best purchase I've made. Excellent customer service!",
-            "review_author": "Michael Chen",
-            "customer_image": ""
+            "review_author": "Michael Chen"
           }
         },
         "review_3": {
@@ -264,8 +256,7 @@
           "settings": {
             "rating": 5,
             "review_text": "Great product with amazing quality and easy setup.",
-            "review_author": "Emma Williams",
-            "customer_image": ""
+            "review_author": "Emma Williams"
           }
         }
       },
@@ -319,6 +310,10 @@
     "final_call_to_action": {
       "type": "cta-final",
       "settings": {
+        "show_summary_tags": true,
+        "summary_tag_1": "Free shipping",
+        "summary_tag_2": "30-day returns",
+        "summary_tag_3": "Secure checkout",
         "heading": "Ready To Upgrade Your Everyday Essential?",
         "subheading": "Join customers choosing premium quality, secure checkout, and fast delivery.",
         "button_text": "Shop Now",
