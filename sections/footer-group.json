@@ -14,8 +14,8 @@
     "footer": {
       "type": "footer",
       "settings": {
-        "store_name": "Premium Brand",
-        "store_description": "Built for quality-first shoppers who value performance, simplicity, and dependable support.",
+        "store_name": "Premium Watches",
+        "store_description": "Timeless design meets modern precision. Crafted for those who appreciate elegance in every detail.",
         "col2_heading": "Quick links",
         "link1_text": "Home",
         "link1_url": "/",
@@ -40,7 +40,7 @@
         "policy_shipping_url": "/policies/shipping-policy",
         "policy_returns_text": "Returns",
         "policy_returns_url": "/policies/refund-policy",
-        "copyright_text": "© 2026 Premium Brand. All rights reserved.",
+        "copyright_text": "© 2026 Premium Watches. All rights reserved.",
         "background_color": "#ffffff",
         "text_color": "#111111",
         "divider_color": "#e6e6e6"

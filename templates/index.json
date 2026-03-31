@@ -15,7 +15,7 @@
         "benefit_1": {
           "type": "benefit",
           "settings": {
-            "benefit_text": "Free Shipping"
+            "benefit_text": "Free Worldwide Shipping"
           }
         },
         "benefit_2": {
@@ -27,7 +27,7 @@
         "benefit_3": {
           "type": "benefit",
           "settings": {
-            "benefit_text": "30-Day Guarantee"
+            "benefit_text": "30-Day Money-Back Guarantee"
           }
         }
       },
@@ -37,81 +37,20 @@
         "benefit_3"
       ],
       "settings": {
-        "heading": "Engineered To Perform. Built To Last.",
-        "subtext": "A premium one-product experience designed for daily use, faster results, and confident checkout.",
+        "heading": "Timeless Design. Modern Precision.",
+        "subtext": "A premium everyday watch designed for elegance, durability, and comfort.",
         "show_badge": true,
         "badge_text": "Best Seller",
         "show_rating": true,
         "rating_value": 5,
-        "rating_text": "Rated 4.9/5 by verified buyers",
-        "button_text": "Get Yours Today",
+        "rating_text": "Trusted by 1,000+ customers",
+        "button_text": "Shop the Watch",
         "button_link": "/products/t-shirt",
-        "image": "shopify://shop_images/stacked-bracelets.jpg",
-        "enable_video": false,
-        "video_url": "",
-        "mute_video": true,
-        "loop_video": true,
+        "image": "",
         "show_hero_trust_badges": true,
         "text_position": "center",
         "overlay_opacity": 0.5,
         "image_height": "large"
-      }
-    },
-    "product_showcase": {
-      "type": "product-showcase",
-      "settings": {
-        "product": "",
-        "custom_image": "shopify://shop_images/modern-jewelry-and-accessories-on-display.jpg",
-        "heading": "Performance Essential Tee",
-        "badge_text": "Limited Offer",
-        "custom_description": "",
-        "button_text": "Add To Cart",
-        "button_link": "/products/t-shirt",
-        "image_position": "left",
-        "background_color": "#f8f8f8"
-      }
-    },
-    "product_benefits": {
-      "type": "product-benefits",
-      "blocks": {
-        "benefit_1": {
-          "type": "benefit",
-          "settings": {
-            "title": "Premium Build",
-            "description": "Designed with durable materials for daily performance."
-          }
-        },
-        "benefit_2": {
-          "type": "benefit",
-          "settings": {
-            "title": "Comfort Fit",
-            "description": "Lightweight feel with a clean silhouette that moves with you."
-          }
-        },
-        "benefit_3": {
-          "type": "benefit",
-          "settings": {
-            "title": "Fast Fulfillment",
-            "description": "Orders are processed quickly with real-time tracking."
-          }
-        },
-        "benefit_4": {
-          "type": "benefit",
-          "settings": {
-            "title": "Risk-Free Trial",
-            "description": "Backed by a 30-day satisfaction guarantee."
-          }
-        }
-      },
-      "block_order": [
-        "benefit_1",
-        "benefit_2",
-        "benefit_3",
-        "benefit_4"
-      ],
-      "settings": {
-        "heading": "Why This Product Works",
-        "background_color": "#ffffff"
       }
     },
     "product_media": {
@@ -121,9 +60,21 @@
           "type": "media_item",
           "settings": {
             "type": "image",
-            "image": "shopify://shop_images/classic-quartz-wrist-watch.jpg",
+            "image": "",
             "video_url": "",
             "alt_text": "Product image",
+            "video_autoplay": true,
+            "video_muted": true,
+            "video_loop": true
+          }
+        },
+        "media_item_2": {
+          "type": "media_item",
+          "settings": {
+            "type": "video",
+            "image": "",
+            "video_url": "https://www.youtube.com/watch?v=jNQXAC9IVRw",
+            "alt_text": "Product demo video",
             "video_autoplay": true,
             "video_muted": true,
             "video_loop": true
@@ -131,13 +82,26 @@
         }
       },
       "block_order": [
-        "media_item_1"
+        "media_item_1",
+        "media_item_2"
       ],
       "settings": {
         "heading": "See The Product In Action",
         "autoplay_video": true,
         "muted_video": true,
         "loop_video": true
+      }
+    },
+    "product_showcase": {
+      "type": "product-showcase",
+      "settings": {
+        "heading": "Premium Minimalist Watch",
+        "badge_text": "Limited Offer",
+        "custom_description": "<p>A sleek and elegant timepiece crafted for everyday style. Built with premium materials and designed to complement any outfit.</p>",
+        "button_text": "Add To Cart",
+        "button_link": "/products/t-shirt",
+        "image_position": "left",
+        "background_color": "#f8f8f8"
       }
     },
     "trust_strip": {
@@ -159,7 +123,7 @@
           "type": "badge",
           "settings": {
             "icon": "✓",
-            "title": "Free Shipping",
+            "title": "Free Worldwide Shipping",
             "text": "No hidden delivery fees",
             "badge_background_color": "#eceee7"
           }
@@ -168,8 +132,8 @@
           "type": "badge",
           "settings": {
             "icon": "✓",
-            "title": "Secure Checkout",
-            "text": "Encrypted and trusted payments",
+            "title": "30-Day Money-Back Guarantee",
+            "text": "Risk-free purchase, no questions asked",
             "badge_background_color": "#e6e8df"
           }
         },
@@ -177,20 +141,73 @@
           "type": "badge",
           "settings": {
             "icon": "✓",
-            "title": "Fast Support",
-            "text": "Helpful support when you need it",
+            "title": "Secure Checkout",
+            "text": "Encrypted and trusted payments",
             "badge_background_color": "#eceee7"
+          }
+        },
+        "badge_4": {
+          "type": "badge",
+          "settings": {
+            "icon": "✓",
+            "title": "1-Year Warranty",
+            "text": "Covered for a full year after purchase",
+            "badge_background_color": "#e6e8df"
           }
         }
       },
       "block_order": [
         "badge_1",
         "badge_2",
-        "badge_3"
+        "badge_3",
+        "badge_4"
       ],
       "settings": {
         "heading": "Everything You Need To Buy With Confidence",
         "background_color": "#f5f6f2"
+      }
+    },
+    "product_benefits": {
+      "type": "product-benefits",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "title": "Premium Stainless Steel Case",
+            "description": "Built with high-grade stainless steel for lasting durability and a refined finish."
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "title": "Scratch-Resistant Glass",
+            "description": "Mineral crystal glass keeps the dial protected and clear under daily wear."
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "title": "Comfortable Mesh Strap",
+            "description": "Lightweight and breathable mesh strap that adjusts to a perfect fit."
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "title": "Minimalist Luxury Design",
+            "description": "Clean, timeless aesthetics that pair effortlessly with any outfit or occasion."
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4"
+      ],
+      "settings": {
+        "heading": "Why This Watch Works",
+        "background_color": "#ffffff"
       }
     },
     "why_choose": {
@@ -200,35 +217,44 @@
           "type": "feature",
           "settings": {
             "icon": "01",
-            "title": "Fast Dispatch",
-            "description": "Orders typically ship in 24-48 hours with tracking updates."
+            "title": "Precision Quartz Movement",
+            "description": "Accurate and reliable timekeeping powered by a precision quartz movement."
           }
         },
         "feature_2": {
           "type": "feature",
           "settings": {
             "icon": "02",
-            "title": "Quality Checked",
-            "description": "Every item is verified before shipping for consistency."
+            "title": "Elegant Minimalist Design",
+            "description": "A clean dial and refined case that elevate any look without effort."
           }
         },
         "feature_3": {
           "type": "feature",
           "settings": {
             "icon": "03",
-            "title": "Support That Responds",
-            "description": "Friendly support team available for setup and post-purchase help."
+            "title": "Lightweight Everyday Comfort",
+            "description": "Designed to be worn all day without discomfort — light enough you forget it's there."
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "04",
+            "title": "Designed for Modern Style",
+            "description": "From desk to dinner, this watch fits every occasion with understated elegance."
           }
         }
       },
       "block_order": [
         "feature_1",
         "feature_2",
-        "feature_3"
+        "feature_3",
+        "feature_4"
       ],
       "settings": {
-        "heading": "Built For A Better One-Product Experience",
-        "subheading": "From first click to final delivery, every detail is optimized for trust and conversion.",
+        "heading": "Why Choose Our Watch",
+        "subheading": "Every detail of this watch is crafted for elegance, precision, and everyday wearability.",
         "background_color": "#f8f8f8"
       }
     },
@@ -240,7 +266,8 @@
           "settings": {
             "rating": 5,
             "review_text": "Outstanding quality and exceptional customer service.",
-            "review_author": "Sarah Johnson"
+            "review_author": "Sarah Johnson",
+            "customer_image": ""
           }
         },
         "review_2": {
@@ -248,7 +275,8 @@
           "settings": {
             "rating": 5,
             "review_text": "Best purchase I've made. Excellent customer service!",
-            "review_author": "Michael Chen"
+            "review_author": "Michael Chen",
+            "customer_image": ""
           }
         },
         "review_3": {
@@ -256,7 +284,8 @@
           "settings": {
             "rating": 5,
             "review_text": "Great product with amazing quality and easy setup.",
-            "review_author": "Emma Williams"
+            "review_author": "Emma Williams",
+            "customer_image": ""
           }
         }
       },
@@ -279,21 +308,21 @@
           "type": "faq_item",
           "settings": {
             "question": "How long does shipping take?",
-            "answer": "Standard shipping takes 5-7 business days. Express options arrive in 2-3 business days."
+            "answer": "Shipping usually takes 5–10 business days depending on your location."
           }
         },
         "faq_item_2": {
           "type": "faq_item",
           "settings": {
-            "question": "Do you offer returns?",
-            "answer": "Yes. You are covered by a 30-day money-back guarantee for a risk-free purchase."
+            "question": "Is the watch waterproof?",
+            "answer": "Yes, the watch is water-resistant for everyday use such as hand washing and rain."
           }
         },
         "faq_item_3": {
           "type": "faq_item",
           "settings": {
-            "question": "Is checkout secure?",
-            "answer": "Yes. All payments are encrypted and processed via secure, PCI-compliant providers."
+            "question": "What if I don’t like the watch?",
+            "answer": "We offer a 30-day money-back guarantee. No questions asked."
           }
         }
       },
@@ -310,13 +339,9 @@
     "final_call_to_action": {
       "type": "cta-final",
       "settings": {
-        "show_summary_tags": true,
-        "summary_tag_1": "Free shipping",
-        "summary_tag_2": "30-day returns",
-        "summary_tag_3": "Secure checkout",
-        "heading": "Ready To Upgrade Your Everyday Essential?",
-        "subheading": "Join customers choosing premium quality, secure checkout, and fast delivery.",
-        "button_text": "Shop Now",
+        "heading": "Upgrade Your Style Today",
+        "subheading": "Experience the perfect balance of elegance and simplicity.",
+        "button_text": "Add to Cart",
         "button_link": "/products/t-shirt",
         "background_color": "#ffffff",
         "text_alignment": "center"
