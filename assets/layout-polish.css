@@ -389,13 +389,28 @@
 
 .header__cart-item-image img,
 .cart-item__image img,
-.cart__image img,
-.product-media img {
+.cart__image img {
   max-width: 250px;
   width: 100%;
   height: auto;
   object-fit: contain;
   display: block;
+}
+
+/* 360 viewer — must not be capped */
+.viewer-container,
+.watch-360 {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.viewer-container img,
+.watch-360 img,
+#watch360 {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  display: block !important;
 }
 
 .product-media__item {
@@ -612,4 +627,103 @@
     transition: none !important;
     transform: none !important;
   }
+}
+
+/* === Premium full-width search overlay === */
+.header__search-dropdown {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  border-radius: 0 !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
+  border-bottom: 1px solid #e0e0e0 !important;
+  padding: 18px 24px !important;
+  background: rgba(255, 255, 255, 0.97) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1) !important;
+  z-index: 400 !important;
+}
+
+.header__search-dropdown.open {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.header__search-form {
+  max-width: 580px !important;
+  width: 100% !important;
+  padding: 0 !important;
+  gap: 10px !important;
+}
+
+.header__search-form input {
+  font-size: 1.05rem !important;
+  padding: 13px 16px !important;
+  border-radius: 10px !important;
+  border-color: #bbb !important;
+}
+
+.header__search-submit {
+  padding: 0 20px !important;
+  border-radius: 10px !important;
+  min-height: 48px;
+  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+}
+
+/* === Darker, bolder heart icon === */
+.shopify-section .product-favorite-button {
+  border: 1.5px solid rgba(0, 0, 0, 0.22) !important;
+}
+
+.shopify-section .product-favorite-button .wishlist-toggle__icon svg {
+  stroke: #111 !important;
+  stroke-width: 2.2 !important;
+}
+
+.shopify-section .product-favorite-button.is-active {
+  background: #111 !important;
+}
+
+.shopify-section .product-favorite-button.is-active .wishlist-toggle__icon svg {
+  stroke: #fff !important;
+  fill: #fff !important;
+}
+
+/* === Product variant selector === */
+.product-showcase__variants {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.product-showcase__variant-btn {
+  padding: 8px 18px;
+  border: 1.5px solid #d0d0d0;
+  border-radius: 6px;
+  background: #fff;
+  color: #333;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
+}
+
+.product-showcase__variant-btn.is-selected {
+  border-color: #111;
+  background: #111;
+  color: #fff;
+}
+
+.product-showcase__variant-btn[aria-disabled="true"] {
+  opacity: 0.4;
+  cursor: not-allowed;
+  text-decoration: line-through;
 }
