@@ -1,48 +1,96 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero_product": {
       "type": "hero-product",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "benefit_text": "Free Shipping"
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "benefit_text": "Secure Checkout"
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "benefit_text": "30-Day Guarantee"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3"
+      ],
       "settings": {
-        "image_height": "large",
         "heading": "Engineered To Perform. Built To Last.",
         "subtext": "A premium one-product experience designed for daily use, faster results, and confident checkout.",
-        "button_text": "Get Yours Today",
-        "button_link": "/products/t-shirt",
-        "image": "",
-        "enable_overlay": true,
-        "overlay_heading": "One Product. Zero Compromise.",
-        "overlay_subheading": "Purpose-built quality with premium support, fast shipping, and secure checkout.",
-        "overlay_button_text": "See It In Action",
-        "overlay_button_link": "#product-media",
-        "text_position": "center",
-        "overlay_opacity": 0.5,
         "show_badge": true,
         "badge_text": "Best Seller",
         "show_rating": true,
         "rating_value": 5,
         "rating_text": "Rated 4.9/5 by verified buyers",
-        "show_hero_trust_badges": true
-      },
-      "blocks": {
-        "benefit_1": {"type": "benefit", "settings": {"benefit_text": "Free Shipping"}},
-        "benefit_2": {"type": "benefit", "settings": {"benefit_text": "Secure Checkout"}},
-        "benefit_3": {"type": "benefit", "settings": {"benefit_text": "30-Day Guarantee"}}
-      },
-      "block_order": ["benefit_1", "benefit_2", "benefit_3"]
+        "button_text": "Get Yours Today",
+        "button_link": "/products/t-shirt",
+        "image": "",
+        "show_hero_trust_badges": true,
+        "text_position": "center",
+        "overlay_opacity": 0.5,
+        "image_height": "large"
+      }
     },
     "product_media": {
       "type": "product-media",
+      "blocks": {
+        "media_item_1": {
+          "type": "media_item",
+          "settings": {
+            "type": "image",
+            "image": "",
+            "video_url": "",
+            "alt_text": "Product image",
+            "video_autoplay": true,
+            "video_muted": true,
+            "video_loop": true
+          }
+        },
+        "media_item_2": {
+          "type": "media_item",
+          "settings": {
+            "type": "video",
+            "image": "",
+            "video_url": "https://www.youtube.com/watch?v=jNQXAC9IVRw",
+            "alt_text": "Product demo video",
+            "video_autoplay": true,
+            "video_muted": true,
+            "video_loop": true
+          }
+        }
+      },
+      "block_order": [
+        "media_item_1",
+        "media_item_2"
+      ],
       "settings": {
         "heading": "See The Product In Action",
         "autoplay_video": true,
         "muted_video": true,
         "loop_video": true
-      },
-      "blocks": {
-        "media_item_1": {"type": "media_item", "settings": {"type": "image", "image": "", "alt_text": "Product image", "video": "", "video_url": "", "video_autoplay": true, "video_muted": true, "video_loop": true}},
-        "media_item_2": {"type": "media_item", "settings": {"type": "video", "image": "", "alt_text": "Product demo video", "video": "", "video_url": "https://www.youtube.com/watch?v=jNQXAC9IVRw", "video_autoplay": true, "video_muted": true, "video_loop": true}}
-      },
-      "block_order": ["media_item_1", "media_item_2"]
+      }
     },
     "product_showcase": {
       "type": "product-showcase",
@@ -69,72 +117,204 @@
     },
     "trust_badges": {
       "type": "trust-badges",
+      "blocks": {
+        "badge_1": {
+          "type": "badge",
+          "settings": {
+            "icon": "✓",
+            "title": "Free Shipping",
+            "text": "No hidden delivery fees",
+            "badge_background_color": "#eceee7"
+          }
+        },
+        "badge_2": {
+          "type": "badge",
+          "settings": {
+            "icon": "✓",
+            "title": "Secure Checkout",
+            "text": "Encrypted and trusted payments",
+            "badge_background_color": "#e6e8df"
+          }
+        },
+        "badge_3": {
+          "type": "badge",
+          "settings": {
+            "icon": "✓",
+            "title": "Fast Support",
+            "text": "Helpful support when you need it",
+            "badge_background_color": "#eceee7"
+          }
+        }
+      },
+      "block_order": [
+        "badge_1",
+        "badge_2",
+        "badge_3"
+      ],
       "settings": {
         "heading": "Everything You Need To Buy With Confidence",
         "background_color": "#f5f6f2"
-      },
-      "blocks": {
-        "badge_1": {"type": "badge", "settings": {"icon": "\u2713","title": "Free Shipping","text": "No hidden delivery fees","badge_background_color": "#eceee7"}},
-        "badge_2": {"type": "badge", "settings": {"icon": "\u2713","title": "Secure Checkout","text": "Encrypted and trusted payments","badge_background_color": "#e6e8df"}},
-        "badge_3": {"type": "badge", "settings": {"icon": "\u2713","title": "Fast Support","text": "Helpful support when you need it","badge_background_color": "#eceee7"}}
-      },
-      "block_order": ["badge_1", "badge_2", "badge_3"]
+      }
     },
     "product_benefits": {
       "type": "product-benefits",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "title": "Premium Build",
+            "description": "Designed with durable materials for daily performance."
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "title": "Comfort Fit",
+            "description": "Lightweight feel with a clean silhouette that moves with you."
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "title": "Fast Fulfillment",
+            "description": "Orders are processed quickly with real-time tracking."
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "title": "Risk-Free Trial",
+            "description": "Backed by a 30-day satisfaction guarantee."
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4"
+      ],
       "settings": {
         "heading": "Why This Product Works",
         "background_color": "#ffffff"
-      },
-      "blocks": {
-        "benefit_1": {"type": "benefit", "settings": {"title": "Premium Build","description": "Designed with durable materials for daily performance."}},
-        "benefit_2": {"type": "benefit", "settings": {"title": "Comfort Fit","description": "Lightweight feel with a clean silhouette that moves with you."}},
-        "benefit_3": {"type": "benefit", "settings": {"title": "Fast Fulfillment","description": "Orders are processed quickly with real-time tracking."}},
-        "benefit_4": {"type": "benefit", "settings": {"title": "Risk-Free Trial","description": "Backed by a 30-day satisfaction guarantee."}}
-      },
-      "block_order": ["benefit_1", "benefit_2", "benefit_3", "benefit_4"]
+      }
     },
     "why_choose": {
       "type": "why-choose",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "01",
+            "title": "Fast Dispatch",
+            "description": "Orders typically ship in 24-48 hours with tracking updates."
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "02",
+            "title": "Quality Checked",
+            "description": "Every item is verified before shipping for consistency."
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "03",
+            "title": "Support That Responds",
+            "description": "Friendly support team available for setup and post-purchase help."
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3"
+      ],
       "settings": {
         "heading": "Built For A Better One-Product Experience",
         "subheading": "From first click to final delivery, every detail is optimized for trust and conversion.",
         "background_color": "#f8f8f8"
-      },
-      "blocks": {
-        "feature_1": {"type": "feature", "settings": {"icon": "01", "title": "Fast Dispatch", "description": "Orders typically ship in 24-48 hours with tracking updates."}},
-        "feature_2": {"type": "feature", "settings": {"icon": "02", "title": "Quality Checked", "description": "Every item is verified before shipping for consistency."}},
-        "feature_3": {"type": "feature", "settings": {"icon": "03", "title": "Support That Responds", "description": "Friendly support team available for setup and post-purchase help."}}
-      },
-      "block_order": ["feature_1", "feature_2", "feature_3"]
+      }
     },
     "reviews_section": {
       "type": "reviews-section",
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "review_text": "Outstanding quality and exceptional customer service.",
+            "review_author": "Sarah Johnson",
+            "customer_image": ""
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "review_text": "Best purchase I've made. Excellent customer service!",
+            "review_author": "Michael Chen",
+            "customer_image": ""
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "review_text": "Great product with amazing quality and easy setup.",
+            "review_author": "Emma Williams",
+            "customer_image": ""
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ],
       "settings": {
         "heading": "Loved By Real Customers",
         "proof_label": "Verified buyer feedback",
         "subtext": "Consistent results and five-star satisfaction",
         "background_color": "#ffffff"
-      },
-      "blocks": {
-        "review_1": {"type": "review","settings": {"rating": 5, "review_text": "Outstanding quality and exceptional customer service.", "review_author": "Sarah Johnson", "customer_image": ""}},
-        "review_2": {"type": "review","settings": {"rating": 5, "review_text": "Best purchase I've made. Excellent customer service!", "review_author": "Michael Chen", "customer_image": ""}},
-        "review_3": {"type": "review","settings": {"rating": 5, "review_text": "Great product with amazing quality and easy setup.", "review_author": "Emma Williams", "customer_image": ""}}
-      },
-      "block_order": ["review_1", "review_2", "review_3"]
+      }
     },
     "faq_section": {
       "type": "faq-section",
+      "blocks": {
+        "faq_item_1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does shipping take?",
+            "answer": "Standard shipping takes 5-7 business days. Express options arrive in 2-3 business days."
+          }
+        },
+        "faq_item_2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you offer returns?",
+            "answer": "Yes. You are covered by a 30-day money-back guarantee for a risk-free purchase."
+          }
+        },
+        "faq_item_3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is checkout secure?",
+            "answer": "Yes. All payments are encrypted and processed via secure, PCI-compliant providers."
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_1",
+        "faq_item_2",
+        "faq_item_3"
+      ],
       "settings": {
         "heading": "Frequently Asked Questions",
         "background_color": "#ffffff"
-      },
-      "blocks": {
-        "faq_item_1": {"type": "faq_item","settings": {"question": "How long does shipping take?", "answer": "Standard shipping takes 5-7 business days. Express options arrive in 2-3 business days."}},
-        "faq_item_2": {"type": "faq_item","settings": {"question": "Do you offer returns?", "answer": "Yes. You are covered by a 30-day money-back guarantee for a risk-free purchase."}},
-        "faq_item_3": {"type": "faq_item","settings": {"question": "Is checkout secure?", "answer": "Yes. All payments are encrypted and processed via secure, PCI-compliant providers."}}
-      },
-      "block_order": ["faq_item_1", "faq_item_2", "faq_item_3"]
+      }
     },
     "final_call_to_action": {
       "type": "cta-final",
