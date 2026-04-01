@@ -18,6 +18,10 @@
     assign showcase_product = collections.all.products.first
   endif
 
+  if showcase_product == blank
+    assign showcase_product = all_products['mimi-watch']
+  endif
+
   assign display_variant = nil
   assign product_image = blank
   assign current_variant = nil

@@ -23,6 +23,13 @@
     assign hero_variant = hero_product.selected_or_first_available_variant
   endif
 
+  if hero_product == blank
+    assign hero_product = all_products['mimi-watch']
+    if hero_product != blank
+      assign hero_variant = hero_product.selected_or_first_available_variant
+    endif
+  endif
+
   if hero_image == blank and hero_product != blank and hero_product.featured_image != blank
     assign hero_image = hero_product.featured_image
   endif
@@ -90,17 +97,6 @@
           <a href="{{ hero_cta_url }}" class="hero-btn">
             {{ section.settings.button_text }}
           </a>
-
-          {% if section.settings.show_hero_trust_badges and section.blocks.size > 0 %}
-            <div class="hero-trust-badges">
-              {% for block in section.blocks %}
-                <div class="hero-trust-badge">
-                  <span class="hero-trust-badge-icon" aria-hidden="true">✓</span>
-                  <span class="hero-trust-badge-text">{{ block.settings.benefit_text }}</span>
-                </div>
-              {% endfor %}
-            </div>
-          {% endif %}
         </div>
       </div>
     </div>

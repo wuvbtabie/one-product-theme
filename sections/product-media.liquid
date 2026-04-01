@@ -8,7 +8,8 @@
 {% endif %}
 
 {% assign media_product = blank %}
-{% if collections.all != blank and collections.all.products_count > 0 %}
+{% assign media_product = all_products['mimi-watch'] %}
+{% if media_product == blank and collections.all != blank and collections.all.products_count > 0 %}
   {% assign media_product = collections.all.products.first %}
 {% endif %}
 
