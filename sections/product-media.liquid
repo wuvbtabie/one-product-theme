@@ -18,10 +18,6 @@
       {% if block.settings.image != blank or block_fallback_image != blank %}
         {% assign pm_count = pm_count | plus: 1 %}
       {% endif %}
-    {% elsif block.settings.type == 'video' %}
-      {% if block.settings.video != blank or block.settings.video_url != blank %}
-        {% assign pm_count = pm_count | plus: 1 %}
-      {% endif %}
     {% endif %}
   {% endfor %}
 {% elsif media_product != blank and media_product.images.size > 0 %}
@@ -68,15 +64,6 @@
                    alt="{{ block.settings.alt_text | escape }}"
                    loading="lazy">
             {% endif %}
-          </div>
-        {% elsif block.settings.type == 'video' and block.settings.video != blank %}
-          <div class="product-media__item product-media__item--video">
-            {{ block.settings.video | video_tag: controls: true, autoplay: block.settings.video_autoplay, muted: block.settings.video_muted, loop: block.settings.video_loop, playsinline: true, image_size: '1400x' }}
-          </div>
-        {% elsif block.settings.type == 'video' and block.settings.video_url != blank %}
-          <div class="product-media__item product-media__item--video">
-            {% assign pm_ext_video = block.settings.video_url | external_video_url: autoplay: block.settings.video_autoplay, loop: block.settings.video_loop %}
-            {{ pm_ext_video | external_video_tag }}
           </div>
         {% elsif block.settings.type != 'video' %}
           <div class="product-media__item product-media__item--placeholder">
