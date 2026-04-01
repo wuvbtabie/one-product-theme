@@ -36,9 +36,16 @@
 
         {% if block.settings.type == 'image' and media_image != blank %}
           <div class="product-media__item">
-            <img src="{{ media_image | image_url: width: 1400 }}"
-                 alt="{{ block.settings.alt_text | escape }}"
-                 loading="lazy">
+            {% assign media_img_url = media_image | image_url: width: 1400 %}
+            {% if media_img_url != blank and media_img_url contains '//' %}
+              <img src="{{ media_img_url }}"
+                   alt="{{ block.settings.alt_text | escape }}"
+                   loading="lazy">
+            {% else %}
+              <img src="{{ media_image | img_url: '1400x' }}"
+                   alt="{{ block.settings.alt_text | escape }}"
+                   loading="lazy">
+            {% endif %}
           </div>
         {% elsif block.settings.type == 'video' and block.settings.video != blank %}
           <div class="product-media__item product-media__item--video">
@@ -67,9 +74,16 @@
       {% if media_product != blank and media_product.images.size > 0 %}
         {% for media_image in media_product.images limit: 3 %}
           <div class="product-media__item">
-            <img src="{{ media_image | image_url: width: 1400 }}"
-                 alt="{{ media_product.title | escape }}"
-                 loading="lazy">
+            {% assign fb_img_url = media_image | image_url: width: 1400 %}
+            {% if fb_img_url != blank and fb_img_url contains '//' %}
+              <img src="{{ fb_img_url }}"
+                   alt="{{ media_product.title | escape }}"
+                   loading="lazy">
+            {% else %}
+              <img src="{{ media_image | img_url: '1400x' }}"
+                   alt="{{ media_product.title | escape }}"
+                   loading="lazy">
+            {% endif %}
           </div>
         {% endfor %}
       {% else %}

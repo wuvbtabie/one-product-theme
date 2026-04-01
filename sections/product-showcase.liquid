@@ -3,13 +3,10 @@
   assign showcase_product_setting = section.settings.product
 
   if showcase_product_setting != blank
-    assign showcase_product = all_products[showcase_product_setting]
-    if showcase_product == blank and showcase_product_setting.handle
-      assign showcase_product = all_products[showcase_product_setting.handle]
-    endif
-    if showcase_product == blank
-      assign showcase_product = showcase_product_setting
-    endif
+    assign showcase_product = showcase_product_setting
+    unless showcase_product.title
+      assign showcase_product = all_products[showcase_product_setting]
+    endunless
   endif
 
   if showcase_product == blank and section.settings.button_link contains '/products/'
@@ -37,7 +34,7 @@
   endif
 
   assign has_showcase_img = false
-  if showcase_img != blank and showcase_img.width
+  if showcase_img != blank
     assign has_showcase_img = true
   endif
 
@@ -52,14 +49,24 @@
 
     <div class="product-showcase__media">
       {% if has_showcase_img %}
-        <img class="product-showcase__img"
-             src="{{ showcase_img | image_url: width: 900 }}"
-             srcset="{{ showcase_img | image_url: width: 450 }} 450w, {{ showcase_img | image_url: width: 900 }} 900w, {{ showcase_img | image_url: width: 1200 }} 1200w"
-             sizes="(max-width: 768px) 100vw, 50vw"
-             alt="{{ showcase_img.alt | default: section.settings.heading | escape }}"
-             loading="lazy"
-             width="{{ showcase_img.width | default: 900 }}"
-             height="{{ showcase_img.height | default: 900 }}">
+        {% assign showcase_img_url = showcase_img | image_url: width: 900 %}
+        {% if showcase_img_url != blank and showcase_img_url contains '//' %}
+          <img class="product-showcase__img"
+               src="{{ showcase_img_url }}"
+               srcset="{{ showcase_img | image_url: width: 450 }} 450w, {{ showcase_img_url }} 900w, {{ showcase_img | image_url: width: 1200 }} 1200w"
+               sizes="(max-width: 768px) 100vw, 50vw"
+               alt="{{ showcase_img.alt | default: section.settings.heading | escape }}"
+               loading="lazy"
+               width="{{ showcase_img.width | default: 900 }}"
+               height="{{ showcase_img.height | default: 900 }}">
+        {% else %}
+          <img class="product-showcase__img"
+               src="{{ showcase_img | img_url: '900x' }}"
+               alt="{{ section.settings.heading | escape }}"
+               loading="lazy"
+               width="900"
+               height="900">
+        {% endif %}
       {% else %}
         <div class="product-showcase__img-placeholder">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5" aria-hidden="true">

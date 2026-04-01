@@ -2,7 +2,15 @@
   assign hero_product = nil
   assign hero_variant = nil
   assign hero_image = section.settings.image
-  if section.settings.button_link contains '/products/'
+
+  if section.settings.product_handle != blank
+    assign hero_product = all_products[section.settings.product_handle]
+    if hero_product != blank
+      assign hero_variant = hero_product.selected_or_first_available_variant
+    endif
+  endif
+
+  if hero_product == blank and section.settings.button_link contains '/products/'
     assign hero_product_handle = section.settings.button_link | split: '/products/' | last | split: '?' | first | split: '#' | first
     assign hero_product = all_products[hero_product_handle]
     if hero_product != blank
@@ -20,6 +28,9 @@
   endif
 
   assign hero_cta_url = section.settings.button_link | default: '/collections/all'
+  if hero_product != blank and hero_product.url != blank
+    assign hero_cta_url = hero_product.url
+  endif
 -%}
 
 <section id="hero" class="hero-product hero-product--{{ section.settings.image_height }}">
@@ -30,12 +41,22 @@
         Your browser does not support the video tag.
       </video>
     {% elsif hero_image != blank %}
-      <img
-        src="{{ hero_image | image_url: width: 1800 }}"
-        alt="{{ section.settings.heading | escape }}"
-        width="1800"
-        height="920"
-      >
+      {% assign hero_img_url = hero_image | image_url: width: 1800 %}
+      {% if hero_img_url != blank and hero_img_url contains '//' %}
+        <img
+          src="{{ hero_img_url }}"
+          alt="{{ section.settings.heading | escape }}"
+          width="1800"
+          height="920"
+        >
+      {% else %}
+        <img
+          src="{{ hero_image | img_url: '1800x' }}"
+          alt="{{ section.settings.heading | escape }}"
+          width="1800"
+          height="920"
+        >
+      {% endif %}
     {% else %}
       <div class="hero-image__placeholder" aria-hidden="true"></div>
     {% endif %}
@@ -579,6 +600,12 @@
       "id": "loop_video",
       "label": "Loop video",
       "default": true
+    },
+    {
+      "type": "text",
+      "id": "product_handle",
+      "label": "Product handle",
+      "info": "Enter the product handle to display pricing and auto-fetch the hero image"
     },
     {
       "type": "checkbox",

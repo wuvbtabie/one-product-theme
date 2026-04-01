@@ -11,31 +11,6 @@
   "sections": {
     "hero_product": {
       "type": "hero-product",
-      "blocks": {
-        "benefit_1": {
-          "type": "benefit",
-          "settings": {
-            "benefit_text": "Free Worldwide Shipping"
-          }
-        },
-        "benefit_2": {
-          "type": "benefit",
-          "settings": {
-            "benefit_text": "Secure Checkout"
-          }
-        },
-        "benefit_3": {
-          "type": "benefit",
-          "settings": {
-            "benefit_text": "30-Day Money-Back Guarantee"
-          }
-        }
-      },
-      "block_order": [
-        "benefit_1",
-        "benefit_2",
-        "benefit_3"
-      ],
       "settings": {
         "heading": "Timeless Design. Modern Precision.",
         "subtext": "A premium everyday watch designed for elegance, durability, and comfort.",
@@ -47,7 +22,8 @@
         "button_text": "Shop the Watch",
         "button_link": "#product-showcase",
         "image": "",
-        "show_hero_trust_badges": true,
+        "product_handle": "mimi-watch",
+        "show_hero_trust_badges": false,
         "text_position": "center",
         "overlay_opacity": 0.5,
         "image_height": "large"
@@ -95,11 +71,12 @@
     "product_showcase": {
       "type": "product-showcase",
       "settings": {
+        "product": "mimi-watch",
         "heading": "Premium Minimalist Watch",
         "badge_text": "Limited Offer",
         "custom_description": "<p>A sleek and elegant timepiece crafted for everyday style. Built with premium materials and designed to complement any outfit.</p>",
         "button_text": "Add To Cart",
-        "button_link": "/collections/all",
+        "button_link": "/products/mimi-watch",
         "image_position": "left",
         "background_color": "#f8f8f8"
       }
@@ -342,7 +319,7 @@
         "heading": "Upgrade Your Style Today",
         "subheading": "Experience the perfect balance of elegance and simplicity.",
         "button_text": "Add to Cart",
-        "button_link": "#product-showcase",
+        "button_link": "/products/mimi-watch",
         "background_color": "#ffffff",
         "text_alignment": "center"
       }
