@@ -51,7 +51,7 @@
           "settings": {
             "platform": "Instagram",
             "icon": "◎",
-            "url": "https://instagram.com"
+            "url": ""
           }
         },
         "social_tiktok": {
@@ -59,7 +59,7 @@
           "settings": {
             "platform": "TikTok",
             "icon": "◉",
-            "url": "https://tiktok.com"
+            "url": ""
           }
         },
         "social_facebook": {
@@ -67,7 +67,7 @@
           "settings": {
             "platform": "Facebook",
             "icon": "◌",
-            "url": "https://facebook.com"
+            "url": ""
           }
         }
       },

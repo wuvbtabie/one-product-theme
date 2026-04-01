@@ -4,15 +4,25 @@
       <h3 class="footer__title">{{ section.settings.store_name }}</h3>
       <p class="footer__description">{{ section.settings.store_description }}</p>
 
-      {% if section.blocks.size > 0 %}
+      {% capture footer_social_links %}
+        {% for block in section.blocks %}
+          {% assign social_url = block.settings.url | strip | downcase %}
+          {% assign is_placeholder_social = false %}
+          {% if social_url == 'https://instagram.com' or social_url == 'https://www.instagram.com' or social_url == 'https://tiktok.com' or social_url == 'https://www.tiktok.com' or social_url == 'https://facebook.com' or social_url == 'https://www.facebook.com' %}
+            {% assign is_placeholder_social = true %}
+          {% endif %}
+
+          {% if block.settings.url != blank and is_placeholder_social == false %}
+            <a href="{{ block.settings.url }}" class="footer__social-link" target="_blank" rel="noopener" aria-label="{{ block.settings.platform }}">
+              <span aria-hidden="true">{{ block.settings.icon }}</span>
+            </a>
+          {% endif %}
+        {% endfor %}
+      {% endcapture %}
+
+      {% if footer_social_links != blank %}
         <div class="footer__social-links" aria-label="Social media links">
-          {% for block in section.blocks %}
-            {% if block.settings.url != blank %}
-              <a href="{{ block.settings.url }}" class="footer__social-link" target="_blank" rel="noopener" aria-label="{{ block.settings.platform }}">
-                <span aria-hidden="true">{{ block.settings.icon }}</span>
-              </a>
-            {% endif %}
-          {% endfor %}
+          {{ footer_social_links }}
         </div>
       {% endif %}
     </div>

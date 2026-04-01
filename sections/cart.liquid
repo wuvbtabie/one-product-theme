@@ -21,9 +21,9 @@
               <a class="cart-item__title" href="{{ item.url }}">{{ item.product.title }}</a>
 
               <p class="cart-item__price-row">
-                <span class="cart-item__price">${{ item.final_price | money_without_currency }}</span>
+                <span class="cart-item__price">{{ item.final_price | money }}</span>
                 {% if item.variant.compare_at_price > item.final_price %}
-                  <s class="cart-item__compare">${{ item.variant.compare_at_price | money_without_currency }}</s>
+                  <s class="cart-item__compare">{{ item.variant.compare_at_price | money }}</s>
                 {% endif %}
               </p>
 
@@ -38,7 +38,7 @@
       </div>
 
       <div class="cart-page__footer">
-        <p class="cart-page__subtotal">Subtotal: <strong>${{ cart.total_price | money_without_currency }}</strong></p>
+        <p class="cart-page__subtotal">Subtotal: <strong>{{ cart.total_price | money }}</strong></p>
         <div class="cart-page__actions">
           <button type="submit" class="cart-page__update">{{ 'cart.update' | t }}</button>
           <button type="submit" name="checkout" class="cart-page__checkout">{{ 'cart.checkout' | t }}</button>

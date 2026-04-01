@@ -45,7 +45,7 @@
         "rating_value": 5,
         "rating_text": "Trusted by 1,000+ customers",
         "button_text": "Shop the Watch",
-        "button_link": "/products/t-shirt",
+        "button_link": "#product-showcase",
         "image": "",
         "show_hero_trust_badges": true,
         "text_position": "center",
@@ -99,7 +99,7 @@
         "badge_text": "Limited Offer",
         "custom_description": "<p>A sleek and elegant timepiece crafted for everyday style. Built with premium materials and designed to complement any outfit.</p>",
         "button_text": "Add To Cart",
-        "button_link": "/products/t-shirt",
+        "button_link": "/collections/all",
         "image_position": "left",
         "background_color": "#f8f8f8"
       }
@@ -342,7 +342,7 @@
         "heading": "Upgrade Your Style Today",
         "subheading": "Experience the perfect balance of elegance and simplicity.",
         "button_text": "Add to Cart",
-        "button_link": "/products/t-shirt",
+        "button_link": "#product-showcase",
         "background_color": "#ffffff",
         "text_alignment": "center"
       }
