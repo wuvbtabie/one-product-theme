@@ -43,23 +43,10 @@
             "video_muted": true,
             "video_loop": true
           }
-        },
-        "media_item_2": {
-          "type": "media_item",
-          "settings": {
-            "type": "video",
-            "image": "",
-            "video_url": "https://www.youtube.com/watch?v=jNQXAC9IVRw",
-            "alt_text": "Product demo video",
-            "video_autoplay": true,
-            "video_muted": true,
-            "video_loop": true
-          }
         }
       },
       "block_order": [
-        "media_item_1",
-        "media_item_2"
+        "media_item_1"
       ],
       "settings": {
         "heading": "See The Product In Action",
