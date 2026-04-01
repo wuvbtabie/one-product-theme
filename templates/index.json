@@ -29,7 +29,7 @@
         "image_height": "large"
       }
     },
-    "product_media": {
+    "product_media_clean": {
       "type": "product-media",
       "blocks": {
         "media_item_1": {
@@ -316,7 +316,7 @@
     "hero_product",
     "product_showcase",
     "product_benefits",
-    "product_media",
+    "product_media_clean",
     "trust_strip",
     "trust_badges",
     "why_choose",
