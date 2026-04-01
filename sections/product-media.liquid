@@ -7,6 +7,11 @@
   {% assign pm_cols = "three" %}
 {% endif %}
 
+{% assign media_product = blank %}
+{% if collections.all != blank and collections.all.products_count > 0 %}
+  {% assign media_product = collections.all.products.first %}
+{% endif %}
+
 {% capture watch_360_frames %}
   {% for i in (1..24) %}
     {{ 'watch' | append: i | append: '.jpg' | asset_url }}{% unless forloop.last %},{% endunless %}
@@ -23,9 +28,15 @@
   <div class="product-media__grid product-media__grid--{{ pm_cols }}">
     {% if section.blocks.size > 0 %}
       {% for block in section.blocks %}
-        {% if block.settings.type == 'image' and block.settings.image != blank %}
+        {% assign fallback_image = blank %}
+        {% if media_product != blank and media_product.images.size > forloop.index0 %}
+          {% assign fallback_image = media_product.images[forloop.index0] %}
+        {% endif %}
+        {% assign media_image = block.settings.image | default: fallback_image %}
+
+        {% if block.settings.type == 'image' and media_image != blank %}
           <div class="product-media__item">
-            <img src="{{ block.settings.image | image_url: width: 1400 }}"
+            <img src="{{ media_image | image_url: width: 1400 }}"
                  alt="{{ block.settings.alt_text | escape }}"
                  loading="lazy">
           </div>
@@ -53,28 +64,38 @@
         {% endif %}
       {% endfor %}
     {% else %}
-      <div class="product-media__item product-media__item--placeholder">
-        <div class="product-media__placeholder-inner">
-          <span class="product-media__placeholder-icon">🖼️</span>
-          <p>Upload your first product image</p>
+      {% if media_product != blank and media_product.images.size > 0 %}
+        {% for media_image in media_product.images limit: 3 %}
+          <div class="product-media__item">
+            <img src="{{ media_image | image_url: width: 1400 }}"
+                 alt="{{ media_product.title | escape }}"
+                 loading="lazy">
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="product-media__item product-media__item--placeholder">
+          <div class="product-media__placeholder-inner">
+            <span class="product-media__placeholder-icon">🖼️</span>
+            <p>Upload your first product image</p>
+          </div>
         </div>
-      </div>
-      <div class="product-media__item product-media__item--placeholder">
-        <div class="product-media__placeholder-inner">
-          <span class="product-media__placeholder-icon">🖼️</span>
-          <p>Add another product image</p>
+        <div class="product-media__item product-media__item--placeholder">
+          <div class="product-media__placeholder-inner">
+            <span class="product-media__placeholder-icon">🖼️</span>
+            <p>Add another product image</p>
+          </div>
         </div>
-      </div>
-      <div class="product-media__item product-media__item--placeholder">
-        <div class="product-media__placeholder-inner">
-          <span class="product-media__placeholder-icon">🎥</span>
-          <p>Add a product video URL</p>
+        <div class="product-media__item product-media__item--placeholder">
+          <div class="product-media__placeholder-inner">
+            <span class="product-media__placeholder-icon">🎥</span>
+            <p>Add a product video URL</p>
+          </div>
         </div>
-      </div>
+      {% endif %}
     {% endif %}
   </div>
 
-  <div class="watch-360-section">
+  <div class="watch-360-section js-watch-360-section">
     <div class="watch-360-section__header">
       <h2 class="watch-360-section__title">In Action</h2>
       <p class="watch-360-section__subtitle">Interactive 360° View</p>

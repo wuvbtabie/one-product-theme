@@ -19,7 +19,7 @@
       class: 'wishlist-inline-button'
     %}
   </div>
-  <p>{{ product.price | money }}</p>
+  <p>${{ product.price | money_without_currency }}</p>
   <p>{{ product.description }}</p>
 </div>
 
@@ -35,7 +35,7 @@
             selected="selected"
           {% endif %}
         >
-          {{ variant.title }} - {{ variant.price | money }}
+          {{ variant.title }} - ${{ variant.price | money_without_currency }}
         </option>
       {% endfor %}
     </select>
@@ -48,7 +48,7 @@
 
   <div class="sticky-add-to-cart" aria-hidden="true">
     <div class="sticky-add-to-cart__inner">
-      <span class="sticky-add-to-cart__price">{{ current_variant.price | money }}</span>
+      <span class="sticky-add-to-cart__price">${{ current_variant.price | money_without_currency }}</span>
       <button type="button" class="sticky-add-to-cart__button">Add to cart</button>
     </div>
   </div>

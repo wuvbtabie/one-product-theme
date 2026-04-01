@@ -3,10 +3,12 @@
   assign showcase_product_setting = section.settings.product
 
   if showcase_product_setting != blank
-    if showcase_product_setting.url
+    assign showcase_product = all_products[showcase_product_setting]
+    if showcase_product == blank and showcase_product_setting.handle
+      assign showcase_product = all_products[showcase_product_setting.handle]
+    endif
+    if showcase_product == blank
       assign showcase_product = showcase_product_setting
-    else
-      assign showcase_product = all_products[showcase_product_setting]
     endif
   endif
 
@@ -70,7 +72,7 @@
 
     <div class="product-showcase__details">
 
-      {% comment %} Badge: custom text OR auto-calculated sale % {% endcomment %}
+      {% comment %} Badge: custom text OR auto-calculated sale {% endcomment %}
       {% if section.settings.badge_text != blank %}
         <span class="product-showcase__badge">{{ section.settings.badge_text }}</span>
       {% elsif current_variant and current_variant.compare_at_price > current_variant.price %}
@@ -106,9 +108,9 @@
       {% if display_variant %}
         <div class="product-showcase__cta-meta">
           <div class="product-showcase__price-row">
-            <span class="product-showcase__price">{{ display_variant.price | money }}</span>
+            <span class="product-showcase__price">${{ display_variant.price | money_without_currency }}</span>
             {% if display_variant.compare_at_price > display_variant.price %}
-              <s class="product-showcase__compare-price">{{ display_variant.compare_at_price | money }}</s>
+              <s class="product-showcase__compare-price">${{ display_variant.compare_at_price | money_without_currency }}</s>
             {% endif %}
           </div>
         </div>
@@ -328,8 +330,8 @@
 (function () {
   function formatMoney(cents) {
     var amount = Number(cents || 0) / 100;
-    var locale = document.documentElement.lang || navigator.language || undefined;
-    var currency = (window.Shopify && Shopify.currency && Shopify.currency.active) || '{{ shop.currency }}';
+    var locale = 'en-US';
+    var currency = 'USD';
 
     try {
       return new Intl.NumberFormat(locale, { style: 'currency', currency: currency }).format(amount);

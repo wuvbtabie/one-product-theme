@@ -1,6 +1,7 @@
 {%- liquid
   assign hero_product = nil
   assign hero_variant = nil
+  assign hero_image = section.settings.image
   if section.settings.button_link contains '/products/'
     assign hero_product_handle = section.settings.button_link | split: '/products/' | last | split: '?' | first | split: '#' | first
     assign hero_product = all_products[hero_product_handle]
@@ -8,6 +9,17 @@
       assign hero_variant = hero_product.selected_or_first_available_variant
     endif
   endif
+
+  if hero_product == blank and collections.all != blank and collections.all.products_count > 0
+    assign hero_product = collections.all.products.first
+    assign hero_variant = hero_product.selected_or_first_available_variant
+  endif
+
+  if hero_image == blank and hero_product != blank and hero_product.featured_image != blank
+    assign hero_image = hero_product.featured_image
+  endif
+
+  assign hero_cta_url = section.settings.button_link | default: '/collections/all'
 -%}
 
 <section id="hero" class="hero-product hero-product--{{ section.settings.image_height }}">
@@ -17,13 +29,15 @@
         <source src="{{ section.settings.video_url }}" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-    {% elsif section.settings.image != blank %}
+    {% elsif hero_image != blank %}
       <img
-        src="{{ section.settings.image | image_url: width: 1800 }}"
+        src="{{ hero_image | image_url: width: 1800 }}"
         alt="{{ section.settings.heading | escape }}"
         width="1800"
         height="920"
       >
+    {% else %}
+      <div class="hero-image__placeholder" aria-hidden="true"></div>
     {% endif %}
 
     <div class="overlay {{ section.settings.text_position }}" style="background: rgba(0,0,0,{{ section.settings.overlay_opacity }});">
@@ -38,9 +52,9 @@
 
           {% if hero_variant %}
             <p class="hero-price">
-              <span class="hero-price__current">{{ hero_variant.price | money }}</span>
+              <span class="hero-price__current">${{ hero_variant.price | money_without_currency }}</span>
               {% if hero_variant.compare_at_price > hero_variant.price %}
-                <span class="hero-price__compare">{{ hero_variant.compare_at_price | money }}</span>
+                <span class="hero-price__compare">${{ hero_variant.compare_at_price | money_without_currency }}</span>
               {% endif %}
             </p>
           {% endif %}
@@ -52,7 +66,7 @@
             </div>
           {% endif %}
 
-          <a href="{{ section.settings.button_link }}" class="hero-btn">
+          <a href="{{ hero_cta_url }}" class="hero-btn">
             {{ section.settings.button_text }}
           </a>
 
@@ -93,6 +107,13 @@
     height: 100%;
     object-fit: cover;
     display: block;
+  }
+
+  .hero-image__placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: inherit;
+    background: radial-gradient(circle at 20% 20%, #2a2d33 0%, #111214 65%);
   }
 
   /* Height Variants */

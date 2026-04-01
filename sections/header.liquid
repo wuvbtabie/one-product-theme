@@ -94,7 +94,7 @@
                     {% if item.variant.title != 'Default Title' %}
                       <span class="header__cart-item-variant">{{ item.variant.title }}</span>
                     {% endif %}
-                    <span class="header__cart-item-price"><span class="header__cart-item-line-price">{{ item.line_price | money }}</span></span>
+                    <span class="header__cart-item-price"><span class="header__cart-item-line-price">${{ item.line_price | money_without_currency }}</span></span>
                     <div class="header__cart-item-qty">
                       <button type="button" class="header__cart-qty-btn header__cart-qty-minus" aria-label="Decrease quantity">−</button>
                       <span class="header__cart-qty-display">{{ item.quantity }}</span>
@@ -107,7 +107,7 @@
           {% endif %}
         </div>
         <div class="header__cart-drawer-footer">
-          <p class="header__cart-total">Subtotal: <strong class="header__cart-total-amount">{{ cart.total_price | money }}</strong></p>
+          <p class="header__cart-total">Subtotal: <strong class="header__cart-total-amount">${{ cart.total_price | money_without_currency }}</strong></p>
           <div class="header__cart-drawer-actions">
             <a href="{{ routes.cart_url }}" class="header__cart-view-cart">View Cart</a>
             <a href="/checkout" class="header__cart-checkout">Checkout</a>
@@ -675,8 +675,8 @@
   document.addEventListener('DOMContentLoaded', function () {
     function formatMoney(cents) {
       var amount = Number(cents || 0) / 100;
-      var locale = document.documentElement.lang || navigator.language || undefined;
-      var currency = (window.Shopify && Shopify.currency && Shopify.currency.active) || '{{ cart.currency.iso_code | default: shop.currency }}';
+      var locale = 'en-US';
+      var currency = 'USD';
 
       try {
         return new Intl.NumberFormat(locale, { style: 'currency', currency: currency }).format(amount);
@@ -761,7 +761,9 @@
         if (!itemEl) return;
         var line = parseInt(itemEl.getAttribute('data-line'), 10);
         var qtyDisplay = itemEl.querySelector('.header__cart-qty-display');
+        if (!qtyDisplay || isNaN(line) || line < 1) return;
         var currentQty = parseInt(qtyDisplay.textContent, 10);
+        if (isNaN(currentQty) || currentQty < 0) currentQty = 1;
         var delta = btn.classList.contains('header__cart-qty-plus') ? 1 : -1;
         var newQty = Math.max(0, currentQty + delta);
         btn.disabled = true;
@@ -770,7 +772,12 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ line: line, quantity: newQty })
         })
-        .then(function (r) { return r.json(); })
+        .then(function (r) {
+          if (!r.ok) {
+            throw new Error('cart update failed');
+          }
+          return r.json();
+        })
         .then(function (data) {
           btn.disabled = false;
           if (!data || typeof data.total_price === 'undefined') return;

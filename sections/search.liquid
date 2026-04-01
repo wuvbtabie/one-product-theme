@@ -51,7 +51,7 @@
               <p>
                 {{ result.title | link_to: result.url }}
                 {% if result.price %}
-                  {{ result.price | money_with_currency }}
+                  ${{ result.price | money_without_currency }}
                 {% endif %}
               </p>
             </div>
