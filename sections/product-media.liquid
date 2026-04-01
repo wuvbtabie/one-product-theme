@@ -1,16 +1,37 @@
-{% assign pm_count = section.blocks.size %}
-{% if pm_count == 1 %}
+{% assign pm_count = 0 %}
   {% assign pm_cols = "one" %}
-{% elsif pm_count == 2 %}
-  {% assign pm_cols = "two" %}
-{% else %}
-  {% assign pm_cols = "three" %}
-{% endif %}
 
 {% assign media_product = blank %}
 {% assign media_product = all_products['mimi-watch'] %}
 {% if media_product == blank and collections.all != blank and collections.all.products_count > 0 %}
   {% assign media_product = collections.all.products.first %}
+{% endif %}
+
+{% if section.blocks.size > 0 %}
+  {% for block in section.blocks %}
+    {% assign block_fallback_image = blank %}
+    {% if media_product != blank and media_product.images.size > forloop.index0 %}
+      {% assign block_fallback_image = media_product.images[forloop.index0] %}
+    {% endif %}
+
+    {% if block.settings.type == 'image' %}
+      {% if block.settings.image != blank or block_fallback_image != blank %}
+        {% assign pm_count = pm_count | plus: 1 %}
+      {% endif %}
+    {% elsif block.settings.type == 'video' %}
+      {% if block.settings.video != blank or block.settings.video_url != blank %}
+        {% assign pm_count = pm_count | plus: 1 %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% elsif media_product != blank and media_product.images.size > 0 %}
+  {% assign pm_count = media_product.images.size %}
+{% endif %}
+
+{% if pm_count == 2 %}
+  {% assign pm_cols = "two" %}
+{% elsif pm_count > 2 %}
+  {% assign pm_cols = "three" %}
 {% endif %}
 
 {% capture watch_360_frames %}
@@ -57,16 +78,11 @@
             {% assign pm_ext_video = block.settings.video_url | external_video_url: autoplay: block.settings.video_autoplay, loop: block.settings.video_loop %}
             {{ pm_ext_video | external_video_tag }}
           </div>
-        {% else %}
+        {% elsif block.settings.type != 'video' %}
           <div class="product-media__item product-media__item--placeholder">
             <div class="product-media__placeholder-inner">
-              {% if block.settings.type == 'video' %}
-                <span class="product-media__placeholder-icon">🎥</span>
-                <p>Add a video URL in the theme editor</p>
-              {% else %}
-                <span class="product-media__placeholder-icon">🖼️</span>
-                <p>Upload an image in the theme editor</p>
-              {% endif %}
+              <span class="product-media__placeholder-icon">🖼️</span>
+              <p>Upload an image in the theme editor</p>
             </div>
           </div>
         {% endif %}
