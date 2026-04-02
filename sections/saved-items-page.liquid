@@ -1,0 +1,139 @@
+{% comment %}
+  Dedicated page section for saved items.
+{% endcomment %}
+
+<section class="saved-items-view">
+  <div class="saved-items-view__hero">
+    <p class="saved-items-view__eyebrow">Saved for later</p>
+    <h1 class="saved-items-view__title">{{ page.title | default: 'Saved Items' }}</h1>
+    <p class="saved-items-view__subtitle">A dedicated page for pieces you want to revisit later without losing your current bag.</p>
+  </div>
+
+  <div class="saved-items-view__panel saved-items-page" data-wishlist-page-section tabindex="-1">
+    <div class="saved-items-page__header">
+      <div>
+        <p class="saved-items-view__eyebrow saved-items-view__eyebrow--section">Wishlist</p>
+        <h2 class="saved-items-page__title">Saved pieces</h2>
+      </div>
+      <span class="saved-items-page__count" data-wishlist-page-count>0</span>
+    </div>
+
+    <p class="saved-items-page__empty" data-wishlist-page-empty>Nothing saved yet. Items moved out of your bag will appear here.</p>
+    <div class="saved-items-page__items" data-wishlist-page-items></div>
+  </div>
+</section>
+
+<style>
+  .saved-items-view {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 34px 18px 72px;
+    color: #111;
+  }
+
+  .saved-items-view__hero {
+    margin-bottom: 26px;
+  }
+
+  .saved-items-view__eyebrow {
+    margin: 0 0 10px;
+    color: #76706a;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .saved-items-view__eyebrow--section {
+    margin-bottom: 8px;
+  }
+
+  .saved-items-view__title {
+    margin: 0;
+    font-size: clamp(2.1rem, 4.8vw, 4rem);
+    line-height: 0.98;
+    letter-spacing: -0.05em;
+    text-wrap: balance;
+  }
+
+  .saved-items-view__subtitle {
+    max-width: 700px;
+    margin: 14px 0 0;
+    color: #5f5a56;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .saved-items-view__panel {
+    border: 1px solid #e9e4dc;
+    border-radius: 28px;
+    background: #fcfbf8;
+    box-shadow: 0 14px 42px rgba(17, 17, 17, 0.05);
+    padding: 22px;
+  }
+
+  .saved-items-page__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+
+  .saved-items-page__title {
+    margin: 0;
+    font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+  }
+
+  .saved-items-page__count {
+    min-width: 40px;
+    height: 40px;
+    padding: 0 12px;
+    border-radius: 999px;
+    border: 1px solid #e7e1d9;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #3a3531;
+    background: #fff;
+  }
+
+  .saved-items-page__empty {
+    margin: 0;
+    color: #68625d;
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+
+  .saved-items-page__empty--hidden {
+    display: none;
+  }
+
+  .saved-items-page__items {
+    display: grid;
+    gap: 16px;
+    margin-top: 18px;
+  }
+
+  @media (max-width: 720px) {
+    .saved-items-view {
+      padding: 24px 14px 56px;
+    }
+
+    .saved-items-view__panel {
+      border-radius: 24px;
+      padding: 18px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Saved Items Page",
+  "settings": []
+}
+{% endschema %}
