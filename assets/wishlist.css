@@ -86,7 +86,7 @@
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: 156px minmax(0, 1fr);
+  grid-template-columns: 164px minmax(0, 1fr);
   gap: 20px;
   align-items: center;
   padding: 20px;
@@ -146,7 +146,7 @@
 
 .wishlist-item__img-wrap {
   display: block;
-  border-radius: 16px;
+  border-radius: 10px;
   overflow: hidden;
   flex-shrink: 0;
   line-height: 0;
@@ -155,19 +155,19 @@
 }
 
 .wishlist-item__img-wrap--empty {
-  width: 156px;
-  height: 188px;
+  width: 164px;
+  height: 198px;
   background: transparent;
-  border-radius: 16px;
+  border-radius: 10px;
 }
 
 .wishlist-item__image {
-  width: 156px;
-  height: 188px;
+  width: 164px;
+  height: 198px;
   object-fit: cover;
   object-position: center;
   display: block;
-  border-radius: 16px;
+  border-radius: 10px;
   background: transparent;
 }
 
@@ -290,25 +290,31 @@
   align-items: center;
   gap: 10px;
   margin-top: 8px;
-  flex-wrap: wrap;
-}
-
+  width: 32px;
+  min-width: 32px;
+  height: 32px;
 .wishlist-item__remove-btn {
-  display: inline-flex;
-  align-items: center;
+  background: transparent;
+  border: 1px solid #e5ddd1;
   justify-content: center;
-  gap: 0;
+  font-size: 0.8rem;
   width: 40px;
-  min-width: 40px;
+  color: #7a7167;
   height: 40px;
   padding: 0;
   background: #faf8f3;
   border: 1px solid #ddd4c7;
   border-radius: 999px;
+
+.wishlist-item__remove-btn:hover {
+  background: #fbf8f3;
+  border-color: #d8cebf;
+  color: #4f4841;
+}
   font-size: 0.84rem;
   font-weight: 700;
-  color: #5c554f;
-  cursor: pointer;
+  width: 13px;
+  height: 13px;
   text-align: center;
   margin-top: 0;
   transition: color 0.18s ease, background 0.18s ease, border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
@@ -316,22 +322,22 @@
 
 .wishlist-item__remove-icon {
   width: 15px;
-  height: 15px;
-  display: inline-flex;
+  width: 13px;
+  height: 13px;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
 
-.wishlist-item__remove-icon svg {
+    grid-template-columns: 112px minmax(0, 1fr);
   width: 15px;
   height: 15px;
   display: block;
 }
 
 .wishlist-item__remove-label {
-  position: absolute;
-  width: 1px;
+    width: 112px;
+    height: 136px;
   height: 1px;
   padding: 0;
   margin: -1px;
