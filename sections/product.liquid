@@ -5,10 +5,43 @@
   https://shopify.dev/docs/storefronts/themes/architecture/templates/product
 {% endcomment %}
 
-<div class="product-images">
-  {% for image in product.images %}
-    {% render 'image', class: 'product-image', image: image %}
-  {% endfor %}
+<div class="product-images product-gallery" data-product-gallery>
+  <div class="product-gallery__viewport">
+    <div class="product-gallery__track" data-product-gallery-track>
+      {% for image in product.images %}
+        <div class="product-gallery__slide{% if forloop.first %} is-active{% endif %}" data-product-gallery-slide>
+          {% render 'image', class: 'product-image product-gallery__image', image: image %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% if product.images.size > 1 %}
+    <div class="product-gallery__controls">
+      <button type="button" class="product-gallery__arrow product-gallery__arrow--prev" data-gallery-prev aria-label="Previous image">
+        <span aria-hidden="true">&#8249;</span>
+      </button>
+
+      <div class="product-gallery__dots" aria-label="Product image navigation">
+        {% for image in product.images %}
+          <button
+            type="button"
+            class="product-gallery__dot{% if forloop.first %} is-active{% endif %}"
+            data-gallery-dot
+            data-gallery-index="{{ forloop.index0 }}"
+            aria-label="Go to image {{ forloop.index }}"
+            {% if forloop.first %}
+              aria-current="true"
+            {% endif %}
+          ></button>
+        {% endfor %}
+      </div>
+
+      <button type="button" class="product-gallery__arrow product-gallery__arrow--next" data-gallery-next aria-label="Next image">
+        <span aria-hidden="true">&#8250;</span>
+      </button>
+    </div>
+  {% endif %}
 </div>
 
 <div class="product-info">
@@ -72,6 +105,90 @@
 </div>
 
 <style>
+  .product-gallery {
+    display: grid;
+    gap: 14px;
+  }
+
+  .product-gallery__viewport {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    background: #f6f3ec;
+  }
+
+  .product-gallery__track {
+    display: flex;
+    transition: transform 0.3s ease;
+    will-change: transform;
+    touch-action: pan-y;
+  }
+
+  .product-gallery__slide {
+    min-width: 100%;
+    flex: 0 0 100%;
+  }
+
+  .product-gallery__image,
+  .product-gallery__image > img {
+    display: block;
+    width: 100%;
+  }
+
+  .product-gallery__image > img {
+    aspect-ratio: 4 / 5;
+    object-fit: contain;
+    object-position: center;
+    background: #f6f3ec;
+  }
+
+  .product-gallery__controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .product-gallery__arrow {
+    width: 42px;
+    height: 42px;
+    border: 1px solid #ddd6cb;
+    border-radius: 999px;
+    background: #fff;
+    color: #111;
+    font: inherit;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .product-gallery__dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .product-gallery__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    border: none;
+    background: #d0c8bc;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.18s ease, background 0.18s ease;
+  }
+
+  .product-gallery__dot.is-active {
+    background: #111;
+    transform: scale(1.15);
+  }
+
   .product-form form {
     display: grid;
     gap: 16px;
@@ -245,6 +362,19 @@
   }
 
   @media (max-width: 640px) {
+    .product-gallery {
+      gap: 10px;
+    }
+
+    .product-gallery__viewport {
+      border-radius: 14px;
+    }
+
+    .product-gallery__arrow {
+      width: 38px;
+      height: 38px;
+    }
+
     .product-form form {
       gap: 14px;
     }
@@ -265,6 +395,86 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    var gallery = document.querySelector('[data-product-gallery]');
+    if (gallery) {
+      var track = gallery.querySelector('[data-product-gallery-track]');
+      var slides = Array.prototype.slice.call(gallery.querySelectorAll('[data-product-gallery-slide]'));
+      var dots = Array.prototype.slice.call(gallery.querySelectorAll('[data-gallery-dot]'));
+      var prevButton = gallery.querySelector('[data-gallery-prev]');
+      var nextButton = gallery.querySelector('[data-gallery-next]');
+      var currentIndex = 0;
+      var startX = 0;
+      var deltaX = 0;
+      var isDragging = false;
+
+      function updateGallery(index) {
+        if (!track || !slides.length) return;
+
+        currentIndex = Math.max(0, Math.min(index, slides.length - 1));
+        track.style.transform = 'translate3d(' + (currentIndex * -100) + '%, 0, 0)';
+
+        slides.forEach(function (slide, slideIndex) {
+          slide.classList.toggle('is-active', slideIndex === currentIndex);
+        });
+
+        dots.forEach(function (dot, dotIndex) {
+          var isActive = dotIndex === currentIndex;
+          dot.classList.toggle('is-active', isActive);
+          if (isActive) {
+            dot.setAttribute('aria-current', 'true');
+          } else {
+            dot.removeAttribute('aria-current');
+          }
+        });
+      }
+
+      if (prevButton) {
+        prevButton.addEventListener('click', function () {
+          updateGallery(currentIndex - 1 < 0 ? slides.length - 1 : currentIndex - 1);
+        });
+      }
+
+      if (nextButton) {
+        nextButton.addEventListener('click', function () {
+          updateGallery(currentIndex + 1 > slides.length - 1 ? 0 : currentIndex + 1);
+        });
+      }
+
+      dots.forEach(function (dot) {
+        dot.addEventListener('click', function () {
+          updateGallery(parseInt(dot.getAttribute('data-gallery-index') || '0', 10));
+        });
+      });
+
+      if (track && slides.length > 1) {
+        track.addEventListener('touchstart', function (event) {
+          startX = event.touches[0].clientX;
+          deltaX = 0;
+          isDragging = true;
+        }, { passive: true });
+
+        track.addEventListener('touchmove', function (event) {
+          if (!isDragging) return;
+          deltaX = event.touches[0].clientX - startX;
+        }, { passive: true });
+
+        track.addEventListener('touchend', function () {
+          if (!isDragging) return;
+          if (Math.abs(deltaX) > 40) {
+            if (deltaX < 0) {
+              updateGallery(currentIndex + 1 > slides.length - 1 ? 0 : currentIndex + 1);
+            } else {
+              updateGallery(currentIndex - 1 < 0 ? slides.length - 1 : currentIndex - 1);
+            }
+          }
+          isDragging = false;
+          deltaX = 0;
+        });
+      }
+
+      updateGallery(0);
+    }
+
     var stickyBar = document.querySelector('.sticky-add-to-cart');
     var addToCartButton = document.querySelector('.primary-add-to-cart');
     var formSection = document.querySelector('.product-form');
