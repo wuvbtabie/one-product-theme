@@ -517,19 +517,26 @@
     var fullText = (heading.textContent || '').trim();
     if (!fullText) return;
 
-    heading.textContent = '';
-    heading.classList.add('is-typing');
+    function runTypingLoop() {
+      var index = 0;
 
-    var index = 0;
-    var timer = window.setInterval(function () {
-      index += 1;
-      heading.textContent = fullText.slice(0, index);
+      heading.textContent = '';
+      heading.classList.add('is-typing');
 
-      if (index >= fullText.length) {
-        window.clearInterval(timer);
-        heading.classList.remove('is-typing');
-      }
-    }, 45);
+      var timer = window.setInterval(function () {
+        index += 1;
+        heading.textContent = fullText.slice(0, index);
+
+        if (index >= fullText.length) {
+          window.clearInterval(timer);
+          heading.classList.remove('is-typing');
+
+          window.setTimeout(runTypingLoop, 1800);
+        }
+      }, 45);
+    }
+
+    runTypingLoop();
   });
 </script>
 
