@@ -11,6 +11,24 @@
   "sections": {
     "hero_product": {
       "type": "hero-product",
+      "blocks": {
+        "benefit_YzALti": {
+          "type": "benefit",
+          "settings": {
+            "benefit_text": "🚚 Free Shipping"
+          }
+        },
+        "benefit_qqg8hw": {
+          "type": "benefit",
+          "settings": {
+            "benefit_text": "🚚 Free Shipping"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_YzALti",
+        "benefit_qqg8hw"
+      ],
       "settings": {
         "heading": "Timeless Design. Modern Precision.",
         "subtext": "A premium everyday watch designed for elegance, durability, and comfort.",
@@ -93,6 +111,18 @@
     "product_media_clean": {
       "type": "product-media",
       "blocks": {
+        "media_item_tP4HWD": {
+          "type": "media_item",
+          "settings": {
+            "type": "image",
+            "image": "shopify://shop_images/appl-watch.png",
+            "video_url": "",
+            "alt_text": "Product image",
+            "video_autoplay": true,
+            "video_muted": true,
+            "video_loop": true
+          }
+        },
         "media_item_1": {
           "type": "media_item",
           "settings": {
@@ -107,6 +137,7 @@
         }
       },
       "block_order": [
+        "media_item_tP4HWD",
         "media_item_1"
       ],
       "settings": {
