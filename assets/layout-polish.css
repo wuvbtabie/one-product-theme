@@ -31,14 +31,40 @@
 }
 
 .shopify-section .hero-product::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 120px;
-  background: linear-gradient(to top, rgba(20, 20, 20, 0.26), rgba(20, 20, 20, 0));
-  pointer-events: none;
+  display: none;
+}
+
+.shopify-section .hero-product .hero-image {
+  background: #f7f3ed !important;
+}
+
+.shopify-section .hero-product .overlay {
+  background: transparent !important;
+  color: #141414 !important;
+}
+
+.shopify-section .hero-product .overlay-heading,
+.shopify-section .hero-product .overlay-subheading,
+.shopify-section .hero-product .hero-price__current,
+.shopify-section .hero-product .hero-price__compare,
+.shopify-section .hero-product .hero-rating,
+.shopify-section .hero-product .hero-rating span:last-child {
+  color: #141414 !important;
+}
+
+.shopify-section .hero-product .hero-price__compare {
+  opacity: 0.56;
+}
+
+.shopify-section .hero-product .hero-btn {
+  background: #111 !important;
+  border-color: #111 !important;
+  color: #fff !important;
+}
+
+.shopify-section .hero-product .hero-btn:hover {
+  background: #1c1c1c !important;
+  border-color: #1c1c1c !important;
 }
 
 .shopify-section .overlay-wrapper {
