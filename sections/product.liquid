@@ -27,23 +27,40 @@
   {% form 'product', product %}
     {% assign current_variant = product.selected_or_first_available_variant %}
 
-    <select name="id">
-      {% for variant in product.variants %}
-        <option
-          value="{{ variant.id }}"
-          {% if variant == current_variant %}
-            selected="selected"
-          {% endif %}
-        >
-          {{ variant.title }} - ${{ variant.price | money_without_currency }}
-        </option>
-      {% endfor %}
-    </select>
+    {% if product.variants.size > 1 %}
+      <div class="product-form__field product-form__field--variant">
+        <label class="product-form__label" for="product-variant-select">Options</label>
+        <div class="product-form__select-wrap">
+          <select id="product-variant-select" name="id" class="product-form__select">
+            {% for variant in product.variants %}
+              <option
+                value="{{ variant.id }}"
+                {% if variant == current_variant %}
+                  selected="selected"
+                {% endif %}
+              >
+                {{ variant.title }} - ${{ variant.price | money_without_currency }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    {% else %}
+      <input type="hidden" name="id" value="{{ current_variant.id }}">
+    {% endif %}
 
-    <input type="number" name="quantity" min="1" value="1" aria-label="Quantity">
+    <div class="product-form__purchase-group">
+      <div class="product-form__field product-form__field--quantity">
+        <label class="product-form__label" for="product-quantity">Quantity</label>
+        <input id="product-quantity" class="product-form__quantity" type="number" name="quantity" min="1" value="1" aria-label="Quantity">
+      </div>
 
-    <input type="submit" value="Add to cart" class="primary-add-to-cart">
-    {{ form | payment_button }}
+      <input type="submit" value="Add to cart" class="primary-add-to-cart">
+    </div>
+
+    <div class="product-form__payment-wrap">
+      {{ form | payment_button }}
+    </div>
   {% endform %}
 
   <div class="sticky-add-to-cart" aria-hidden="true">
@@ -55,6 +72,114 @@
 </div>
 
 <style>
+  .product-form form {
+    display: grid;
+    gap: 16px;
+    margin-top: 22px;
+  }
+
+  .product-form__field {
+    display: grid;
+    gap: 8px;
+  }
+
+  .product-form__label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6c665f;
+  }
+
+  .product-form__select-wrap {
+    position: relative;
+  }
+
+  .product-form__select-wrap::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 18px;
+    width: 10px;
+    height: 10px;
+    border-right: 1.5px solid #111;
+    border-bottom: 1.5px solid #111;
+    transform: translateY(-65%) rotate(45deg);
+    pointer-events: none;
+  }
+
+  .product-form__select,
+  .product-form__quantity {
+    width: 100%;
+    min-height: 52px;
+    border: 1px solid #ddd6cb;
+    border-radius: 16px;
+    background: #fbfaf7;
+    color: #111;
+    font: inherit;
+    padding: 0 18px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
+
+  .product-form__select {
+    appearance: none;
+    padding-right: 48px;
+  }
+
+  .product-form__quantity {
+    max-width: 112px;
+    text-align: center;
+    font-weight: 700;
+  }
+
+  .product-form__purchase-group {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 14px;
+    align-items: end;
+  }
+
+  .primary-add-to-cart {
+    width: 100%;
+    min-height: 54px;
+    border: none;
+    border-radius: 16px;
+    background: #111;
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  }
+
+  .primary-add-to-cart:hover {
+    background: #1d1d1d;
+    transform: translateY(-1px);
+    box-shadow: 0 12px 24px rgba(17, 17, 17, 0.14);
+  }
+
+  .product-form__payment-wrap {
+    display: grid;
+    gap: 8px;
+  }
+
+  .product-form .shopify-payment-button {
+    margin-top: 2px;
+  }
+
+  .product-form .shopify-payment-button__button {
+    min-height: 46px !important;
+    border-radius: 14px !important;
+    overflow: hidden;
+  }
+
+  .product-form .shopify-payment-button__more-options {
+    margin-top: 8px !important;
+    font-size: 0.88rem !important;
+    color: #5f5a56 !important;
+  }
+
   .product-info__head {
     display: flex;
     align-items: flex-start;
@@ -117,6 +242,24 @@
 
   @media (min-width: 769px) {
     .sticky-add-to-cart { display: none; }
+  }
+
+  @media (max-width: 640px) {
+    .product-form form {
+      gap: 14px;
+    }
+
+    .product-form__purchase-group {
+      grid-template-columns: 96px minmax(0, 1fr);
+      gap: 10px;
+    }
+
+    .product-form__select,
+    .product-form__quantity,
+    .primary-add-to-cart {
+      min-height: 50px;
+      border-radius: 14px;
+    }
   }
 </style>
 
