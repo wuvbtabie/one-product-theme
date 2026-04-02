@@ -85,7 +85,11 @@
     <div class="product-form__purchase-group">
       <div class="product-form__field product-form__field--quantity">
         <label class="product-form__label" for="product-quantity">Quantity</label>
-        <input id="product-quantity" class="product-form__quantity" type="number" name="quantity" min="1" value="1" aria-label="Quantity">
+        <div class="product-form__quantity-stepper">
+          <button type="button" class="product-form__quantity-btn" data-quantity-decrease aria-label="Decrease quantity">-</button>
+          <input id="product-quantity" class="product-form__quantity" type="number" name="quantity" min="1" value="1" inputmode="numeric" aria-label="Quantity">
+          <button type="button" class="product-form__quantity-btn" data-quantity-increase aria-label="Increase quantity">+</button>
+        </div>
       </div>
 
       <input type="submit" value="Add to cart" class="primary-add-to-cart">
@@ -202,6 +206,10 @@
     gap: 8px;
   }
 
+  .product-form__field--quantity {
+    min-width: 0;
+  }
+
   .product-form__label {
     font-size: 0.8rem;
     font-weight: 700;
@@ -231,24 +239,75 @@
   .product-form__quantity {
     width: 100%;
     min-height: 52px;
-    border: 1px solid #ddd6cb;
-    border-radius: 16px;
-    background: #fff;
     color: #111;
     font: inherit;
-    padding: 0 18px;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
   }
 
   .product-form__select {
+    border: 1px solid #ddd6cb;
+    border-radius: 16px;
+    background: #fff;
     appearance: none;
+    padding: 0 18px;
     padding-right: 48px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
+
+  .product-form__quantity-stepper {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    align-items: center;
+    width: 100%;
+    max-width: 136px;
+    min-height: 52px;
+    border: 1px solid #ddd6cb;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    overflow: hidden;
   }
 
   .product-form__quantity {
-    max-width: 112px;
+    min-height: 50px;
+    border: none;
+    background: transparent;
+    padding: 0;
     text-align: center;
     font-weight: 700;
+    box-shadow: none;
+    appearance: textfield;
+    -moz-appearance: textfield;
+  }
+
+  .product-form__quantity::-webkit-outer-spin-button,
+  .product-form__quantity::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .product-form__quantity-btn {
+    min-height: 50px;
+    border: none;
+    background: transparent;
+    color: #111;
+    font: inherit;
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.18s ease, color 0.18s ease;
+  }
+
+  .product-form__quantity-btn:hover {
+    background: #f7f3ec;
+  }
+
+  .product-form__quantity-btn:focus-visible,
+  .product-form__quantity:focus-visible {
+    outline: none;
   }
 
   .product-form__purchase-group {
@@ -387,10 +446,20 @@
     }
 
     .product-form__select,
-    .product-form__quantity,
     .primary-add-to-cart {
       min-height: 50px;
       border-radius: 14px;
+    }
+
+    .product-form__quantity-stepper {
+      min-height: 50px;
+      grid-template-columns: 38px minmax(0, 1fr) 38px;
+      border-radius: 14px;
+    }
+
+    .product-form__quantity,
+    .product-form__quantity-btn {
+      min-height: 48px;
     }
   }
 </style>
@@ -481,6 +550,41 @@
     var stickyBar = document.querySelector('.sticky-add-to-cart');
     var addToCartButton = document.querySelector('.primary-add-to-cart');
     var formSection = document.querySelector('.product-form');
+    var quantityInput = document.querySelector('#product-quantity');
+
+    if (quantityInput) {
+      var decreaseButton = document.querySelector('[data-quantity-decrease]');
+      var increaseButton = document.querySelector('[data-quantity-increase]');
+
+      function normalizeQuantity(value) {
+        return Math.max(1, parseInt(value, 10) || 1);
+      }
+
+      function setQuantity(nextValue) {
+        quantityInput.value = normalizeQuantity(nextValue);
+      }
+
+      if (decreaseButton) {
+        decreaseButton.addEventListener('click', function () {
+          setQuantity(normalizeQuantity(quantityInput.value) - 1);
+        });
+      }
+
+      if (increaseButton) {
+        increaseButton.addEventListener('click', function () {
+          setQuantity(normalizeQuantity(quantityInput.value) + 1);
+        });
+      }
+
+      quantityInput.addEventListener('input', function () {
+        if (quantityInput.value === '') return;
+        setQuantity(quantityInput.value);
+      });
+
+      quantityInput.addEventListener('blur', function () {
+        setQuantity(quantityInput.value);
+      });
+    }
 
     if (!stickyBar || !addToCartButton || !formSection) return;
 
