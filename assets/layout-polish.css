@@ -614,7 +614,7 @@
     height: 100% !important;
     object-fit: contain !important;
     object-position: center !important;
-    background: #f6f3ec;
+    background: #fff;
   }
 
   .shopify-section .product-showcase__inner {
