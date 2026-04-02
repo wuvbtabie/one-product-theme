@@ -11,7 +11,8 @@
 
 <style>
   .announcement-bar {
-    width: 100%;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
     overflow: hidden;
   }
 
@@ -19,10 +20,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    min-height: 36px;
-    padding: 7px 16px;
+    width: 100%;
+    min-height: 42px;
+    padding: 9px 18px;
     text-align: center;
   }
 
@@ -57,8 +57,8 @@
 
   @media (max-width: 640px) {
     .announcement-bar__inner {
-      min-height: 30px;
-      padding: 6px 12px;
+      min-height: 36px;
+      padding: 8px 12px;
     }
     .announcement-bar__text {
       font-size: 11px;
