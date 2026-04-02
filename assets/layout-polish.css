@@ -680,7 +680,12 @@
   }
 
   .shopify-section .hero-product {
-    margin-bottom: 26px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .shopify-section .product-showcase {
+    padding-top: 18px !important;
+    border-top: none !important;
   }
 
   .shopify-section .overlay-wrapper {
