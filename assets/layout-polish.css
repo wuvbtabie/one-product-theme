@@ -696,7 +696,6 @@
     padding: 0 !important;
   }
 
-  .shopify-section .product-showcase__img,
   .shopify-section .product-showcase__img-placeholder {
     aspect-ratio: 1 / 1 !important;
   }
@@ -708,6 +707,19 @@
     object-fit: contain !important;
     object-position: center !important;
     background: #fff;
+  }
+
+  .shopify-section .product-showcase__media {
+    background: transparent !important;
+    line-height: 0;
+  }
+
+  .shopify-section .product-showcase__img {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: auto !important;
+    object-fit: cover !important;
+    background: transparent !important;
   }
 
   .shopify-section .product-showcase__inner {
