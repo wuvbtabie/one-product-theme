@@ -75,7 +75,7 @@
             <div class="hero-badge">{{ section.settings.badge_text }}</div>
           {% endif %}
 
-          <h1 class="overlay-heading">{{ section.settings.heading }}</h1>
+          <h1 class="overlay-heading" data-hero-typing>{{ section.settings.heading }}</h1>
           <p class="overlay-subheading">{{ section.settings.subtext }}</p>
 
           {% if hero_variant %}
@@ -507,6 +507,31 @@
     }
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var heading = document.querySelector('[data-hero-typing]');
+    if (!heading) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var fullText = (heading.textContent || '').trim();
+    if (!fullText) return;
+
+    heading.textContent = '';
+    heading.classList.add('is-typing');
+
+    var index = 0;
+    var timer = window.setInterval(function () {
+      index += 1;
+      heading.textContent = fullText.slice(0, index);
+
+      if (index >= fullText.length) {
+        window.clearInterval(timer);
+        heading.classList.remove('is-typing');
+      }
+    }, 45);
+  });
+</script>
 
 {% schema %}
 {
