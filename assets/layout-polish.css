@@ -710,6 +710,8 @@
   }
 
   .shopify-section .product-showcase__media {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
     background: transparent !important;
     line-height: 0;
   }
@@ -724,6 +726,10 @@
 
   .shopify-section .product-showcase__inner {
     padding: 0 !important;
+  }
+
+  .shopify-section .product-showcase__details {
+    padding: 0 16px;
   }
 
   .shopify-section .hero-btn {
