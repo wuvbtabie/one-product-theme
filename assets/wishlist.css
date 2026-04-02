@@ -437,25 +437,34 @@
   }
 
   .wishlist-item__purchase-tools {
+    flex-wrap: wrap;
     gap: 8px;
   }
 
+  .wishlist-item__quantity-label {
+    width: 100%;
+    margin-bottom: -2px;
+  }
+
   .wishlist-item__quantity-select {
-    min-width: 70px;
+    min-width: 68px;
     height: 36px;
     padding-left: 12px;
   }
 
   .wishlist-item__actions {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr);
     gap: 8px;
     align-items: center;
   }
 
   .wishlist-item__atc {
+    display: flex;
     width: 100%;
     min-width: 0;
+    padding: 0 16px;
+    white-space: nowrap;
   }
 
   .wishlist-item__remove-btn {
