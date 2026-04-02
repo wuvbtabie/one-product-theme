@@ -417,15 +417,15 @@
 
 @media (max-width: 520px) {
   .wishlist-item__surface {
-    grid-template-columns: 112px minmax(0, 1fr);
+    grid-template-columns: 124px minmax(0, 1fr);
     gap: 12px;
     padding: 14px;
   }
 
   .wishlist-item__img-wrap--empty,
   .wishlist-item__image {
-    width: 112px;
-    height: 136px;
+    width: 124px;
+    height: 150px;
   }
 
   .wishlist-item__title {
