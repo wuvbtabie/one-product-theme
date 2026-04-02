@@ -113,20 +113,22 @@
   .product-gallery__viewport {
     position: relative;
     overflow: hidden;
-    border-radius: 18px;
-    background: #f6f3ec;
+    border-radius: 0;
+    background: transparent;
   }
 
   .product-gallery__track {
-    display: flex;
-    transition: transform 0.3s ease;
-    will-change: transform;
+    position: relative;
     touch-action: pan-y;
   }
 
   .product-gallery__slide {
-    min-width: 100%;
-    flex: 0 0 100%;
+    display: none;
+    width: 100%;
+  }
+
+  .product-gallery__slide.is-active {
+    display: block;
   }
 
   .product-gallery__image,
@@ -139,7 +141,7 @@
     aspect-ratio: 4 / 5;
     object-fit: contain;
     object-position: center;
-    background: #f6f3ec;
+    background: transparent;
   }
 
   .product-gallery__controls {
@@ -367,7 +369,7 @@
     }
 
     .product-gallery__viewport {
-      border-radius: 14px;
+      border-radius: 0;
     }
 
     .product-gallery__arrow {
@@ -408,10 +410,9 @@
       var isDragging = false;
 
       function updateGallery(index) {
-        if (!track || !slides.length) return;
+        if (!slides.length) return;
 
         currentIndex = Math.max(0, Math.min(index, slides.length - 1));
-        track.style.transform = 'translate3d(' + (currentIndex * -100) + '%, 0, 0)';
 
         slides.forEach(function (slide, slideIndex) {
           slide.classList.toggle('is-active', slideIndex === currentIndex);
@@ -446,19 +447,21 @@
         });
       });
 
-      if (track && slides.length > 1) {
-        track.addEventListener('touchstart', function (event) {
+      var swipeSurface = gallery.querySelector('.product-gallery__viewport') || track;
+
+      if (swipeSurface && slides.length > 1) {
+        swipeSurface.addEventListener('touchstart', function (event) {
           startX = event.touches[0].clientX;
           deltaX = 0;
           isDragging = true;
         }, { passive: true });
 
-        track.addEventListener('touchmove', function (event) {
+        swipeSurface.addEventListener('touchmove', function (event) {
           if (!isDragging) return;
           deltaX = event.touches[0].clientX - startX;
         }, { passive: true });
 
-        track.addEventListener('touchend', function () {
+        swipeSurface.addEventListener('touchend', function () {
           if (!isDragging) return;
           if (Math.abs(deltaX) > 40) {
             if (deltaX < 0) {
