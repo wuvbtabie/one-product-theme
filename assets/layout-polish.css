@@ -582,6 +582,17 @@
 }
 
 @media (max-width: 640px) {
+  .shopify-section .hero-product .hero-image,
+  .shopify-section .hero-product .hero-video,
+  .shopify-section .hero-product .hero-image img {
+    min-height: 620px !important;
+  }
+
+  .shopify-section .hero-product .hero-image img,
+  .shopify-section .hero-product .hero-video {
+    object-position: center center !important;
+  }
+
   .shopify-section .product-media {
     padding: 24px 0 30px !important;
   }
@@ -639,6 +650,14 @@
     width: 42px;
     height: 42px;
     flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .shopify-section .hero-product .hero-image,
+  .shopify-section .hero-product .hero-video,
+  .shopify-section .hero-product .hero-image img {
+    min-height: 600px !important;
   }
 }
 
