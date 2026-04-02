@@ -131,6 +131,14 @@
     availabilityEl.classList.toggle('is-unavailable', !available);
   }
 
+  function buildQuantityOptionsMarkup() {
+    var options = [];
+    for (var quantity = 1; quantity <= 10; quantity += 1) {
+      options.push('<option value="' + quantity + '">' + quantity + '</option>');
+    }
+    return options.join('');
+  }
+
   function buildWishlistItemMarkup(item) {
     var title = escapeHtml(item.title);
     var url = escapeHtml(item.url);
@@ -166,6 +174,14 @@
       '<p class="wishlist-item__availability" data-wishlist-availability>Checking availability</p>',
       '<div class="wishlist-item__variants" data-variants-for="' + handle + '">',
       '<span class="wishlist-item__variants-loading">Loading options…</span>',
+      '</div>',
+      '<div class="wishlist-item__purchase-tools">',
+      '<label class="wishlist-item__quantity-label" for="wishlist-qty-' + handle + '">Qty</label>',
+      '<div class="wishlist-item__quantity-wrap">',
+      '<select class="wishlist-item__quantity-select" id="wishlist-qty-' + handle + '" data-wishlist-quantity aria-label="Quantity for ' + title + '">',
+      buildQuantityOptionsMarkup(),
+      '</select>',
+      '</div>',
       '</div>',
       '<div class="wishlist-item__actions">',
       '<button type="button" class="wishlist-item__atc" data-wishlist-add-to-cart data-product-url="' + url + '">Add to Cart</button>',
@@ -355,8 +371,9 @@
       });
   }
 
-  function addToCartFromWishlist(productUrl, button, variantId, handle, shouldRedirectToCart) {
+  function addToCartFromWishlist(productUrl, button, variantId, handle, shouldRedirectToCart, quantity) {
     if (!productUrl) return;
+    var selectedQuantity = Math.max(1, parseInt(quantity, 10) || 1);
     if (button) {
       button.disabled = true;
       button.textContent = 'Adding...';
@@ -365,7 +382,7 @@
       return fetch('/cart/add.js', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: id, quantity: 1 })
+        body: JSON.stringify({ id: id, quantity: selectedQuantity })
       }).then(function (response) {
         if (!response.ok) {
           throw new Error('cart add failed');
@@ -443,8 +460,10 @@
       var articleEl = addBtn.closest('.wishlist-item');
       var selectedVariantId = articleEl ? articleEl.dataset.selectedVariantId : null;
       var handle = articleEl ? articleEl.getAttribute('data-handle') : '';
+      var quantitySelect = articleEl ? articleEl.querySelector('[data-wishlist-quantity]') : null;
+      var quantity = quantitySelect ? parseInt(quantitySelect.value, 10) || 1 : 1;
       var shouldRedirectToCart = !!addBtn.closest('[data-wishlist-page-items]');
-      addToCartFromWishlist(addBtn.getAttribute('data-product-url'), addBtn, selectedVariantId, handle, shouldRedirectToCart);
+      addToCartFromWishlist(addBtn.getAttribute('data-product-url'), addBtn, selectedVariantId, handle, shouldRedirectToCart, quantity);
       return;
     }
 
