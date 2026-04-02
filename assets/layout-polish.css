@@ -227,16 +227,17 @@
 
 .shopify-section .product-showcase {
   padding: 42px 16px !important;
+  background: #ffffff !important;
 }
 
 .shopify-section .product-showcase__inner {
   max-width: 1160px !important;
   gap: 36px !important;
-  background: linear-gradient(180deg, #ffffff 0%, #f8f8f4 100%);
-  border: 1px solid var(--premium-stroke);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.05);
-  padding: 26px;
-  border-radius: 6px;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
 }
 
 .shopify-section .product-showcase__img,
@@ -246,7 +247,8 @@
 
 .shopify-section .product-showcase__media {
   overflow: hidden;
-  background: #f3f3f3;
+  background: #ffffff !important;
+  box-shadow: none !important;
 }
 
 .shopify-section .product-showcase__details {
@@ -282,9 +284,9 @@
 }
 
 .shopify-section .product-showcase__img-placeholder {
-  border: 1px dashed #d7d7d2;
-  border-radius: 6px;
-  background: linear-gradient(180deg, #fafaf7 0%, #f0f0ea 100%) !important;
+  border: 1px dashed #e7e3db;
+  border-radius: 0;
+  background: #f7f5f0 !important;
   color: #6d6d67;
 }
 
@@ -643,7 +645,7 @@
 
   .shopify-section .product-showcase__inner {
     gap: 20px !important;
-    padding: 18px !important;
+    padding: 0 !important;
   }
 
   .shopify-section .hero-trust-badges {
@@ -709,7 +711,7 @@
   }
 
   .shopify-section .product-showcase__inner {
-    padding: 14px !important;
+    padding: 0 !important;
   }
 
   .shopify-section .hero-btn {
