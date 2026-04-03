@@ -1,0 +1,407 @@
+{%- liquid
+  assign rail_collection = section.settings.collection
+  if rail_collection == blank
+    assign rail_collection = collections.all
+  endif
+
+  assign fallback_product = all_products['mimi-watch']
+  assign has_products = false
+
+  if rail_collection != blank and rail_collection.products_count > 0
+    assign has_products = true
+  elsif fallback_product != blank
+    assign has_products = true
+  endif
+
+  assign rail_title = section.settings.heading | default: 'Featured Products'
+  assign rail_subheading = section.settings.subheading
+-%}
+
+<section class="product-rail" id="product-rail" data-product-rail-section="{{ section.id }}" style="background: {{ section.settings.background_color }};">
+  <div class="product-rail__inner">
+    <div class="product-rail__header">
+      <div>
+        <h2 class="product-rail__heading">{{ rail_title }}</h2>
+        {% if rail_subheading != blank %}
+          <p class="product-rail__subheading">{{ rail_subheading }}</p>
+        {% endif %}
+      </div>
+
+      <div class="product-rail__controls" aria-hidden="true">
+        <button type="button" class="product-rail__control" data-rail-prev aria-label="Scroll products left">&#8249;</button>
+        <button type="button" class="product-rail__control" data-rail-next aria-label="Scroll products right">&#8250;</button>
+      </div>
+    </div>
+
+    <div class="product-rail__track" data-product-rail-track>
+      {% if rail_collection != blank and rail_collection.products_count > 0 %}
+        {% for product in rail_collection.products limit: section.settings.products_to_show %}
+          {% assign current_variant = product.selected_or_first_available_variant %}
+          <article class="product-rail__card">
+            <a href="{{ product.url }}" class="product-rail__media">
+              {% if product.featured_image != blank %}
+                <img
+                  class="product-rail__image"
+                  src="{{ product.featured_image | image_url: width: 720 }}"
+                  srcset="{{ product.featured_image | image_url: width: 360 }} 360w, {{ product.featured_image | image_url: width: 720 }} 720w"
+                  sizes="(max-width: 768px) 82vw, 28vw"
+                  alt="{{ product.title | escape }}"
+                  loading="lazy"
+                  width="{{ product.featured_image.width | default: 720 }}"
+                  height="{{ product.featured_image.height | default: 720 }}"
+                >
+              {% else %}
+                <div class="product-rail__placeholder" aria-hidden="true"></div>
+              {% endif %}
+            </a>
+
+            <div class="product-rail__body">
+              <a href="{{ product.url }}" class="product-rail__title">{{ product.title }}</a>
+
+              {% if current_variant %}
+                <p class="product-rail__price-row">
+                  <span class="product-rail__price">${{ current_variant.price | money_without_currency }}</span>
+                  {% if current_variant.compare_at_price > current_variant.price %}
+                    <s class="product-rail__compare">${{ current_variant.compare_at_price | money_without_currency }}</s>
+                  {% endif %}
+                </p>
+              {% endif %}
+
+              <div class="product-rail__actions">
+                {% if current_variant %}
+                  {% form 'product', product, id: 'product-rail-form-' | append: section.id | append: '-' | append: forloop.index %}
+                    <input type="hidden" name="id" value="{{ current_variant.id }}">
+                    <button type="submit" name="add" class="product-rail__button">Add to Cart</button>
+                  {% endform %}
+                {% else %}
+                  <a href="{{ product.url }}" class="product-rail__button">View Product</a>
+                {% endif %}
+
+                {% render 'wishlist-button',
+                  class: 'product-rail__wishlist',
+                  title: product.title,
+                  url: product.url,
+                  image: product.featured_image,
+                  price: current_variant.price,
+                  handle: product.handle,
+                  product_id: product.id
+                %}
+              </div>
+            </div>
+          </article>
+        {% endfor %}
+      {% elsif fallback_product != blank %}
+        {% assign current_variant = fallback_product.selected_or_first_available_variant %}
+        <article class="product-rail__card">
+          <a href="{{ fallback_product.url }}" class="product-rail__media">
+            {% if fallback_product.featured_image != blank %}
+              <img
+                class="product-rail__image"
+                src="{{ fallback_product.featured_image | image_url: width: 720 }}"
+                alt="{{ fallback_product.title | escape }}"
+                loading="lazy"
+                width="{{ fallback_product.featured_image.width | default: 720 }}"
+                height="{{ fallback_product.featured_image.height | default: 720 }}"
+              >
+            {% else %}
+              <div class="product-rail__placeholder" aria-hidden="true"></div>
+            {% endif %}
+          </a>
+
+          <div class="product-rail__body">
+            <a href="{{ fallback_product.url }}" class="product-rail__title">{{ fallback_product.title }}</a>
+            {% if current_variant %}
+              <p class="product-rail__price-row">
+                <span class="product-rail__price">${{ current_variant.price | money_without_currency }}</span>
+              </p>
+            {% endif %}
+            <div class="product-rail__actions">
+              {% if current_variant %}
+                {% form 'product', fallback_product, id: 'product-rail-form-fallback-' | append: section.id %}
+                  <input type="hidden" name="id" value="{{ current_variant.id }}">
+                  <button type="submit" name="add" class="product-rail__button">Add to Cart</button>
+                {% endform %}
+              {% endif %}
+            </div>
+          </div>
+        </article>
+      {% endif %}
+    </div>
+  </div>
+
+  <style>
+    .product-rail {
+      padding: 56px 16px;
+    }
+
+    .product-rail__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .product-rail__header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .product-rail__heading {
+      margin: 0;
+      color: #111;
+      font-size: clamp(1.9rem, 4vw, 2.8rem);
+      letter-spacing: -0.04em;
+      line-height: 1.06;
+    }
+
+    .product-rail__subheading {
+      margin: 8px 0 0;
+      color: #66605a;
+      font-size: 0.98rem;
+      line-height: 1.6;
+      max-width: 56ch;
+    }
+
+    .product-rail__controls {
+      display: inline-flex;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .product-rail__control {
+      width: 42px;
+      height: 42px;
+      border: 1px solid #dfd8cc;
+      border-radius: 999px;
+      background: #fff;
+      color: #111;
+      font: inherit;
+      font-size: 1.4rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .product-rail__track {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(280px, 31vw);
+      gap: 18px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding-bottom: 6px;
+    }
+
+    .product-rail__track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .product-rail__card {
+      display: flex;
+      flex-direction: column;
+      scroll-snap-align: start;
+      background: #fff;
+      border: 1px solid #ece5d9;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .product-rail__media {
+      display: block;
+      line-height: 0;
+      background: #faf7f2;
+    }
+
+    .product-rail__image,
+    .product-rail__placeholder {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      display: block;
+    }
+
+    .product-rail__image {
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .product-rail__placeholder {
+      background: #f3efe8;
+    }
+
+    .product-rail__body {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding: 18px;
+    }
+
+    .product-rail__title {
+      color: #111;
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+
+    .product-rail__price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin: 0;
+    }
+
+    .product-rail__price {
+      color: #111;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .product-rail__compare {
+      color: #8c867f;
+      font-size: 0.95rem;
+    }
+
+    .product-rail__actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .product-rail__actions form {
+      flex: 1 1 auto;
+      margin: 0;
+    }
+
+    .product-rail__button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 48px;
+      border: none;
+      border-radius: 14px;
+      background: #111;
+      color: #fff;
+      font: inherit;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .product-rail__wishlist {
+      width: 46px;
+      height: 46px;
+      min-width: 46px;
+      border-radius: 999px !important;
+      padding: 0 !important;
+      justify-content: center;
+      background: #fff !important;
+      border: 1px solid #ddd4c7 !important;
+    }
+
+    .product-rail__wishlist .wishlist-toggle__label {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .product-rail {
+        padding: 42px 14px;
+      }
+
+      .product-rail__header {
+        align-items: flex-start;
+        margin-bottom: 18px;
+      }
+
+      .product-rail__controls {
+        display: none;
+      }
+
+      .product-rail__track {
+        grid-auto-columns: minmax(250px, 82vw);
+        gap: 14px;
+      }
+
+      .product-rail__body {
+        padding: 16px;
+      }
+    }
+  </style>
+
+  <script>
+    (function () {
+      var section = document.querySelector('[data-product-rail-section="{{ section.id }}"]');
+      if (!section) return;
+
+      var track = section.querySelector('[data-product-rail-track]');
+      var prev = section.querySelector('[data-rail-prev]');
+      var next = section.querySelector('[data-rail-next]');
+      if (!track || !prev || !next) return;
+
+      function scrollTrack(direction) {
+        var firstCard = track.querySelector('.product-rail__card');
+        var scrollAmount = firstCard ? firstCard.getBoundingClientRect().width + 18 : 320;
+        track.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+      }
+
+      prev.addEventListener('click', function () {
+        scrollTrack(-1);
+      });
+
+      next.addEventListener('click', function () {
+        scrollTrack(1);
+      });
+    })();
+  </script>
+
+{% schema %}
+{
+  "name": "Product Rail",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Featured Products"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "A swipeable product row that shows how the theme handles product cards, add to cart, and saved items."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Rail"
+    }
+  ]
+}
+{% endschema %}

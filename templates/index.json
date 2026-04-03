@@ -20,7 +20,7 @@
         "rating_value": 5,
         "rating_text": "Trusted by 1,000+ customers",
         "button_text": "Shop the Watch",
-        "button_link": "#product-showcase",
+        "button_link": "#product-rail",
         "image": "",
         "product_handle": "mimi-watch",
         "show_hero_trust_badges": false,
@@ -29,17 +29,14 @@
         "image_height": "large"
       }
     },
-    "product_showcase": {
-      "type": "product-showcase",
+    "product_rail": {
+      "type": "product-rail",
       "settings": {
-        "product": "mimi-watch",
-        "heading": "Premium Minimalist Watch",
-        "badge_text": "Limited Offer",
-        "custom_description": "<p>A sleek and elegant timepiece crafted for everyday style. Built with premium materials and designed to complement any outfit.</p>",
-        "button_text": "Add To Cart",
-        "button_link": "/products/mimi-watch",
-        "image_position": "left",
-        "background_color": "#f8f8f8"
+        "heading": "Featured Products",
+        "subheading": "Swipe through products to see the theme's product cards, add-to-cart flow, and wishlist interactions in action.",
+        "collection": "",
+        "products_to_show": 4,
+        "background_color": "#ffffff"
       }
     },
     "trust_badges": {
@@ -174,7 +171,7 @@
   },
   "order": [
     "hero_product",
-    "product_showcase",
+    "product_rail",
     "trust_badges",
     "reviews_section",
     "faq_section"
