@@ -45,6 +45,18 @@
 
 .shopify-section .hero-product .overlay-content {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.shopify-section .overlay.center .overlay-content {
+  align-items: center;
+}
+
+.shopify-section .overlay.right .overlay-content {
+  align-items: flex-end;
 }
 
 .shopify-section .hero-product .overlay-heading,
@@ -61,6 +73,7 @@
 }
 
 .shopify-section .hero-product .overlay-heading {
+  margin: 0;
   text-shadow: 0 4px 24px rgba(255, 255, 255, 0.72);
 }
 
@@ -80,6 +93,7 @@
 .shopify-section .hero-product .hero-rating {
   width: fit-content;
   max-width: 100%;
+  margin: 0;
   padding: 6px 10px;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.72);
@@ -89,7 +103,7 @@
 }
 
 .shopify-section .hero-product .overlay-subheading {
-  display: inline;
+  display: inline-block;
   line-height: 1.75;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
@@ -98,6 +112,10 @@
 .shopify-section .hero-product .hero-price,
 .shopify-section .hero-product .hero-rating {
   display: inline-flex;
+}
+
+.shopify-section .hero-product .hero-btn {
+  margin-top: 8px;
 }
 
 .shopify-section .hero-product .hero-btn {
