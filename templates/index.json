@@ -11,24 +11,6 @@
   "sections": {
     "hero_product": {
       "type": "hero-product",
-      "blocks": {
-        "benefit_YzALti": {
-          "type": "benefit",
-          "settings": {
-            "benefit_text": "🚚 Free Shipping"
-          }
-        },
-        "benefit_qqg8hw": {
-          "type": "benefit",
-          "settings": {
-            "benefit_text": "🚚 Free Shipping"
-          }
-        }
-      },
-      "block_order": [
-        "benefit_YzALti",
-        "benefit_qqg8hw"
-      ],
       "settings": {
         "heading": "Timeless Design. Modern Precision.",
         "subtext": "A premium everyday watch designed for elegance, durability, and comfort.",
@@ -38,12 +20,8 @@
         "rating_value": 5,
         "rating_text": "Trusted by 1,000+ customers",
         "button_text": "Shop the Watch",
-        "button_link": "#product-showcase",
-        "image": "shopify://shop_images/an-arm-with-a-smart-watch-against-a-blue-sky.jpg",
-        "enable_video": false,
-        "video_url": "",
-        "mute_video": true,
-        "loop_video": true,
+        "button_link": "#product-media",
+        "image": "",
         "product_handle": "mimi-watch",
         "show_hero_trust_badges": false,
         "text_position": "center",
@@ -51,83 +29,14 @@
         "image_height": "large"
       }
     },
-    "product_showcase": {
-      "type": "product-showcase",
-      "settings": {
-        "product": "mimi-watch",
-        "custom_image": "shopify://shop_images/an-arm-with-a-smart-watch-against-a-blue-sky.jpg",
-        "heading": "Premium Minimalist Watch",
-        "badge_text": "Limited Offer",
-        "custom_description": "<p>A sleek and elegant timepiece crafted for everyday style. Built with premium materials and designed to complement any outfit.</p>",
-        "button_text": "Add To Cart",
-        "button_link": "/products/mimi-watch",
-        "image_position": "left",
-        "background_color": "#f8f8f8"
-      }
-    },
-    "product_benefits": {
-      "type": "product-benefits",
-      "blocks": {
-        "benefit_1": {
-          "type": "benefit",
-          "settings": {
-            "title": "Premium Stainless Steel Case",
-            "description": "Built with high-grade stainless steel for lasting durability and a refined finish."
-          }
-        },
-        "benefit_2": {
-          "type": "benefit",
-          "settings": {
-            "title": "Scratch-Resistant Glass",
-            "description": "Mineral crystal glass keeps the dial protected and clear under daily wear."
-          }
-        },
-        "benefit_3": {
-          "type": "benefit",
-          "settings": {
-            "title": "Comfortable Mesh Strap",
-            "description": "Lightweight and breathable mesh strap that adjusts to a perfect fit."
-          }
-        },
-        "benefit_4": {
-          "type": "benefit",
-          "settings": {
-            "title": "Minimalist Luxury Design",
-            "description": "Clean, timeless aesthetics that pair effortlessly with any outfit or occasion."
-          }
-        }
-      },
-      "block_order": [
-        "benefit_1",
-        "benefit_2",
-        "benefit_3",
-        "benefit_4"
-      ],
-      "settings": {
-        "heading": "Why This Watch Works",
-        "background_color": "#ffffff"
-      }
-    },
     "product_media_clean": {
       "type": "product-media",
       "blocks": {
-        "media_item_tP4HWD": {
-          "type": "media_item",
-          "settings": {
-            "type": "image",
-            "image": "shopify://shop_images/appl-watch.png",
-            "video_url": "",
-            "alt_text": "Product image",
-            "video_autoplay": true,
-            "video_muted": true,
-            "video_loop": true
-          }
-        },
         "media_item_1": {
           "type": "media_item",
           "settings": {
             "type": "image",
-            "image": "shopify://shop_images/an-arm-with-a-smart-watch-against-a-blue-sky.jpg",
+            "image": "",
             "video_url": "",
             "alt_text": "Product image",
             "video_autoplay": true,
@@ -137,7 +46,6 @@
         }
       },
       "block_order": [
-        "media_item_tP4HWD",
         "media_item_1"
       ],
       "settings": {
@@ -210,6 +118,49 @@
         "background_color": "#f5f6f2"
       }
     },
+    "product_benefits": {
+      "type": "product-benefits",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "title": "Premium Stainless Steel Case",
+            "description": "Built with high-grade stainless steel for lasting durability and a refined finish."
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "title": "Scratch-Resistant Glass",
+            "description": "Mineral crystal glass keeps the dial protected and clear under daily wear."
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "title": "Comfortable Mesh Strap",
+            "description": "Lightweight and breathable mesh strap that adjusts to a perfect fit."
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "title": "Minimalist Luxury Design",
+            "description": "Clean, timeless aesthetics that pair effortlessly with any outfit or occasion."
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4"
+      ],
+      "settings": {
+        "heading": "Why This Watch Works",
+        "background_color": "#ffffff"
+      }
+    },
     "why_choose": {
       "type": "why-choose",
       "blocks": {
@@ -266,7 +217,8 @@
           "settings": {
             "rating": 5,
             "review_text": "Outstanding quality and exceptional customer service.",
-            "review_author": "Sarah Johnson"
+            "review_author": "Sarah Johnson",
+            "customer_image": ""
           }
         },
         "review_2": {
@@ -274,7 +226,8 @@
           "settings": {
             "rating": 5,
             "review_text": "Best purchase I've made. Excellent customer service!",
-            "review_author": "Michael Chen"
+            "review_author": "Michael Chen",
+            "customer_image": ""
           }
         },
         "review_3": {
@@ -282,7 +235,8 @@
           "settings": {
             "rating": 5,
             "review_text": "Great product with amazing quality and easy setup.",
-            "review_author": "Emma Williams"
+            "review_author": "Emma Williams",
+            "customer_image": ""
           }
         }
       },
@@ -336,10 +290,6 @@
     "final_call_to_action": {
       "type": "cta-final",
       "settings": {
-        "show_summary_tags": true,
-        "summary_tag_1": "Free shipping",
-        "summary_tag_2": "30-day returns",
-        "summary_tag_3": "Secure checkout",
         "heading": "Upgrade Your Style Today",
         "subheading": "Experience the perfect balance of elegance and simplicity.",
         "button_text": "Add to Cart",
@@ -351,7 +301,6 @@
   },
   "order": [
     "hero_product",
-    "product_showcase",
     "product_benefits",
     "product_media_clean",
     "trust_strip",
