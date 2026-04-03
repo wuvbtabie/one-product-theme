@@ -30,12 +30,80 @@
   position: relative;
 }
 
+.shopify-section .hero-discovery {
+  max-width: 1160px;
+  margin: 0 auto 18px;
+  padding: 0 16px;
+}
+
+.shopify-section .hero-discovery__search {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 58px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: #f1f1f1;
+  color: #242424;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.shopify-section .hero-discovery__search-icon,
+.shopify-section .hero-discovery__search-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #3b3b3b;
+}
+
+.shopify-section .hero-discovery__tabs {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-top: 18px;
+  padding: 0 4px;
+}
+
+.shopify-section .hero-discovery__tab {
+  position: relative;
+  padding: 0 0 12px;
+  color: #595959;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.shopify-section .hero-discovery__tab--active {
+  color: #151515;
+}
+
+.shopify-section .hero-discovery__tab--active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  border-radius: 999px;
+  background: #1464d8;
+}
+
 .shopify-section .hero-product::after {
   display: none;
 }
 
 .shopify-section .hero-product .hero-image {
   background: #f7f3ed !important;
+  width: min(calc(100% - 32px), 1160px) !important;
+  margin: 0 auto !important;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 22px 48px rgba(17, 17, 17, 0.07);
 }
 
 .shopify-section .hero-product .overlay {
@@ -49,6 +117,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 14px;
+  max-width: 480px;
 }
 
 .shopify-section .overlay.center .overlay-content {
@@ -122,6 +191,9 @@
   background: #111 !important;
   border-color: #111 !important;
   color: #fff !important;
+  border-radius: 8px !important;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .shopify-section .hero-product .hero-btn:hover {
@@ -644,6 +716,14 @@
 }
 
 @media (max-width: 900px) {
+  .shopify-section .hero-discovery {
+    margin-bottom: 14px;
+  }
+
+  .shopify-section .hero-discovery__tabs {
+    gap: 24px;
+  }
+
   .shopify-section .hero-product {
     margin-bottom: 34px !important;
   }
@@ -682,10 +762,36 @@
 }
 
 @media (max-width: 640px) {
+  .shopify-section .hero-discovery {
+    padding: 0 14px;
+  }
+
+  .shopify-section .hero-discovery__search {
+    min-height: 52px;
+    padding: 0 16px;
+    gap: 10px;
+    font-size: 0.98rem;
+  }
+
+  .shopify-section .hero-discovery__tabs {
+    gap: 26px;
+    margin-top: 14px;
+  }
+
+  .shopify-section .hero-discovery__tab {
+    font-size: 0.82rem;
+    padding-bottom: 10px;
+  }
+
   .shopify-section .hero-product .hero-image,
   .shopify-section .hero-product .hero-video,
   .shopify-section .hero-product .hero-image img {
     min-height: 620px !important;
+  }
+
+  .shopify-section .hero-product .hero-image {
+    width: calc(100% - 28px) !important;
+    border-radius: 24px;
   }
 
   .shopify-section .hero-product .hero-image img,
