@@ -3,19 +3,80 @@ document.addEventListener('DOMContentLoaded', function () {
     var grid = section.querySelector('.product-media__grid');
     if (!grid) return;
 
-    var placeholders = Array.prototype.slice.call(grid.querySelectorAll('.product-media__item--placeholder'));
-    placeholders.forEach(function (node) {
-      node.remove();
-    });
-
-    if (!grid.querySelector('.product-media__item')) {
+    var hasRealMedia = Boolean(grid.querySelector('.product-media__item img, .product-media__item video, .product-media__item iframe'));
+    if (!hasRealMedia) {
       section.classList.add('product-media--gallery-empty');
+    } else {
+      section.classList.remove('product-media--gallery-empty');
     }
   });
 
   var targets = document.querySelectorAll(
     '.shopify-section .product-media, .shopify-section .product-showcase, .shopify-section .trust-strip, .shopify-section .trust-badges, .shopify-section .product-benefits, .shopify-section .why-choose, .shopify-section .reviews-section, .shopify-section .faq-section, .shopify-section .final-cta'
   );
+
+  if (document.body.classList.contains('template-index')) {
+    var utilitySectionIds = ['benefits', 'reviews', 'faq'];
+    var utilitySections = utilitySectionIds
+      .map(function (id) {
+        return document.getElementById(id);
+      })
+      .filter(Boolean);
+
+    var setUtilitySectionState = function (activeId, shouldScroll) {
+      utilitySections.forEach(function (section) {
+        var isActive = section.id === activeId;
+        section.hidden = !isActive;
+        section.classList.toggle('is-manually-visible', isActive);
+
+        if (isActive) {
+          section.classList.add('is-visible');
+        }
+      });
+
+      if (!activeId || !shouldScroll) return;
+
+      window.requestAnimationFrame(function () {
+        var activeSection = document.getElementById(activeId);
+        if (!activeSection) return;
+
+        activeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    };
+
+    var syncUtilitySectionsFromHash = function (shouldScroll) {
+      var hash = window.location.hash.replace('#', '');
+
+      if (utilitySectionIds.indexOf(hash) !== -1) {
+        setUtilitySectionState(hash, shouldScroll);
+        return;
+      }
+
+      setUtilitySectionState('', false);
+    };
+
+    document.querySelectorAll('a[href="#benefits"], a[href="#reviews"], a[href="#faq"]').forEach(function (link) {
+      link.addEventListener('click', function (event) {
+        var targetId = link.getAttribute('href').replace('#', '');
+        if (!targetId) return;
+
+        event.preventDefault();
+
+        if (window.location.hash === '#' + targetId) {
+          setUtilitySectionState(targetId, true);
+          return;
+        }
+
+        window.location.hash = targetId;
+      });
+    });
+
+    window.addEventListener('hashchange', function () {
+      syncUtilitySectionsFromHash(true);
+    });
+
+    syncUtilitySectionsFromHash(false);
+  }
 
   if (!targets.length) return;
 
