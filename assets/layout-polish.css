@@ -36,29 +36,6 @@
   padding: 0 16px;
 }
 
-.shopify-section .hero-discovery__search {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 12px;
-  min-height: 58px;
-  padding: 0 18px;
-  border-radius: 999px;
-  background: #f1f1f1;
-  color: #242424;
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-.shopify-section .hero-discovery__search-icon,
-.shopify-section .hero-discovery__search-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #3b3b3b;
-}
-
 .shopify-section .hero-discovery__tabs {
   display: flex;
   align-items: center;
@@ -764,13 +741,6 @@
 @media (max-width: 640px) {
   .shopify-section .hero-discovery {
     padding: 0 14px;
-  }
-
-  .shopify-section .hero-discovery__search {
-    min-height: 52px;
-    padding: 0 16px;
-    gap: 10px;
-    font-size: 0.98rem;
   }
 
   .shopify-section .hero-discovery__tabs {
