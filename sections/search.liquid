@@ -38,10 +38,7 @@
       {% if search.results_count == 0 %}
         <p class="search-page__status search-page__status--empty">{{ 'search.no_results_html' | t: terms: search.terms }}</p>
       {% else %}
-        <div class="search-page__results-bar">
-          <p class="search-page__status">{{ 'search.results_for_html' | t: terms: search.terms, count: search.results_count }}</p>
-          <a class="search-page__reset" href="{{ routes.search_url }}">New search</a>
-        </div>
+        <p class="search-page__status search-page__status--results">{{ 'search.results_for_html' | t: terms: search.terms, count: search.results_count }}</p>
 
         <div class="search-results">
           {% paginate search.results by 20 %}
@@ -193,31 +190,8 @@
     font-size: 1.02rem;
   }
 
-  .search-page__results-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
+  .search-page__status--results {
     margin-bottom: 18px;
-  }
-
-  .search-page__results-bar .search-page__status {
-    margin: 0;
-  }
-
-  .search-page__reset {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 42px;
-    padding: 0 16px;
-    border: 1px solid #e7dfd4;
-    border-radius: 999px;
-    color: #141414;
-    text-decoration: none;
-    font-size: 0.94rem;
-    font-weight: 600;
-    white-space: nowrap;
   }
 
   .search-page__status--empty {
@@ -338,17 +312,6 @@
     .search-page__form {
       grid-template-columns: 1fr;
       gap: 10px;
-    }
-
-    .search-page__results-bar {
-      align-items: flex-start;
-      flex-direction: column;
-      margin-bottom: 16px;
-    }
-
-    .search-page__reset {
-      min-height: 38px;
-      padding: 0 14px;
     }
 
     .search-page__field,
