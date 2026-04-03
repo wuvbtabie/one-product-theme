@@ -7,31 +7,41 @@
 
 <section class="search-page">
   <div class="search-page__inner">
-    <div class="search-page__header">
-      <p class="search-page__eyebrow">Discover</p>
-      <h1 class="search-page__title">{{ 'search.title' | t }}</h1>
-      <p class="search-page__intro">Find products, pages, and articles in a cleaner, faster storefront experience.</p>
-    </div>
+    {% assign has_results = false %}
+    {% if search.performed and search.results_count > 0 %}
+      {% assign has_results = true %}
+    {% endif %}
 
-    <form action="{{ routes.search_url }}" method="get" role="search" class="search-page__form">
-      <div class="search-page__field-wrap">
-        <input
-          class="search-page__field"
-          type="search"
-          size="50"
-          name="q"
-          value="{{ search.terms | escape }}"
-          placeholder="{{ 'search.placeholder' | t }}"
-        >
+    {% unless has_results %}
+      <div class="search-page__header">
+        <p class="search-page__eyebrow">Discover</p>
+        <h1 class="search-page__title">{{ 'search.title' | t }}</h1>
+        <p class="search-page__intro">Find products, pages, and articles in a cleaner, faster storefront experience.</p>
       </div>
-      <button class="search-page__submit" type="submit">{{ 'search.submit' | t }}</button>
-    </form>
+
+      <form action="{{ routes.search_url }}" method="get" role="search" class="search-page__form">
+        <div class="search-page__field-wrap">
+          <input
+            class="search-page__field"
+            type="search"
+            size="50"
+            name="q"
+            value="{{ search.terms | escape }}"
+            placeholder="{{ 'search.placeholder' | t }}"
+          >
+        </div>
+        <button class="search-page__submit" type="submit">{{ 'search.submit' | t }}</button>
+      </form>
+    {% endunless %}
 
     {% if search.performed %}
       {% if search.results_count == 0 %}
         <p class="search-page__status search-page__status--empty">{{ 'search.no_results_html' | t: terms: search.terms }}</p>
       {% else %}
-        <p class="search-page__status">{{ 'search.results_for_html' | t: terms: search.terms, count: search.results_count }}</p>
+        <div class="search-page__results-bar">
+          <p class="search-page__status">{{ 'search.results_for_html' | t: terms: search.terms, count: search.results_count }}</p>
+          <a class="search-page__reset" href="{{ routes.search_url }}">New search</a>
+        </div>
 
         <div class="search-results">
           {% paginate search.results by 20 %}
@@ -183,6 +193,33 @@
     font-size: 1.02rem;
   }
 
+  .search-page__results-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .search-page__results-bar .search-page__status {
+    margin: 0;
+  }
+
+  .search-page__reset {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 0 16px;
+    border: 1px solid #e7dfd4;
+    border-radius: 999px;
+    color: #141414;
+    text-decoration: none;
+    font-size: 0.94rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
   .search-page__status--empty {
     padding: 24px;
     border: 1px solid #ece4d9;
@@ -290,6 +327,17 @@
     .search-page__form {
       grid-template-columns: 1fr;
       gap: 10px;
+    }
+
+    .search-page__results-bar {
+      align-items: flex-start;
+      flex-direction: column;
+      margin-bottom: 16px;
+    }
+
+    .search-page__reset {
+      min-height: 38px;
+      padding: 0 14px;
     }
 
     .search-page__field,
