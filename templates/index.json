@@ -39,54 +39,6 @@
         "background_color": "#ffffff"
       }
     },
-    "payment_methods": {
-      "type": "payment-methods",
-      "blocks": {
-        "method_1": {
-          "type": "method",
-          "settings": {
-            "label": "Visa"
-          }
-        },
-        "method_2": {
-          "type": "method",
-          "settings": {
-            "label": "Mastercard"
-          }
-        },
-        "method_3": {
-          "type": "method",
-          "settings": {
-            "label": "PayPal"
-          }
-        },
-        "method_4": {
-          "type": "method",
-          "settings": {
-            "label": "Apple Pay"
-          }
-        },
-        "method_5": {
-          "type": "method",
-          "settings": {
-            "label": "Google Pay"
-          }
-        }
-      },
-      "block_order": [
-        "method_1",
-        "method_2",
-        "method_3",
-        "method_4",
-        "method_5"
-      ],
-      "settings": {
-        "eyebrow": "Payment Methods",
-        "heading": "Pay Your Way",
-        "subheading": "Show customers that your store supports trusted payment methods across desktop and mobile checkout.",
-        "background_color": "#ffffff"
-      }
-    },
     "trust_badges": {
       "type": "trust-badges",
       "blocks": {
@@ -222,7 +174,6 @@
     "product_rail",
     "trust_badges",
     "reviews_section",
-    "faq_section",
-    "payment_methods"
+    "faq_section"
   ]
 }
