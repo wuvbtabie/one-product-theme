@@ -220,9 +220,9 @@
   "order": [
     "hero_product",
     "product_rail",
-    "payment_methods",
     "trust_badges",
     "reviews_section",
-    "faq_section"
+    "faq_section",
+    "payment_methods"
   ]
 }
