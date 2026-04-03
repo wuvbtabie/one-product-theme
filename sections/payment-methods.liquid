@@ -1,0 +1,170 @@
+<section class="payment-methods" style="background: {{ section.settings.background_color }};">
+  <div class="payment-methods__inner">
+    <p class="payment-methods__eyebrow">{{ section.settings.eyebrow }}</p>
+    <h2 class="payment-methods__heading">{{ section.settings.heading }}</h2>
+    {% if section.settings.subheading != blank %}
+      <p class="payment-methods__subheading">{{ section.settings.subheading }}</p>
+    {% endif %}
+
+    <div class="payment-methods__list" aria-label="Accepted payment methods">
+      {% for block in section.blocks %}
+        <div class="payment-methods__item" {{ block.shopify_attributes }}>
+          <span class="payment-methods__icon">{{ block.settings.label }}</span>
+        </div>
+      {% endfor %}
+
+      {% if section.blocks.size == 0 %}
+        <div class="payment-methods__item"><span class="payment-methods__icon">Visa</span></div>
+        <div class="payment-methods__item"><span class="payment-methods__icon">Mastercard</span></div>
+        <div class="payment-methods__item"><span class="payment-methods__icon">PayPal</span></div>
+        <div class="payment-methods__item"><span class="payment-methods__icon">Apple Pay</span></div>
+        <div class="payment-methods__item"><span class="payment-methods__icon">Google Pay</span></div>
+      {% endif %}
+    </div>
+  </div>
+
+  <style>
+    .payment-methods {
+      padding: 44px 16px;
+      border-top: 1px solid #efebe4;
+    }
+
+    .payment-methods__inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .payment-methods__eyebrow {
+      margin: 0 0 8px;
+      color: #6d655d;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .payment-methods__heading {
+      margin: 0;
+      color: #111;
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      letter-spacing: -0.04em;
+      line-height: 1.08;
+    }
+
+    .payment-methods__subheading {
+      max-width: 52ch;
+      margin: 12px auto 0;
+      color: #6c665f;
+      font-size: 0.98rem;
+      line-height: 1.65;
+    }
+
+    .payment-methods__list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .payment-methods__item {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 110px;
+      min-height: 50px;
+      padding: 0 18px;
+      border: 1px solid #e5ddd1;
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .payment-methods__icon {
+      color: #111;
+      font-size: 0.96rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 640px) {
+      .payment-methods {
+        padding: 36px 14px;
+      }
+
+      .payment-methods__list {
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .payment-methods__item {
+        min-width: calc(50% - 5px);
+        min-height: 46px;
+        padding: 0 14px;
+      }
+
+      .payment-methods__icon {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+
+{% schema %}
+{
+  "name": "Payment Methods",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Payment Methods"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Pay Your Way"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Show customers that your store supports trusted payment methods across desktop and mobile checkout."
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "method",
+      "name": "Payment Method",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Visa"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Payment Methods",
+      "blocks": [
+        { "type": "method", "settings": { "label": "Visa" } },
+        { "type": "method", "settings": { "label": "Mastercard" } },
+        { "type": "method", "settings": { "label": "PayPal" } },
+        { "type": "method", "settings": { "label": "Apple Pay" } },
+        { "type": "method", "settings": { "label": "Google Pay" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
