@@ -5,91 +5,315 @@
   https://shopify.dev/docs/storefronts/themes/architecture/templates/search
 {% endcomment %}
 
-<h1>{{ 'search.title' | t }}</h1>
-
-<form action="{{ routes.search_url }}" method="get" role="search">
-  <input
-    type="search"
-    size="50"
-    name="q"
-    value="{{ search.terms | escape }}"
-    placeholder="{{ 'search.placeholder' | t }}"
-  >
-  <button type="submit">{{ 'search.submit' | t }}</button>
-</form>
-
-{% if search.performed %}
-  {% if search.results_count == 0 %}
-    <p>{{ 'search.no_results_html' | t: terms: search.terms }}</p>
-  {% else %}
-    <p>{{ 'search.results_for_html' | t: terms: search.terms, count: search.results_count }}</p>
-
-    <div class="search-results">
-      {% paginate search.results by 20 %}
-        {% # Search result items may be an article, a page, or a product. %}
-        {% for result in search.results %}
-          <div class="search-result">
-            <div class="search-result__media">
-              {% assign featured_image = result.featured_image | default: result.image %}
-              {% if featured_image %}
-                {% render 'image', class: 'search-result__image', image: featured_image, url: result.url, width: 400 %}
-              {% endif %}
-
-              {% if result.object_type == 'product' %}
-                {% render 'wishlist-button',
-                  product_id: result.id,
-                  handle: result.handle,
-                  title: result.title,
-                  url: result.url,
-                  image: result.featured_image,
-                  price: result.price,
-                  class: 'wishlist-floating-button'
-                %}
-              {% endif %}
-            </div>
-            <div class="search-result__content">
-              <p>
-                {{ result.title | link_to: result.url }}
-                {% if result.price %}
-                  ${{ result.price | money_without_currency }}
-                {% endif %}
-              </p>
-            </div>
-          </div>
-        {% endfor %}
-
-        {{ paginate | default_pagination }}
-      {% endpaginate %}
+<section class="search-page">
+  <div class="search-page__inner">
+    <div class="search-page__header">
+      <p class="search-page__eyebrow">Discover</p>
+      <h1 class="search-page__title">{{ 'search.title' | t }}</h1>
+      <p class="search-page__intro">Find products, pages, and articles in a cleaner, faster storefront experience.</p>
     </div>
-  {% endif %}
-{% endif %}
+
+    <form action="{{ routes.search_url }}" method="get" role="search" class="search-page__form">
+      <div class="search-page__field-wrap">
+        <input
+          class="search-page__field"
+          type="search"
+          size="50"
+          name="q"
+          value="{{ search.terms | escape }}"
+          placeholder="{{ 'search.placeholder' | t }}"
+        >
+      </div>
+      <button class="search-page__submit" type="submit">{{ 'search.submit' | t }}</button>
+    </form>
+
+    {% if search.performed %}
+      {% if search.results_count == 0 %}
+        <p class="search-page__status search-page__status--empty">{{ 'search.no_results_html' | t: terms: search.terms }}</p>
+      {% else %}
+        <p class="search-page__status">{{ 'search.results_for_html' | t: terms: search.terms, count: search.results_count }}</p>
+
+        <div class="search-results">
+          {% paginate search.results by 20 %}
+            {% # Search result items may be an article, a page, or a product. %}
+            {% for result in search.results %}
+              <article class="search-result search-result--{{ result.object_type }}">
+                <div class="search-result__media">
+                  {% assign featured_image = result.featured_image | default: result.image %}
+                  {% if featured_image %}
+                    {% render 'image', class: 'search-result__image', image: featured_image, url: result.url, width: 520 %}
+                  {% else %}
+                    <a href="{{ result.url }}" class="search-result__image-placeholder">{{ result.title }}</a>
+                  {% endif %}
+
+                  {% if result.object_type == 'product' %}
+                    {% render 'wishlist-button',
+                      product_id: result.id,
+                      handle: result.handle,
+                      title: result.title,
+                      url: result.url,
+                      image: result.featured_image,
+                      price: result.price,
+                      class: 'wishlist-floating-button'
+                    %}
+                  {% endif %}
+                </div>
+
+                <div class="search-result__content">
+                  <p class="search-result__type">{{ result.object_type | capitalize }}</p>
+                  <h2 class="search-result__title">{{ result.title | link_to: result.url }}</h2>
+
+                  {% if result.price %}
+                    <p class="search-result__price">${{ result.price | money_without_currency }}</p>
+                  {% endif %}
+
+                  {% if result.object_type != 'product' and result.content != blank %}
+                    <p class="search-result__excerpt">{{ result.content | strip_html | truncatewords: 16 }}</p>
+                  {% endif %}
+                </div>
+              </article>
+            {% endfor %}
+
+            {{ paginate | default_pagination }}
+          {% endpaginate %}
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+</section>
 
 {% stylesheet %}
+  .search-page {
+    padding: 28px 16px 48px;
+    background: linear-gradient(180deg, #fcfbf8 0%, #ffffff 26%, #ffffff 100%);
+  }
+
+  .search-page__inner {
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  .search-page__header {
+    max-width: 720px;
+    margin-bottom: 24px;
+  }
+
+  .search-page__eyebrow {
+    margin: 0 0 10px;
+    color: #7a726b;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .search-page__title {
+    margin: 0;
+    color: #1a1a1a;
+    font-size: clamp(2.4rem, 5vw, 4.6rem);
+    line-height: 0.95;
+    letter-spacing: -0.06em;
+  }
+
+  .search-page__intro {
+    max-width: 48ch;
+    margin: 14px 0 0;
+    color: #67615c;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .search-page__form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+
+  .search-page__field-wrap {
+    position: relative;
+  }
+
+  .search-page__field {
+    width: 100%;
+    min-height: 58px;
+    padding: 0 20px;
+    border: 1px solid #e7dfd4;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.94);
+    color: #141414;
+    font: inherit;
+    font-size: 1rem;
+    box-shadow: 0 10px 30px rgba(17, 17, 17, 0.03);
+  }
+
+  .search-page__field::placeholder {
+    color: #91887f;
+  }
+
+  .search-page__field:focus {
+    outline: none;
+    border-color: #141414;
+  }
+
+  .search-page__submit {
+    min-width: 146px;
+    min-height: 58px;
+    padding: 0 26px;
+    border: 1px solid #141414;
+    border-radius: 18px;
+    background: #141414;
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    transition: background 0.18s ease, transform 0.18s ease;
+  }
+
+  .search-page__submit:hover {
+    background: #242424;
+    transform: translateY(-1px);
+  }
+
+  .search-page__status {
+    margin: 0 0 18px;
+    color: #4e4945;
+    font-size: 1.02rem;
+  }
+
+  .search-page__status--empty {
+    padding: 24px;
+    border: 1px solid #ece4d9;
+    border-radius: 18px;
+    background: #fffaf4;
+  }
+
   .search-results {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 14px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
   }
 
   .search-result {
-    border: 1px solid #ececec;
-    border-radius: 14px;
+    border: 1px solid #ebe3d8;
+    border-radius: 26px;
     overflow: hidden;
     background: #fff;
+    box-shadow: 0 18px 40px rgba(17, 17, 17, 0.04);
   }
 
   .search-result__media {
     position: relative;
+    background: #f4f1ea;
+  }
+
+  .search-result__image,
+  .search-result__image-placeholder {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+  }
+
+  .search-result__image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: #67615c;
+    text-align: center;
+    text-decoration: none;
   }
 
   .search-result__content {
-    padding: 10px 12px 12px;
+    padding: 18px 18px 20px;
+  }
+
+  .search-result__type {
+    margin: 0 0 8px;
+    color: #81786d;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .search-result__title {
+    margin: 0;
+    color: #111;
+    font-size: 1.2rem;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+  }
+
+  .search-result__title a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .search-result__price {
+    margin: 10px 0 0;
+    color: #111;
+    font-size: 1.28rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  .search-result__excerpt {
+    margin: 10px 0 0;
+    color: #67615c;
+    font-size: 0.96rem;
+    line-height: 1.7;
   }
 
   .search-results .prev,
   .search-results .page,
   .search-results .next {
     grid-column: 1 / -1;
+  }
+
+  @media (max-width: 749px) {
+    .search-page {
+      padding: 18px 14px 38px;
+    }
+
+    .search-page__header {
+      margin-bottom: 18px;
+    }
+
+    .search-page__intro {
+      margin-top: 12px;
+      font-size: 0.96rem;
+    }
+
+    .search-page__form {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .search-page__field,
+    .search-page__submit {
+      min-height: 54px;
+      border-radius: 16px;
+    }
+
+    .search-page__submit {
+      width: 100%;
+    }
+
+    .search-results {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .search-result {
+      border-radius: 22px;
+    }
+
+    .search-result__content {
+      padding: 16px;
+    }
   }
 {% endstylesheet %}
 
