@@ -69,7 +69,8 @@
 
               <div class="product-rail__actions">
                 {% if current_variant %}
-                  {% form 'product', product, id: 'product-rail-form-' | append: section.id | append: '-' | append: forloop.index %}
+                  {% assign rail_form_id = 'product-rail-form-' | append: section.id | append: '-' | append: forloop.index %}
+                  {% form 'product', product, id: rail_form_id %}
                     <input type="hidden" name="id" value="{{ current_variant.id }}">
                     <button type="submit" name="add" class="product-rail__button">Add to Cart</button>
                   {% endform %}
@@ -117,7 +118,8 @@
             {% endif %}
             <div class="product-rail__actions">
               {% if current_variant %}
-                {% form 'product', fallback_product, id: 'product-rail-form-fallback-' | append: section.id %}
+                {% assign fallback_form_id = 'product-rail-form-fallback-' | append: section.id %}
+                {% form 'product', fallback_product, id: fallback_form_id %}
                   <input type="hidden" name="id" value="{{ current_variant.id }}">
                   <button type="submit" name="add" class="product-rail__button">Add to Cart</button>
                 {% endform %}
