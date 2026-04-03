@@ -3,6 +3,12 @@
   if brand_name == blank or brand_name == 'My Store'
     assign brand_name = 'Premium Watches'
   endif
+
+  if customer
+    assign account_link = routes.account_url
+  else
+    assign account_link = routes.account_login_url
+  endif
 %}
 
 <header class="header{% if section.settings.sticky_header %} header--sticky{% endif %}">
@@ -46,11 +52,9 @@
       {% endif %}
 
       {% if section.settings.show_account_icon and shop.customer_accounts_enabled %}
-        <shopify-account menu="{{ section.settings.customer_account_menu }}" class="header__account">
-          <a class="header__icon" aria-label="Account">
-            {{ 'icon-account.svg' | inline_asset_content }}
-          </a>
-        </shopify-account>
+        <a href="{{ account_link }}" class="header__icon header__account" aria-label="Account">
+          {{ 'icon-account.svg' | inline_asset_content }}
+        </a>
       {% endif %}
 
       <a href="/pages/saved-items" class="header__icon header__wishlist-button" aria-label="Open saved items page">
