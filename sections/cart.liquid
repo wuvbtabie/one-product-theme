@@ -75,7 +75,11 @@
 
                     <div class="cart-item__controls">
                       <label class="cart-item__qty-label" for="cart-qty-{{ forloop.index }}">Qty</label>
-                      <input id="cart-qty-{{ forloop.index }}" class="cart-item__qty" type="number" name="updates[]" min="0" value="{{ item.quantity }}">
+                      <div class="cart-item__qty-stepper">
+                        <button type="button" class="cart-item__qty-btn" data-cart-qty-action="decrease" aria-label="Decrease quantity">-</button>
+                        <input id="cart-qty-{{ forloop.index }}" class="cart-item__qty" type="number" name="updates[]" min="0" value="{{ item.quantity }}" inputmode="numeric">
+                        <button type="button" class="cart-item__qty-btn" data-cart-qty-action="increase" aria-label="Increase quantity">+</button>
+                      </div>
                       <div class="cart-item__inline-actions">
                         <button type="button" class="cart-item__inline-btn" data-cart-item-action="save">Save for later</button>
                         <button type="button" class="cart-item__inline-btn cart-item__inline-btn--remove" data-cart-item-action="remove">Remove</button>
@@ -339,16 +343,57 @@
     color: #6d665f;
   }
 
-  .cart-item__qty {
-    width: 82px;
+  .cart-item__qty-stepper {
+    display: grid;
+    grid-template-columns: 38px minmax(0, 1fr) 38px;
+    align-items: center;
+    width: 122px;
     height: 42px;
     border: 1px solid #d8d1c7;
     border-radius: 999px;
-    padding: 0 12px;
+    background: #fff;
+    overflow: hidden;
+  }
+
+  .cart-item__qty-btn {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: transparent;
+    color: #111;
+    font: inherit;
+    font-size: 1.08rem;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.18s ease;
+  }
+
+  .cart-item__qty-btn:hover {
+    background: #f7f5f1;
+  }
+
+  .cart-item__qty {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 0;
+    padding: 0;
     text-align: center;
     background: #fff;
     color: #111;
     font-weight: 600;
+    appearance: textfield;
+    -moz-appearance: textfield;
+  }
+
+  .cart-item__qty::-webkit-outer-spin-button,
+  .cart-item__qty::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 
   .cart-item__inline-actions {
@@ -536,17 +581,27 @@
 
     .cart-item__controls {
       display: grid;
-      grid-template-columns: auto 58px;
+      grid-template-columns: auto 94px;
       align-items: start;
       gap: 8px 10px;
       padding-top: 0;
       width: 100%;
     }
 
-    .cart-item__qty {
-      width: 58px;
+    .cart-item__qty-stepper {
+      width: 94px;
       height: 36px;
-      padding: 0 6px;
+      grid-template-columns: 28px minmax(0, 1fr) 28px;
+    }
+
+    .cart-item__qty-btn {
+      font-size: 0.98rem;
+    }
+
+    .cart-item__qty {
+      width: 100%;
+      height: 100%;
+      padding: 0;
     }
 
     .cart-item__qty-label {
@@ -761,6 +816,12 @@
           return data;
         }
 
+        var qtyInput = itemEl.querySelector('.cart-item__qty');
+        if (qtyInput) {
+          qtyInput.value = String(nextQuantity);
+        }
+
+        applyCartResponse(data);
         setBusyState(itemEl, false);
         return data;
       })
@@ -772,6 +833,28 @@
     }
 
     form.addEventListener('click', function (event) {
+      var qtyBtn = event.target.closest('[data-cart-qty-action]');
+      if (qtyBtn) {
+        event.preventDefault();
+
+        var qtyItemEl = qtyBtn.closest('[data-cart-item]');
+        if (!qtyItemEl) return;
+
+        var qtyInput = qtyItemEl.querySelector('.cart-item__qty');
+        if (!qtyInput) return;
+
+        var currentQuantity = Math.max(0, parseInt(qtyInput.value, 10) || 0);
+        var direction = qtyBtn.getAttribute('data-cart-qty-action');
+        var nextQuantity = direction === 'increase' ? currentQuantity + 1 : Math.max(0, currentQuantity - 1);
+
+        if (nextQuantity === currentQuantity) return;
+
+        changeCartItem(qtyItemEl, nextQuantity).catch(function () {
+          qtyInput.value = String(currentQuantity);
+        });
+        return;
+      }
+
       var actionBtn = event.target.closest('[data-cart-item-action]');
       if (!actionBtn) return;
 
@@ -794,6 +877,19 @@
       }
 
       changeCartItem(itemEl, 0, afterRemove).catch(function () {});
+    });
+
+    form.addEventListener('change', function (event) {
+      var qtyInput = event.target.closest('.cart-item__qty');
+      if (!qtyInput) return;
+
+      var itemEl = qtyInput.closest('[data-cart-item]');
+      if (!itemEl) return;
+
+      var nextQuantity = Math.max(0, parseInt(qtyInput.value, 10) || 0);
+      changeCartItem(itemEl, nextQuantity).catch(function () {
+        qtyInput.value = qtyInput.defaultValue || '1';
+      });
     });
 
     document.addEventListener('click', function (event) {
