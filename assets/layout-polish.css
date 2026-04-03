@@ -76,11 +76,12 @@
 
 .shopify-section .hero-product .hero-image {
   background: #f7f3ed !important;
-  width: min(calc(100% - 32px), 1160px) !important;
-  margin: 0 auto !important;
-  border-radius: 32px;
+  width: 100vw !important;
+  margin-left: calc(-50vw + 50%) !important;
+  margin-right: 0 !important;
+  border-radius: 0;
   overflow: hidden;
-  box-shadow: 0 22px 48px rgba(17, 17, 17, 0.07);
+  box-shadow: none;
 }
 
 .shopify-section .hero-product .overlay {
@@ -760,8 +761,9 @@
   }
 
   .shopify-section .hero-product .hero-image {
-    width: calc(100% - 28px) !important;
-    border-radius: 24px;
+    width: 100vw !important;
+    margin-left: calc(-50vw + 50%) !important;
+    border-radius: 0;
   }
 
   .shopify-section .hero-product .hero-image img,
