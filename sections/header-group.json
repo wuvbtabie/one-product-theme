@@ -15,7 +15,7 @@
       "type": "announcement-bar",
       "settings": {
         "show_announcement": true,
-        "text": "🚚 Free Worldwide Shipping on All Watch Orders",
+        "text": "🚚 Free Worldwide Shipping on Featured Orders",
         "link": "",
         "background_color": "#000000",
         "text_color": "#ffffff"

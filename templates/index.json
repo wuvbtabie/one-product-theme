@@ -13,13 +13,13 @@
       "type": "hero-product",
       "settings": {
         "heading": "Timeless Design. Modern Precision.",
-        "subtext": "A premium everyday watch designed for elegance, durability, and comfort.",
+        "subtext": "A premium everyday essential designed for elegance, durability, and comfort.",
         "show_badge": true,
         "badge_text": "Best Seller",
         "show_rating": true,
         "rating_value": 5,
-        "rating_text": "Trusted by 1,000+ customers",
-        "button_text": "Shop the Watch",
+        "rating_text": "Trusted by shoppers worldwide",
+        "button_text": "Shop Featured",
         "button_link": "#product-rail",
         "image": "",
         "product_handle": "mimi-watch",
@@ -146,14 +146,14 @@
         "faq_item_2": {
           "type": "faq_item",
           "settings": {
-            "question": "Is the watch waterproof?",
-            "answer": "Yes, the watch is water-resistant for everyday use such as hand washing and rain."
+            "question": "Are the products suited for everyday wear?",
+            "answer": "Yes, the featured products are selected to feel practical, durable, and easy to wear day to day."
           }
         },
         "faq_item_3": {
           "type": "faq_item",
           "settings": {
-            "question": "What if I don’t like the watch?",
+            "question": "What if I want to return an item?",
             "answer": "We offer a 30-day money-back guarantee. No questions asked."
           }
         }
