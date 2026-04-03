@@ -55,18 +55,6 @@
         "loop_video": true
       }
     },
-    "trust_strip": {
-      "type": "trust-strip",
-      "settings": {
-        "background_color": "#f7f7f5",
-        "title_1": "Secure Checkout",
-        "text_1": "Encrypted payment processing and protected checkout.",
-        "title_2": "Tracked Delivery",
-        "text_2": "Fast fulfillment with live tracking updates.",
-        "title_3": "30-Day Guarantee",
-        "text_3": "Try it risk-free with hassle-free returns."
-      }
-    },
     "trust_badges": {
       "type": "trust-badges",
       "blocks": {
@@ -116,97 +104,6 @@
       "settings": {
         "heading": "Everything You Need To Buy With Confidence",
         "background_color": "#f5f6f2"
-      }
-    },
-    "product_benefits": {
-      "type": "product-benefits",
-      "blocks": {
-        "benefit_1": {
-          "type": "benefit",
-          "settings": {
-            "title": "Premium Stainless Steel Case",
-            "description": "Built with high-grade stainless steel for lasting durability and a refined finish."
-          }
-        },
-        "benefit_2": {
-          "type": "benefit",
-          "settings": {
-            "title": "Scratch-Resistant Glass",
-            "description": "Mineral crystal glass keeps the dial protected and clear under daily wear."
-          }
-        },
-        "benefit_3": {
-          "type": "benefit",
-          "settings": {
-            "title": "Comfortable Mesh Strap",
-            "description": "Lightweight and breathable mesh strap that adjusts to a perfect fit."
-          }
-        },
-        "benefit_4": {
-          "type": "benefit",
-          "settings": {
-            "title": "Minimalist Luxury Design",
-            "description": "Clean, timeless aesthetics that pair effortlessly with any outfit or occasion."
-          }
-        }
-      },
-      "block_order": [
-        "benefit_1",
-        "benefit_2",
-        "benefit_3",
-        "benefit_4"
-      ],
-      "settings": {
-        "heading": "Why This Watch Works",
-        "background_color": "#ffffff"
-      }
-    },
-    "why_choose": {
-      "type": "why-choose",
-      "blocks": {
-        "feature_1": {
-          "type": "feature",
-          "settings": {
-            "icon": "01",
-            "title": "Precision Quartz Movement",
-            "description": "Accurate and reliable timekeeping powered by a precision quartz movement."
-          }
-        },
-        "feature_2": {
-          "type": "feature",
-          "settings": {
-            "icon": "02",
-            "title": "Elegant Minimalist Design",
-            "description": "A clean dial and refined case that elevate any look without effort."
-          }
-        },
-        "feature_3": {
-          "type": "feature",
-          "settings": {
-            "icon": "03",
-            "title": "Lightweight Everyday Comfort",
-            "description": "Designed to be worn all day without discomfort — light enough you forget it's there."
-          }
-        },
-        "feature_4": {
-          "type": "feature",
-          "settings": {
-            "icon": "04",
-            "title": "Designed for Modern Style",
-            "description": "From desk to dinner, this watch fits every occasion with understated elegance."
-          }
-        }
-      },
-      "block_order": [
-        "feature_1",
-        "feature_2",
-        "feature_3",
-        "feature_4"
-      ],
-      "settings": {
-        "heading": "Why Choose Our Watch",
-        "subheading": "Every detail of this watch is crafted for elegance, precision, and everyday wearability.",
-        "background_color": "#f8f8f8"
       }
     },
     "reviews_section": {
@@ -286,28 +183,13 @@
         "heading": "Frequently Asked Questions",
         "background_color": "#ffffff"
       }
-    },
-    "final_call_to_action": {
-      "type": "cta-final",
-      "settings": {
-        "heading": "Upgrade Your Style Today",
-        "subheading": "Experience the perfect balance of elegance and simplicity.",
-        "button_text": "Add to Cart",
-        "button_link": "/products/mimi-watch",
-        "background_color": "#ffffff",
-        "text_alignment": "center"
-      }
     }
   },
   "order": [
     "hero_product",
-    "product_benefits",
     "product_media_clean",
-    "trust_strip",
     "trust_badges",
-    "why_choose",
     "reviews_section",
-    "faq_section",
-    "final_call_to_action"
+    "faq_section"
   ]
 }
