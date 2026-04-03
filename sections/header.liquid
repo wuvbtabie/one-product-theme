@@ -35,12 +35,20 @@
 
     <div class="header__actions">
       {% if section.settings.show_search_icon %}
-        <a href="{{ routes.search_url }}" class="header__icon header__search-link" aria-label="Open search page">
+        <div class="header__search">
+          <button type="button" class="header__icon header__search-toggle" aria-label="Open search" aria-expanded="false">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" role="img" aria-hidden="true" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="11" cy="11" r="7" />
               <line x1="16.5" y1="16.5" x2="21" y2="21" />
             </svg>
-        </a>
+          </button>
+          <div class="header__search-dropdown" aria-hidden="true">
+            <form action="{{ routes.search_url }}" method="get" class="header__search-form" role="search">
+              <input type="search" name="q" placeholder="Search products..." aria-label="Search" required>
+              <button type="submit" class="header__search-submit" aria-label="Search">Go</button>
+            </form>
+          </div>
+        </div>
       {% endif %}
 
       {% if section.settings.show_account_icon and shop.customer_accounts_enabled %}
@@ -735,6 +743,9 @@
 
     var menuButton = document.querySelector('.header__menu-button');
     var mobileNav = document.querySelector('.header__mobile-nav');
+    var searchToggle = document.querySelector('.header__search-toggle');
+    var searchDropdown = document.querySelector('.header__search-dropdown');
+
     if (menuButton && mobileNav) {
       menuButton.addEventListener('click', function () {
         var isOpen = mobileNav.classList.toggle('open');
@@ -748,6 +759,22 @@
         mobileNav.classList.remove('open');
         menuButton.setAttribute('aria-expanded', 'false');
         mobileNav.setAttribute('aria-hidden', 'true');
+      });
+    }
+
+    if (searchToggle && searchDropdown) {
+      searchToggle.addEventListener('click', function () {
+        var isOpen = searchDropdown.classList.toggle('open');
+        searchToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        searchDropdown.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+      });
+
+      document.addEventListener('click', function (event) {
+        if (!searchDropdown.classList.contains('open')) return;
+        if (event.target === searchToggle || searchDropdown.contains(event.target)) return;
+        searchDropdown.classList.remove('open');
+        searchToggle.setAttribute('aria-expanded', 'false');
+        searchDropdown.setAttribute('aria-hidden', 'true');
       });
     }
 
