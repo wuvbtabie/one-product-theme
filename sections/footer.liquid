@@ -104,12 +104,15 @@
     <p class="footer__copyright">{{ section.settings.copyright_text }}</p>
   </div>
 
-  <div class="footer__payments" aria-label="Accepted payment methods">
-    <span class="footer__payment-icon">{{ 'visa' | payment_type_svg_tag }}</span>
-    <span class="footer__payment-icon">{{ 'master' | payment_type_svg_tag }}</span>
-    <span class="footer__payment-icon">{{ 'paypal' | payment_type_svg_tag }}</span>
-    <span class="footer__payment-icon">{{ 'apple_pay' | payment_type_svg_tag }}</span>
-    <span class="footer__payment-icon">{{ 'google_pay' | payment_type_svg_tag }}</span>
+  <div class="footer__payments-block">
+    <p class="footer__payments-heading">Payment Methods</p>
+    <div class="footer__payments" aria-label="Accepted payment methods">
+      <span class="footer__payment-icon">{{ 'visa' | payment_type_svg_tag }}</span>
+      <span class="footer__payment-icon">{{ 'master' | payment_type_svg_tag }}</span>
+      <span class="footer__payment-icon">{{ 'paypal' | payment_type_svg_tag }}</span>
+      <span class="footer__payment-icon">{{ 'apple_pay' | payment_type_svg_tag }}</span>
+      <span class="footer__payment-icon">{{ 'google_pay' | payment_type_svg_tag }}</span>
+    </div>
   </div>
 </footer>
 
@@ -297,11 +300,24 @@
     opacity: 0.72;
   }
 
-  .footer__payments {
+  .footer__payments-block {
     max-width: 1200px;
     margin: 18px auto 0;
     padding-top: 18px;
     border-top: 1px solid {{ section.settings.divider_color }};
+  }
+
+  .footer__payments-heading {
+    margin: 0 0 12px;
+    color: {{ section.settings.text_color }};
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .footer__payments {
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
@@ -452,9 +468,17 @@
       gap: 18px;
     }
 
-    .footer__payments {
+    .footer__payments-block {
       margin-top: 16px;
       padding-top: 16px;
+    }
+
+    .footer__payments-heading {
+      margin-bottom: 10px;
+      font-size: 0.78rem;
+    }
+
+    .footer__payments {
       gap: 8px;
       justify-content: flex-start;
     }
@@ -498,6 +522,10 @@
       flex-basis: 200px;
       min-width: 200px;
       padding: 16px;
+    }
+
+    .footer__payments-heading {
+      text-align: left;
     }
 
     .footer__payments {
