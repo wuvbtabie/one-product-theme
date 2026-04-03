@@ -29,32 +29,6 @@
         "image_height": "large"
       }
     },
-    "product_media_clean": {
-      "type": "product-media",
-      "blocks": {
-        "media_item_1": {
-          "type": "media_item",
-          "settings": {
-            "type": "image",
-            "image": "",
-            "video_url": "",
-            "alt_text": "Product image",
-            "video_autoplay": true,
-            "video_muted": true,
-            "video_loop": true
-          }
-        }
-      },
-      "block_order": [
-        "media_item_1"
-      ],
-      "settings": {
-        "heading": "See The Product In Action",
-        "autoplay_video": true,
-        "muted_video": true,
-        "loop_video": true
-      }
-    },
     "product_showcase": {
       "type": "product-showcase",
       "settings": {
@@ -200,7 +174,6 @@
   },
   "order": [
     "hero_product",
-    "product_media_clean",
     "product_showcase",
     "trust_badges",
     "reviews_section",
