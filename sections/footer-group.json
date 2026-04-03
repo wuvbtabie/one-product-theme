@@ -14,7 +14,7 @@
     "footer": {
       "type": "footer",
       "settings": {
-        "store_name": "Mimi & Slima",
+        "store_name": "Your Logo / Store Name",
         "store_description": "Timeless design meets modern precision. Crafted for those who appreciate elegance in every detail.",
         "col2_heading": "Quick links",
         "link1_text": "Home",
@@ -40,7 +40,7 @@
         "policy_shipping_url": "/policies/shipping-policy",
         "policy_returns_text": "Returns",
         "policy_returns_url": "/policies/refund-policy",
-        "copyright_text": "© 2026 Mimi & Slima. All rights reserved.",
+        "copyright_text": "© 2026 Your Store Name. All rights reserved.",
         "background_color": "#ffffff",
         "text_color": "#111111",
         "divider_color": "#e6e6e6"
